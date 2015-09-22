@@ -14,7 +14,6 @@ class Rules {
         short realPosX = x + 1
         short realPosY = y + 1
         short numberOfNeighbors = 0
-        println(this.neighborhood)
         for (short i = x; i < x + 3; i++) {
             for (short j = y; j < y + 3; j++) {
                 if (realPosX == i && realPosY == j) {
