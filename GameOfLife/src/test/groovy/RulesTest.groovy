@@ -1,3 +1,4 @@
+import mx.ipn.escom.complexSystems.gameOfLife.engine.Generator
 import mx.ipn.escom.complexSystems.gameOfLife.engine.Rules
 import spock.lang.Specification
 
@@ -28,5 +29,25 @@ class RulesTest extends Specification {
         0 | 2 || 4
         2 | 2 || 3
         2 | 1 || 4
+    }
+
+    def "Should generate a bidimentional array using random and copying rows, columns and corner and generate the required cycle"() {
+        given:
+        Generator generator = new Generator()
+        short[][] neighborhood = [
+                [1, 1, 0],
+                [0, 1, 0],
+                [0, 0, 1],
+        ]
+        expect:
+        generator.generateFullArray(neighborhood) == result
+        where:
+        result = [
+                [1, 0, 0, 1, 0],
+                [0, 1, 1, 0, 1],
+                [0, 0, 1, 0, 0],
+                [1, 0, 0, 1, 0],
+                [0, 1, 1, 0, 1]
+        ]
     }
 }
