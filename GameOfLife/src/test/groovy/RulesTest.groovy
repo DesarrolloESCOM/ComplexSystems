@@ -1,4 +1,4 @@
-import mx.ipn.escom.complexSystems.gameOfLife.Rules
+import mx.ipn.escom.complexSystems.gameOfLife.engine.Rules
 import spock.lang.Specification
 
 /**
