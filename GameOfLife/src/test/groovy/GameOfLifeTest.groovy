@@ -50,4 +50,32 @@ class GameOfLifeTest extends Specification {
                 [0, 1, 1, 0, 1]
         ]
     }
+
+    def "Should appy game of life rules using a defined configuration"() {
+        given:
+        Generator generator = new Generator()
+
+        short[][] givenNeighborhood = [
+                [1, 0, 0, 0, 0],
+                [0, 0, 0, 0, 1],
+                [1, 0, 1, 0, 0],
+                [0, 0, 0, 1, 0],
+                [0, 0, 0, 0, 0],
+        ]
+
+        Rules rules = new Rules()
+        rules.neighborhood = generator.generateFullArray(givenNeighborhood)
+
+        expect:
+        rules.gameOfLife() == result
+
+        where:
+        result = [
+                [0, 0, 0, 0, 0],
+                [1, 1, 0, 0, 1],
+                [0, 0, 0, 1, 1],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+        ]
+    }
 }

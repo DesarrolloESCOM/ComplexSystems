@@ -26,4 +26,8 @@ class Rules {
         }
         return numberOfNeighbors
     }
+
+    short [][] gameOfLife() {
+        return new short[1][1]
+    }
 }
