@@ -7,10 +7,11 @@ class Generator {
     short[][] generateRandomArray(int width, int height) {
         int finalWidth = width + 2
         int finalHeight = height + 2
+        Random random = new Random()
         short[][] randomArray = new short[finalWidth][finalHeight];
         for (int i = 1; i <= width; i++) {
             for (int j = 1; j <= height; j++) {
-                randomArray = ((int) (10 * Math.random())) % 2 == 0 ? 1 : 0;
+                randomArray = random.nextBoolean() ? 1 : 0;
             }
         }
 
