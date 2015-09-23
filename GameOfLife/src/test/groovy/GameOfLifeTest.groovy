@@ -5,7 +5,7 @@ import spock.lang.Specification
 /**
  * Created by alberto on 21/09/15.
  */
-class RulesTest extends Specification {
+class GameOfLifeTest extends Specification {
     def "Should get all the neighbors from a given cell "() {
         given:
         /*
