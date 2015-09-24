@@ -41,9 +41,6 @@ class Generator {
             fullArray[i][0] = fullArray[i][currentWidth]
         }
         // Copying the columns
-        println "--------------------------------------------------------------------------"
-        println(fullArray)
-        println "--------------------------------------------------------------------------"
         for (int j = 1; j <= currentHeight; j++) {
             fullArray[finalHeight - 1][j] = fullArray[1][j]
             fullArray[0][j] = fullArray[currentHeight][j]
