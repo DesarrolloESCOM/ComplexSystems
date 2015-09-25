@@ -18,7 +18,7 @@ class GameOfLifeVerticle extends Verticle{
         //Loading index
         routeMatcher.get("/") { request ->
             def webroot = System.getProperty("user.dir") + File.separator + "web"
-            request.response.sendFile webroot + File.separator + "index.html"
+            request.response.sendFile("web/index.html")
         }
         //Loading jquery
         //Loading SockJS
