@@ -84,17 +84,17 @@ sourceSets {
     }
 }
 
-task copyMod( type:Copy, dependsOn: 'classes', description: 'Assemble the module into the local mods directory' ) {
+task copyMod(type: Copy, dependsOn: 'classes', description: 'Assemble the module into the local mods directory') {
     into "build/mods/$moduleName"
     from compileGroovy
     from compileJava
     from 'src/main/resources'
-    into( 'lib' ) {
+    into('lib') {
         from configurations.compile
     }
 }
 
-task modZip( type: Zip, dependsOn: 'pullInDeps', description: 'Package the module .zip file') {
+task modZip(type: Zip, dependsOn: 'pullInDeps', description: 'Package the module .zip file') {
     group = 'vert.x'
     classifier = "mod"
     description = "Assembles a vert.x module"
@@ -157,10 +157,6 @@ task runMod(description: 'Run the module', dependsOn: [collectDeps, classes, ini
     def args = ['runmod', moduleName]
     def args2 = runModArgs.split("\\s+")
     args.addAll(args2)
-    println args2
-    println args2
-    println args2
-
     Starter.main(args as String[])
 }
 
