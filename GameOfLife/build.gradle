@@ -17,12 +17,17 @@ repositories {
     jcenter()
     mavenCentral()
 }
-
+loadProperties("${System.getProperty('user.home')}/.gradle/gradle.properties")
 // In this section you declare the dependencies for your production and test code
 dependencies {
     // We use the latest groovy 2.x version for building this library
-    compile 'org.codehaus.groovy:groovy-all:2.3.6'
-
+    compile 'org.codehaus.groovy:groovy-all:2.3.7'
+    // GPars
+    compile 'org.codehaus.gpars:gpars:1.2.1'
+    // Vertx
+    compile "io.vertx:vertx-core:2.1.5"
+    compile "io.vertx:vertx-platform:2.1.5"
+    complie "io.vertx:vertx-hazelcast:2.1.5"
     // We use the awesome Spock testing and specification framework
     testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
     testCompile 'junit:junit:4.11'
