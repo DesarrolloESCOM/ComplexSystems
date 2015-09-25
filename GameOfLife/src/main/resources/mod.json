@@ -1,0 +1,10 @@
+{
+  "main":"groovy:mx.ipn.escom.complexSystems.gameOfLife.web.GameOfLifeVerticle",
+  "description":"Game of life practice",
+  "licenses": ["The Apache Software License Version 2.0"],
+  "author": "Reséndiz Arteaga Juan Alberto",
+  // Optional fields
+  "developers": ["Reséndiz Arteaga Juan Alberto <jresendiz27@gmail>"],
+  "keywords": ["ipn", "escom"],
+  "auto-redeploy": true
+}
