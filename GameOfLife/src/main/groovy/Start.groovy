@@ -8,7 +8,8 @@ import org.vertx.java.platform.impl.cli.Starter
 class Start {
     static void main(String[] args) {
         // TODO, implement Graphics!!
-        Starter.main(["run","groovy:mx.ipn.escom.complexSystems.gameOfLife.web.GameOfLifeVerticle"] as String)
+        Starter.main(["run","mx/ipn/escom/complexSystems/gameOfLife/web/GameOfLifeVerticle.groovy"] as String)
         //"main": "GroovyVerticle.groovy"
+        println "OK"
     }
 }
