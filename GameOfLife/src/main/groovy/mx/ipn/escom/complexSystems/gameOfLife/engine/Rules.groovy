@@ -27,7 +27,29 @@ class Rules implements AutomataConstraints {
         return numberOfNeighbors
     }
 
-    short [][] gameOfLife() {
-        return new short[1][1]
+    @Override
+    short[][] gameOfLife() {
+        println this.neighborhood.length
+        def newAlive = []
+        def newDeath = []
+        //Considering the extra file and row
+        for (short i = 1; i < width - 1; i++) {
+            for (short j = 1; i < height - 1; j++) {
+                short cellNeighbors = this.getNumberOfNeighbors(i, j)
+                if (cellNeighbors < 2 || cellNeighbors >= 4) { // Dies of loneliness or Overpopulation
+                    newDeath.add([i, j])
+                    continue;
+                }
+                /*
+                if (cellNeighbors == 2 || cellNeighbors == 3) { // Dies of loneliness or Overpopulation
+                    newDeath.add([i, j])
+                    continue;
+                }*/
+                if (cellNeighbors == 3) { // a new cell borns
+                    newAlive.add([i, j])
+                    continue;
+                }
+            }
+        }
     }
 }
