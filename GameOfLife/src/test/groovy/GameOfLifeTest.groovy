@@ -1,5 +1,5 @@
+import mx.ipn.escom.complexSystems.gameOfLife.engine.GameOfLife
 import mx.ipn.escom.complexSystems.gameOfLife.engine.Generator
-import mx.ipn.escom.complexSystems.gameOfLife.engine.Rules
 import spock.lang.Specification
 
 /**
@@ -13,16 +13,14 @@ class GameOfLifeTest extends Specification {
         * from other method explaining further information
         * in Readme file on repository folder
         * */
-        short[][] neighborhood = [
-                [1, 0, 0, 1, 0],
-                [0, 1, 1, 0, 1],
-                [0, 0, 1, 0, 0],
-                [1, 0, 0, 1, 0],
-                [0, 1, 1, 0, 1]
+        short[][] population = [
+                [1, 1, 0],
+                [0, 1, 0],
+                [0, 0, 1],
         ]
-        Rules rules = new Rules(neighborhood)
+        GameOfLife gameOfLife = new GameOfLife(population)
         expect:
-        rules.getNumberOfNeighbors(x, y) == result
+        gameOfLife.getNumberOfNeighbors(x, y) == result
         where:
         x | y || result
         0 | 0 || 3
@@ -31,51 +29,67 @@ class GameOfLifeTest extends Specification {
         2 | 1 || 4
     }
 
-    def "Should generate a bidimentional array using random and copying rows, columns and corner and generate the required cycle"() {
+    def "Should apply game of life rules using a defined configuration"() {
         given:
-        Generator generator = new Generator()
-        short[][] neighborhood = [
-                [1, 1, 0],
-                [0, 1, 0],
-                [0, 0, 1],
-        ]
-        expect:
-        generator.generateFullArray(neighborhood) == result
-        where:
-        result = [
-                [1, 0, 0, 1, 0],
-                [0, 1, 1, 0, 1],
-                [0, 0, 1, 0, 0],
-                [1, 0, 0, 1, 0],
-                [0, 1, 1, 0, 1]
-        ]
-    }
-
-    def "Should appy game of life rules using a defined configuration"() {
-        given:
-        Generator generator = new Generator()
-
-        short[][] givenNeighborhood = [
+        short[][] givenPopulation = [
                 [1, 0, 0, 0, 0],
                 [0, 0, 0, 0, 1],
                 [1, 0, 1, 0, 0],
                 [0, 0, 0, 1, 0],
                 [0, 0, 0, 0, 0],
         ]
-
-        Rules rules = new Rules()
-        rules.neighborhood = generator.generateFullArray(givenNeighborhood)
+        GameOfLife gameOfLife = new GameOfLife(givenPopulation)
 
         expect:
-        rules.gameOfLife() == result
-
+        def gameOfLifeResult = gameOfLife.gameOfLife()
+        gameOfLifeResult.currentPopulation == result.currentPopulation
+        gameOfLifeResult.newAlive == result.newAlive
+        gameOfLifeResult.newDeath == result.newDeath
+        gameOfLifeResult.alive == result.alive
         where:
         result = [
-                [0, 0, 0, 0, 0],
-                [1, 1, 0, 0, 1],
-                [0, 0, 0, 1, 1],
-                [0, 0, 0, 0, 0],
+                'currentPopulation': [
+                        [0, 0, 0, 0, 0,],
+                        [1, 1, 0, 0, 1,],
+                        [0, 0, 0, 1, 1,],
+                        [0, 0, 0, 0, 0,],
+                        [0, 0, 0, 0, 0,]],
+                'newAlive'         : [[1, 0], [1, 1], [2, 3], [2, 4]],
+                'newDeath'         : [[0, 0], [2, 0], [2, 2], [3, 3]],
+                'alive'            : 5]
+    }
+
+    def "Should resize or chop a defined array"() {
+        given:
+        short[][] givenPopulation = [
+                [1, 0, 0, 0, 0],
+                [0, 0, 0, 0, 1],
+                [1, 0, 1, 0, 0],
+                [0, 0, 0, 1, 0],
                 [0, 0, 0, 0, 0],
         ]
+        short[][] smallPopulation = [
+                [1, 0, 0, 0, 0],
+                [0, 0, 0, 0, 1],
+        ]
+        Generator generator = new Generator()
+        expect:
+        generator.resizeArray(givenPopulation, 3, 3) == choppedPopulation
+        //generator.resizeArray(smallPopulation, 5, 6) == augmentedPopulation
+        where:
+        choppedPopulation = [
+                [1, 0, 0],
+                [0, 0, 0],
+                [1, 0, 1]
+        ] as short[][]
+        augmentedPopulation = [
+                [1, 0, 0, 0, 0],
+                [0, 0, 0, 0, 1],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0],
+        ] as short[][]
+
     }
 }
