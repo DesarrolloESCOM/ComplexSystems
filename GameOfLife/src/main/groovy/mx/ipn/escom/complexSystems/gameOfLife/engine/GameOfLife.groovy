@@ -5,24 +5,26 @@ package mx.ipn.escom.complexSystems.gameOfLife.engine
 class GameOfLife {
     short[][] neighborhood
     short generation = 0
-    short width
-    short height
+    short rows
+    short columns
     Generator generator = new Generator()
 
-    GameOfLife(short[][] neighborhood) {
-        this.neighborhood = neighborhood ?: generator.generateRandomArray(this.width, this.height)
+    GameOfLife(int rows, int columns) {
+        this.rows = rows
+        this.columns = columns
+        this.neighborhood = neighborhood ?: generator.generateRandomArray(this.rows, this.columns)
     }
 
     short getNumberOfNeighbors(int x, int y) {
         short numberOfNeighbors = 0
-        short width = neighborhood[0].length
-        short height = neighborhood.length
+        short rowLength = neighborhood[0].length
+        short columnLength = neighborhood.length
         for (short row = x - 1; row < x + 2; row++) {
             for (short column = y - 1; column < y + 2; column++) {
                 if (y == column && x == row) {
                     continue;
                 }
-                if (this.neighborhood[row % width][column % height] == 1) {
+                if (this.neighborhood[row % rowLength][column % columnLength] == 1) {
                     numberOfNeighbors += 1
                 }
             }
@@ -32,14 +34,15 @@ class GameOfLife {
 
     Map gameOfLife() {
         this.generation += 1
+        def survivors = []
         def newAlive = []
         def newDeath = []
         short alive = 0;
-        short width = neighborhood[0].length
-        short height = neighborhood.length
-        short[][] clonedArray = new short[height][width]
-        for (short row = 0; row < width; row++) {
-            for (short column = 0; column < height; column++) {
+        short rowLength = neighborhood[0].length
+        short columnLength = neighborhood.length
+        short[][] clonedArray = new short[columnLength][rowLength]
+        for (short row = 0; row < rowLength; row++) {
+            for (short column = 0; column < columnLength; column++) {
                 short cellNeighbors = this.getNumberOfNeighbors(row, column)
                 if (cellNeighbors < 2 || cellNeighbors > 3) {
                     // Dies of loneliness or Overpopulation
@@ -59,6 +62,8 @@ class GameOfLife {
                 if ((cellNeighbors == 3 || cellNeighbors == 2) && this.neighborhood[row][column] == 1) {
                     // Survives
                     alive += 1
+                    newAlive.add([row, column])
+                    //survivors.add()
                     clonedArray[row][column] = 1;
                     continue;
                 } else { // it was a dead cell, nothing else happens
@@ -69,6 +74,6 @@ class GameOfLife {
             }
         }
         this.neighborhood = clonedArray
-        return [newAlive: newAlive, newDeath: newDeath, currentPopulation: this.neighborhood, alive: alive, generation: this.generation]
+        return [newAlive: newAlive, newDeath: newDeath, /*currentPopulation: this.neighborhood,*/ alive: alive, generation: this.generation]
     }
 }

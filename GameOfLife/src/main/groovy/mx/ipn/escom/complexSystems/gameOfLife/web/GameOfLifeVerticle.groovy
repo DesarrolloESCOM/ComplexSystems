@@ -1,13 +1,15 @@
 package mx.ipn.escom.complexSystems.gameOfLife.web
 
 import groovy.json.JsonOutput
+import mx.ipn.escom.complexSystems.gameOfLife.engine.GameOfLife
 import org.vertx.groovy.core.http.RouteMatcher
 import org.vertx.groovy.platform.Verticle
 
 /**
  * Created by alberto on 24/09/15.
  */
-class GameOfLifeVerticle extends Verticle{
+class GameOfLifeVerticle extends Verticle {
+    GameOfLife gameOfLife = new GameOfLife(2000, 2000)
 
     def start() {
         def eventBus = vertx.eventBus
@@ -27,6 +29,12 @@ class GameOfLifeVerticle extends Verticle{
         // Loading js resources
         routeMatcher.get("/js/:file") { request ->
             request.response.sendFile("web/js/${request.params['file']}")
+        }
+
+        routeMatcher.get("/sample") { request ->
+            request.response.putHeader("Content-Type", "application/json")
+            container.logger.error(gameOfLife.properties)
+            request.response.end "${JsonOutput.toJson(gameOfLife.gameOfLife())}"
         }
         //eventBus.registerHandler("start")
         //eventBus.registerHandler("stop")
