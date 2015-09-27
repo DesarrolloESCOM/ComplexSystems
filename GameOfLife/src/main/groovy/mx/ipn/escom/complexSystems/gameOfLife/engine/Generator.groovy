@@ -5,46 +5,49 @@ package mx.ipn.escom.complexSystems.gameOfLife.engine
  */
 class Generator {
     short[][] generateRandomArray(int width, int height) {
-        int finalWidth = width + 2
-        int finalHeight = height + 2
         Random random = new Random()
-        short[][] randomArray = new short[finalWidth][finalHeight];
-        for (int i = 1; i <= width; i++) {
-            for (int j = 1; j <= height; j++) {
-                randomArray = random.nextBoolean() ? 1 : 0;
+        short[][] randomArray = new short[width][height];
+        for (int row = 0; row < width; row++) {
+            for (int column = 0; column < height; column++) {
+                randomArray[row][column] = random.nextBoolean() ? 1 : 0;
             }
         }
 
         return randomArray
     }
 
-    short[][] generateFullArray(short[][] originalArray) {
-        short currentWidth = originalArray[0].length
-        short currentHeight = originalArray.length
-        short finalWidth = currentWidth + 2
-        short finalHeight = currentHeight + 2
-        short[][] fullArray = new short[finalWidth][finalHeight];
-        //Copying the array content into the new array
-        for (int i = 0; i < currentWidth; i++) {
-            for (int j = 0; j < currentHeight; j++) {
-                fullArray[i + 1][j + 1] = originalArray[i][j]
+    public short[][] cloneArray(short[][] src) {
+        int length = src.length;
+        short[][] target = new short[length][src[0].length];
+        for (int i = 0; i < length; i++) {
+            System.arraycopy(src[i], 0, target[i], 0, src[i].length);
+        }
+        return target;
+    }
+
+    short[][] resizeArray(short[][] currentArray, int newWidth, int newHeight) {
+        short currentWidth = currentArray[0].length
+        short currentHeight = currentArray.length
+        short[][] newArray = new short[newWidth][newHeight]
+        println "************************************************************************************"
+        println "New width: $newWidth"
+        println "New height: $newHeight"
+        println "Prev width: $currentWidth"
+        println "Prev height: $currentHeight"
+        println "************************************************************************************"
+        for (short row = 0; row < newWidth; row++) {
+            for (short column = 0; column < newHeight; column++) {
+                // Avoiding out of bounds exceptions
+                println ">> [$row][$column]"
+                if (row >= currentWidth || column >= currentHeight) {
+                    newArray[row][column] = 0
+                } else {
+                    newArray[row][column] = currentArray[row][column]
+                }
+
+
             }
         }
-        // Copying the corners
-        fullArray[0][0] = fullArray[currentWidth][currentHeight]
-        fullArray[finalWidth - 1][finalHeight - 1] = fullArray[1][1]
-        fullArray[0][finalHeight - 1] = fullArray[currentWidth][0]
-        fullArray[finalWidth - 1][0] = fullArray[0][currentHeight]
-        // Copying the rows
-        for (int i = 1; i <= currentWidth; i++) {
-            fullArray[i][finalWidth - 1] = fullArray[i][1]
-            fullArray[i][0] = fullArray[i][currentWidth]
-        }
-        // Copying the columns
-        for (int j = 1; j <= currentHeight; j++) {
-            fullArray[finalHeight - 1][j] = fullArray[1][j]
-            fullArray[0][j] = fullArray[currentHeight][j]
-        }
-        return fullArray
+        return newArray
     }
 }
