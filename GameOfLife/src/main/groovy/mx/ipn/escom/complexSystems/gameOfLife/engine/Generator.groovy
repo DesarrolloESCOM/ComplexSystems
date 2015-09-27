@@ -25,27 +25,18 @@ class Generator {
         return target;
     }
 
-    short[][] resizeArray(short[][] currentArray, int newWidth, int newHeight) {
-        short currentWidth = currentArray[0].length
-        short currentHeight = currentArray.length
-        short[][] newArray = new short[newWidth][newHeight]
-        println "************************************************************************************"
-        println "New width: $newWidth"
-        println "New height: $newHeight"
-        println "Prev width: $currentWidth"
-        println "Prev height: $currentHeight"
-        println "************************************************************************************"
-        for (short row = 0; row < newWidth; row++) {
-            for (short column = 0; column < newHeight; column++) {
+    short[][] resizeArray(short[][] currentArray, int rows, int columns) {
+        short currentWidth = currentArray.length
+        short currentHeight = currentArray[0].length
+        short[][] newArray = new short[rows][columns]
+        for (short row = 0; row < rows; row++) {
+            for (short column = 0; column < columns; column++) {
                 // Avoiding out of bounds exceptions
-                println ">> [$row][$column]"
                 if (row >= currentWidth || column >= currentHeight) {
                     newArray[row][column] = 0
                 } else {
                     newArray[row][column] = currentArray[row][column]
                 }
-
-
             }
         }
         return newArray
