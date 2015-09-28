@@ -2,14 +2,18 @@ package mx.ipn.escom.complexSystems.gameOfLife.engine
 /**
  * Created by alberto on 21/09/15.
  */
+@Singleton
 class GameOfLife {
     short[][] neighborhood
     short generation = 0
     short rows
     short columns
+    short alive = 0;
+    List newAlive
+    List newDeath
     Generator generator = new Generator()
 
-    GameOfLife(int rows, int columns) {
+    def init(int rows, int columns) {
         this.rows = rows
         this.columns = columns
         this.neighborhood = neighborhood ?: generator.generateRandomArray(this.rows, this.columns)
@@ -34,7 +38,6 @@ class GameOfLife {
 
     Map gameOfLife() {
         this.generation += 1
-        def survivors = []
         def newAlive = []
         def newDeath = []
         short alive = 0;
@@ -62,7 +65,7 @@ class GameOfLife {
                 if ((cellNeighbors == 3 || cellNeighbors == 2) && this.neighborhood[row][column] == 1) {
                     // Survives
                     alive += 1
-                    newAlive.add([row, column])
+                    //newAlive.add([row, column])
                     //survivors.add()
                     clonedArray[row][column] = 1;
                     continue;
@@ -74,6 +77,9 @@ class GameOfLife {
             }
         }
         this.neighborhood = clonedArray
-        return [newAlive: newAlive, newDeath: newDeath, /*currentPopulation: this.neighborhood,*/ alive: alive, generation: this.generation]
+        this.newAlive = newAlive
+        this.newDeath = newDeath
+        this.alive = alive
+        return [newAlive: newAlive, newDeath: newDeath, currentPopulation: this.neighborhood, alive: alive, generation: this.generation]
     }
 }
