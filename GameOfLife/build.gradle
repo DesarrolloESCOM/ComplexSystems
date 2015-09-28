@@ -44,12 +44,18 @@ install - install any jars produced to the local Maven repository (.m2)
 
 dependencies {
     // If you're creating Groovy compiled verticles you may need the following dependencies
-    provided "org.codehaus.groovy:groovy-all:$groovyVersion"
+    compile "org.codehaus.groovy:groovy-all:$groovyVersion"
     provided "io.vertx:lang-groovy:$groovyLangModVersion@jar"
     // GPars
     compile 'org.codehaus.gpars:gpars:1.2.1'
     // We use the awesome Spock testing and specification framework
     testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+}
+
+task StartGameOfLife(dependsOn: 'classes', type: JavaExec) {
+    description = "Start a simulation of the game of life"
+    main = 'mx.ipn.escom.complexSystems.gameOfLife.GameOfLifeSwing'
+    classpath = sourceSets.main.runtimeClasspath
 }
 
 test {
