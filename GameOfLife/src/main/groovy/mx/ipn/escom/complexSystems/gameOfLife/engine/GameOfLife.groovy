@@ -11,6 +11,7 @@ class GameOfLife {
     short alive = 0;
     List newAlive
     List newDeath
+    boolean start = false
     Generator generator = new Generator()
 
     def init(int rows, int columns) {
@@ -65,8 +66,6 @@ class GameOfLife {
                 if ((cellNeighbors == 3 || cellNeighbors == 2) && this.neighborhood[row][column] == 1) {
                     // Survives
                     alive += 1
-                    //newAlive.add([row, column])
-                    //survivors.add()
                     clonedArray[row][column] = 1;
                     continue;
                 } else { // it was a dead cell, nothing else happens
@@ -81,5 +80,11 @@ class GameOfLife {
         this.newDeath = newDeath
         this.alive = alive
         return [newAlive: newAlive, newDeath: newDeath, currentPopulation: this.neighborhood, alive: alive, generation: this.generation]
+    }
+
+    def resizeNeighborhood(int rows, int columns) {
+        this.neighborhood = generator.resizeArray(this.neighborhood, rows, columns)
+        this.rows = rows
+        this.columns = columns
     }
 }

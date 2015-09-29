@@ -3,9 +3,6 @@ package mx.ipn.escom.complexSystems.gameOfLife
 import mx.ipn.escom.complexSystems.gameOfLife.engine.GameOfLife
 
 import javax.swing.Timer
-import java.awt.Dimension
-import java.awt.event.ActionEvent
-import java.awt.event.ActionListener
 import java.awt.event.WindowAdapter
 import java.awt.event.WindowEvent
 
@@ -123,20 +120,29 @@ class GameOfLifeSwing extends javax.swing.JFrame {
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {
         // TODO add your handling code here:
-        System.out.println("Resized");
+        drawingPanel.timer.stop()
+        println "Width:${this.getWidth()} ::: Height: ${this.getHeight()}"
+        jButton2.setText("Reanudar")
+        jButton2.setEnabled(true)
+        //drawingPanel.timer.start()
+        //System.out.println("Resized");
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        gameOfLife.init(this.getWidth() ?: 500, (this.getHeight() ?: 500))
+        gameOfLife.init(this.getWidth(), this.getHeight())
+        gameOfLife.start = true
+        //drawingPanel.repaint()
         jButton2.setEnabled(true)
-        jButton3.setEnabled(true)
         System.out.println("Crear");
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        gameOfLife.resizeNeighborhood(this.getWidth(), this.getHeight())
         drawingPanel.timer.start()
+        jButton2.setEnabled(false)
+        jButton3.setEnabled(true)
         System.out.println("Iniciar");
     }
 
