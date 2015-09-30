@@ -158,7 +158,7 @@ class GameOfLifeSwing extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        if (this.currentWidth != this.getWidth() || this.currentHeight != this.getHeight()) {
+        if (gameOfLife.rows != this.getWidth() || gameOfLife.columns != this.getHeight()) {
             println "Resizing the neighborhood"
             gameOfLife.resizeNeighborhood(this.currentWidth, this.currentHeight)
         }
