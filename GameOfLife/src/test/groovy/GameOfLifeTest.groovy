@@ -13,7 +13,11 @@ class GameOfLifeTest extends Specification {
                 [0, 1, 0],
                 [0, 0, 1],
         ]
-        GameOfLife gameOfLife = new GameOfLife(population)
+        GameOfLife gameOfLife = GameOfLife.getInstance()
+        gameOfLife.neighborhood = population
+        gameOfLife.rows = 3
+        gameOfLife.columns = 3
+
         expect:
         gameOfLife.getNumberOfNeighbors(x, y) == result
         where:
@@ -33,7 +37,10 @@ class GameOfLifeTest extends Specification {
                 [0, 0, 0, 1, 0],
                 [0, 0, 0, 0, 0],
         ]
-        GameOfLife gameOfLife = new GameOfLife(givenPopulation)
+        GameOfLife gameOfLife = GameOfLife.getInstance()
+        gameOfLife.neighborhood = givenPopulation
+        gameOfLife.rows = 5
+        gameOfLife.columns = 5
 
         expect:
         def gameOfLifeResult = gameOfLife.gameOfLife()
