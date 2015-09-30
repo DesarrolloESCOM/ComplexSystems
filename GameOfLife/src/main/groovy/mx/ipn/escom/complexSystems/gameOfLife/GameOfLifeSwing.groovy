@@ -21,7 +21,6 @@ class GameOfLifeSwing extends javax.swing.JFrame {
     GameOfLife gameOfLife = null
     short currentWidth = 0;
     short currentHeight = 0;
-    Timer displayTimer
     // End of variables declaration
 
     /**
