@@ -14,11 +14,11 @@ import javax.swing.Timer
  */
 class DrawingPanel extends JPanel implements ActionListener {
 
-    final int DELAY = 777;
-    int rows = 0
-    int columns = 0
+    final int DELAY = 500;
+    int rows = 0;
+    int columns = 0;
     Timer timer;
-    GameOfLife gameOfLifeInstance
+    GameOfLife gameOfLifeInstance;
 
     public DrawingPanel(GameOfLife gameOfLifeInstance) {
         this.gameOfLifeInstance = gameOfLifeInstance
@@ -39,7 +39,7 @@ class DrawingPanel extends JPanel implements ActionListener {
     private void doDrawing(Graphics g) {
 
         Graphics2D g2d = (Graphics2D) g;
-
+        g2d.setBackground(Color.white);
         if (gameOfLifeInstance.generation == 0 && gameOfLifeInstance.start == true) {
             this.drawEntireNeighborhood(g2d);
             gameOfLifeInstance.start = false

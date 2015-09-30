@@ -3,6 +3,7 @@ package mx.ipn.escom.complexSystems.gameOfLife
 import mx.ipn.escom.complexSystems.gameOfLife.engine.GameOfLife
 
 import javax.swing.Timer
+import java.awt.EventQueue
 import java.awt.event.WindowAdapter
 import java.awt.event.WindowEvent
 
@@ -18,6 +19,8 @@ class GameOfLifeSwing extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     DrawingPanel drawingPanel = null;
     GameOfLife gameOfLife = null
+    short currentWidth = 0;
+    short currentHeight = 0;
     Timer displayTimer
     // End of variables declaration
 
@@ -44,22 +47,29 @@ class GameOfLifeSwing extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         gameOfLife = GameOfLife.getInstance()
         drawingPanel = new DrawingPanel(gameOfLife)
+        drawingPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        drawingPanel.setBackground(new java.awt.Color(254, 254, 254));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addComponentListener(new java.awt.event.ComponentAdapter() {
+        this.getRootPane().addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 formComponentResized(evt);
             }
         });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                formMouseReleased(evt);
+            }
+        });
 
-        jButton1.setText("Crear");
+        jButton1.setText("Iniciar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Iniciar");
+        jButton2.setText("Reanudar");
         jButton2.setEnabled(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,11 +108,12 @@ class GameOfLifeSwing extends javax.swing.JFrame {
                         .addComponent(jButton4)
                         .addContainerGap(72, Short.MAX_VALUE))
                         .addComponent(jSeparator1)
-                        .addComponent(drawingPanel)
+                        .addComponent(drawingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(drawingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -111,7 +122,6 @@ class GameOfLifeSwing extends javax.swing.JFrame {
                         .addComponent(jButton2)
                         .addComponent(jButton3)
                         .addComponent(jButton4))
-                        .addComponent(drawingPanel)
                         .addGap(17, 17, 17))
         );
 
@@ -121,35 +131,46 @@ class GameOfLifeSwing extends javax.swing.JFrame {
     private void formComponentResized(java.awt.event.ComponentEvent evt) {
         // TODO add your handling code here:
         drawingPanel.timer.stop()
-        println "Width:${this.getWidth()} ::: Height: ${this.getHeight()}"
-        jButton2.setText("Reanudar")
-        jButton2.setEnabled(true)
-        //drawingPanel.timer.start()
-        //System.out.println("Resized");
+        this.currentWidth = this.getWidth()
+        this.currentHeight = this.getHeight()
+        //jButton2.setText("Reanudar")
+        if (gameOfLife.generation == 0) {
+            jButton1.setEnabled(true)
+        } else {
+            jButton2.setEnabled(true)
+            jButton3.setEnabled(false)
+        }
+    }
+
+
+    private void formMouseReleased(java.awt.event.MouseEvent evt) {
+        // TODO add your handling code here:
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        gameOfLife.init(this.getWidth(), this.getHeight())
-        gameOfLife.start = true
-        //drawingPanel.repaint()
-        jButton2.setEnabled(true)
-        System.out.println("Crear");
+        gameOfLife.init(this.getWidth(), this.getHeight());
+        drawingPanel.timer.start();
+        jButton1.setEnabled(false)
+        jButton2.setEnabled(false);
+        jButton3.setEnabled(true);
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        gameOfLife.resizeNeighborhood(this.getWidth(), this.getHeight())
-        drawingPanel.timer.start()
+        if (this.currentWidth != this.getWidth() || this.currentHeight != this.getHeight()) {
+            println "Resizing the neighborhood"
+            gameOfLife.resizeNeighborhood(this.currentWidth, this.currentHeight)
+        }
         jButton2.setEnabled(false)
         jButton3.setEnabled(true)
-        System.out.println("Iniciar");
+        drawingPanel.timer.restart()
     }
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         drawingPanel.timer.stop()
-        System.out.println("Detener");
+        jButton2.setEnabled(true)
     }
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -194,7 +215,8 @@ class GameOfLifeSwing extends javax.swing.JFrame {
                         timer.stop();
                     }
                 })
-                gameOfLifeSwing.setSize(350, 350);
+                gameOfLifeSwing.setTitle("Juego de la Vida - Resendiz Arteaga Juan Alberto")
+                gameOfLifeSwing.setSize(500, 350);
                 gameOfLifeSwing.setVisible(true);
             }
         });
