@@ -22,14 +22,12 @@ class GameOfLife {
 
     short getNumberOfNeighbors(int x, int y) {
         short numberOfNeighbors = 0
-        short rowLength = neighborhood[0].length
-        short columnLength = neighborhood.length
         for (short row = x - 1; row < x + 2; row++) {
             for (short column = y - 1; column < y + 2; column++) {
                 if (y == column && x == row) {
                     continue;
                 }
-                if (this.neighborhood[row % rowLength][column % columnLength] == 1) {
+                if (this.neighborhood[row % this.rows][column % this.columns] == 1) {
                     numberOfNeighbors += 1
                 }
             }
@@ -42,11 +40,9 @@ class GameOfLife {
         def newAlive = []
         def newDeath = []
         short alive = 0;
-        short rowLength = neighborhood[0].length
-        short columnLength = neighborhood.length
-        short[][] clonedArray = new short[columnLength][rowLength]
-        for (short row = 0; row < rowLength; row++) {
-            for (short column = 0; column < columnLength; column++) {
+        short[][] clonedArray = new short[rows][columns]
+        for (short row = 0; row < rows; row++) {
+            for (short column = 0; column < columns; column++) {
                 short cellNeighbors = this.getNumberOfNeighbors(row, column)
                 if (cellNeighbors < 2 || cellNeighbors > 3) {
                     // Dies of loneliness or Overpopulation
