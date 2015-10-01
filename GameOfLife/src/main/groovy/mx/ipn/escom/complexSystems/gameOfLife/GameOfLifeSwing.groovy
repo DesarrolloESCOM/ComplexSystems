@@ -3,7 +3,6 @@ package mx.ipn.escom.complexSystems.gameOfLife
 import mx.ipn.escom.complexSystems.gameOfLife.engine.GameOfLife
 
 import javax.swing.Timer
-import java.awt.EventQueue
 import java.awt.event.WindowAdapter
 import java.awt.event.WindowEvent
 
@@ -18,7 +17,7 @@ class GameOfLifeSwing extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JSeparator jSeparator1;
     DrawingPanel drawingPanel = null;
-    GameOfLife gameOfLife = null
+    GameOfLife gameOfLife = null;
     short currentWidth = 0;
     short currentHeight = 0;
     // End of variables declaration
@@ -130,14 +129,14 @@ class GameOfLifeSwing extends javax.swing.JFrame {
     private void formComponentResized(java.awt.event.ComponentEvent evt) {
         // TODO add your handling code here:
         drawingPanel.timer.stop()
-        this.currentWidth = this.getWidth()
-        this.currentHeight = this.getHeight()
+        this.currentWidth = this.getWidth();
+        this.currentHeight = this.getHeight();
         //jButton2.setText("Reanudar")
         if (gameOfLife.generation == 0) {
-            jButton1.setEnabled(true)
+            jButton1.setEnabled(true);
         } else {
-            jButton2.setEnabled(true)
-            jButton3.setEnabled(false)
+            jButton2.setEnabled(true);
+            jButton3.setEnabled(false);
         }
     }
 
@@ -150,7 +149,7 @@ class GameOfLifeSwing extends javax.swing.JFrame {
         // TODO add your handling code here:
         gameOfLife.init(this.getWidth(), this.getHeight());
         drawingPanel.timer.start();
-        jButton1.setEnabled(false)
+        jButton1.setEnabled(false);
         jButton2.setEnabled(false);
         jButton3.setEnabled(true);
     }
@@ -158,18 +157,17 @@ class GameOfLifeSwing extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         if (gameOfLife.rows != this.getWidth() || gameOfLife.columns != this.getHeight()) {
-            println "Resizing the neighborhood"
-            gameOfLife.resizeNeighborhood(this.currentWidth, this.currentHeight)
+            gameOfLife.resizeNeighborhood(this.currentWidth, this.currentHeight);
         }
-        jButton2.setEnabled(false)
-        jButton3.setEnabled(true)
-        drawingPanel.timer.restart()
+        jButton2.setEnabled(false);
+        jButton3.setEnabled(true);
+        drawingPanel.timer.restart();
     }
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        drawingPanel.timer.stop()
-        jButton2.setEnabled(true)
+        drawingPanel.timer.stop();
+        jButton2.setEnabled(true);
     }
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -203,7 +201,7 @@ class GameOfLifeSwing extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(GameOfLifeSwing.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        GameOfLifeSwing gameOfLifeSwing = new GameOfLifeSwing()
+        GameOfLifeSwing gameOfLifeSwing = new GameOfLifeSwing();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -213,8 +211,8 @@ class GameOfLifeSwing extends javax.swing.JFrame {
                         Timer timer = gameOfLifeSwing.drawingPanel.getTimer();
                         timer.stop();
                     }
-                })
-                gameOfLifeSwing.setTitle("Juego de la Vida - Resendiz Arteaga Juan Alberto")
+                });
+                gameOfLifeSwing.setTitle("Juego de la Vida - Reséndiz Arteaga Juan Alberto");
                 gameOfLifeSwing.setSize(500, 350);
                 gameOfLifeSwing.setVisible(true);
             }
