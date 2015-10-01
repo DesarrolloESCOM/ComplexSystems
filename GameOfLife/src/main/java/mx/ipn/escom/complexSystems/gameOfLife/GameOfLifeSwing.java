@@ -1,15 +1,15 @@
-package mx.ipn.escom.complexSystems.gameOfLife
+package mx.ipn.escom.complexSystems.gameOfLife;
 
-import mx.ipn.escom.complexSystems.gameOfLife.engine.GameOfLife
+import mx.ipn.escom.complexSystems.gameOfLife.engine.GameOfLife;
 
-import javax.swing.Timer
-import java.awt.event.WindowAdapter
-import java.awt.event.WindowEvent
+import javax.swing.Timer;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * Created by alberto on 27/09/15.
  */
-class GameOfLifeSwing extends javax.swing.JFrame {
+public class GameOfLifeSwing extends javax.swing.JFrame {
     // Variables declaration - do not modify
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -18,8 +18,8 @@ class GameOfLifeSwing extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     DrawingPanel drawingPanel = null;
     GameOfLife gameOfLife = null;
-    short currentWidth = 0;
-    short currentHeight = 0;
+    int currentWidth = 0;
+    int currentHeight = 0;
     // End of variables declaration
 
     /**
@@ -43,8 +43,8 @@ class GameOfLifeSwing extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        gameOfLife = GameOfLife.getInstance()
-        drawingPanel = new DrawingPanel(gameOfLife)
+        gameOfLife = GameOfLife.getInstance();
+        drawingPanel = new DrawingPanel(gameOfLife);
         drawingPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         drawingPanel.setBackground(new java.awt.Color(254, 254, 254));
 
@@ -128,7 +128,7 @@ class GameOfLifeSwing extends javax.swing.JFrame {
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {
         // TODO add your handling code here:
-        drawingPanel.timer.stop()
+        drawingPanel.getTimer().stop();
         this.currentWidth = this.getWidth();
         this.currentHeight = this.getHeight();
         //jButton2.setText("Reanudar")
@@ -147,8 +147,8 @@ class GameOfLifeSwing extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        gameOfLife.init(this.getWidth(), this.getHeight());
-        drawingPanel.timer.start();
+        gameOfLife.init(this.getWidth() - 2, this.getHeight() - 68);
+        drawingPanel.getTimer().start();
         jButton1.setEnabled(false);
         jButton2.setEnabled(false);
         jButton3.setEnabled(true);
@@ -161,12 +161,12 @@ class GameOfLifeSwing extends javax.swing.JFrame {
         }
         jButton2.setEnabled(false);
         jButton3.setEnabled(true);
-        drawingPanel.timer.restart();
+        drawingPanel.getTimer().restart();
     }
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        drawingPanel.timer.stop();
+        drawingPanel.getTimer().stop();
         jButton2.setEnabled(true);
     }
 
@@ -201,7 +201,7 @@ class GameOfLifeSwing extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(GameOfLifeSwing.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        GameOfLifeSwing gameOfLifeSwing = new GameOfLifeSwing();
+        final GameOfLifeSwing gameOfLifeSwing = new GameOfLifeSwing();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
