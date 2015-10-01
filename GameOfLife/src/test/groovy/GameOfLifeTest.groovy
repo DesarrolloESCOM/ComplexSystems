@@ -45,8 +45,8 @@ class GameOfLifeTest extends Specification {
         //
         gameOfLife.gameOfLife()
         gameOfLife.neighborhood == result.currentPopulation
-        gameOfLife.newAlive == result.newAlive
-        gameOfLife.newDeath == result.newDeath
+        gameOfLife.newAlive == result.newAlive as ArrayList<int[]>
+        gameOfLife.newDeath == result.newDeath as ArrayList<int[]>
         gameOfLife.alive == result.alive
         where:
         result = [
