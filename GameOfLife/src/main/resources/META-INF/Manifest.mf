@@ -1,2 +1,0 @@
-Main-Class: org.vertx.java.platform.impl.cli.Starter
-Main-Verticle: mx.ipn.escom.complexSystems.gameOfLife.web.GameOfLifeVerticle
