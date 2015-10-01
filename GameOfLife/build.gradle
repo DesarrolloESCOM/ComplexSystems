@@ -1,5 +1,5 @@
 apply plugin: 'java'
-apply plugin: 'groovy'
+//apply plugin: 'groovy'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
 
@@ -8,10 +8,6 @@ repositories {
 }
 
 dependencies {
-    // If you're creating Groovy compiled verticles you may need the following dependencies
-    compile "org.codehaus.groovy:groovy-all:2.3.7"
-    // GPars
-    compile 'org.codehaus.gpars:gpars:1.2.1'
     // We use the awesome Spock testing and specification framework
     testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
 }
