@@ -41,13 +41,13 @@ class GameOfLifeTest extends Specification {
         gameOfLife.neighborhood = givenPopulation
         gameOfLife.rows = 5
         gameOfLife.columns = 5
-
         expect:
-        def gameOfLifeResult = gameOfLife.gameOfLife()
-        gameOfLifeResult.currentPopulation == result.currentPopulation
-        gameOfLifeResult.newAlive == result.newAlive
-        gameOfLifeResult.newDeath == result.newDeath
-        gameOfLifeResult.alive == result.alive
+        //
+        gameOfLife.gameOfLife()
+        gameOfLife.neighborhood == result.currentPopulation
+        gameOfLife.newAlive == result.newAlive
+        gameOfLife.newDeath == result.newDeath
+        gameOfLife.alive == result.alive
         where:
         result = [
                 'currentPopulation': [
