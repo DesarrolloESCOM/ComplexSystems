@@ -5,7 +5,7 @@ package mx.ipn.escom.complexSystems.gameOfLife.engine
  */
 class Generator {
     short[][] generateRandomArray(int width, int height) {
-        Random random = new Random()
+        Random random = new Random();
         short[][] randomArray = new short[width][height];
         for (int row = 0; row < width; row++) {
             for (int column = 0; column < height; column++) {
@@ -26,16 +26,16 @@ class Generator {
     }
 
     short[][] resizeArray(short[][] currentArray, int rows, int columns) {
-        short currentWidth = currentArray.length
-        short currentHeight = currentArray[0].length
-        short[][] newArray = new short[rows][columns]
+        short currentWidth = currentArray.length;
+        short currentHeight = currentArray[0].length;
+        short[][] newArray = new short[rows][columns];
         for (short row = 0; row < rows; row++) {
             for (short column = 0; column < columns; column++) {
                 // Avoiding out of bounds exceptions
                 if (row >= currentWidth || column >= currentHeight) {
-                    newArray[row][column] = 0
+                    newArray[row][column] = 0;
                 } else {
-                    newArray[row][column] = currentArray[row][column]
+                    newArray[row][column] = currentArray[row][column];
                 }
             }
         }
