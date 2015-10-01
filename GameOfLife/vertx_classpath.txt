@@ -1,7 +1,0 @@
-src/main/resources
-bin
-out/production/GameOfLife
-out/test/GameOfLife
-build/deps
-build/classes/main
-build/resources/main
