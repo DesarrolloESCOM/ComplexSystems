@@ -13,7 +13,7 @@ class Generator {
             }
         }
 
-        return randomArray
+        return randomArray;
     }
 
     public short[][] cloneArray(short[][] src) {
@@ -39,6 +39,6 @@ class Generator {
                 }
             }
         }
-        return newArray
+        return newArray;
     }
 }

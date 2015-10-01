@@ -6,20 +6,20 @@ import groovyx.gpars.GParsPool
  * Created by alberto on 21/09/15.
  */
 @Singleton
-class GameOfLife {
-    short[][] neighborhood;
-    short generation = 0;
-    short rows;
-    short columns;
-    short alive = 0;
-    short S_MIN_VALUE = 2;
-    short S_MAX_VALUE = 3;
-    List newAlive;
-    List newDeath;
-    boolean start = false;
-    Generator generator = new Generator();
+public class GameOfLife {
+    public short[][] neighborhood;
+    public short generation = 0;
+    public short rows;
+    public short columns;
+    public short alive = 0;
+    public short S_MIN_VALUE = 2;
+    public short S_MAX_VALUE = 3;
+    public ArrayList<int[]> newAlive = new ArrayList<int[]>();
+    public ArrayList<int[]> newDeath = new ArrayList<int[]>();
+    public boolean start = false;
+    public Generator generator = new Generator();
 
-    def init(int rows, int columns) {
+    public void init(int rows, int columns) {
         this.rows = rows;
         this.columns = columns;
         this.neighborhood = neighborhood ?: generator.generateRandomArray(this.rows, this.columns)
@@ -37,13 +37,13 @@ class GameOfLife {
                 }
             }
         }
-        return numberOfNeighbors
+        return numberOfNeighbors;
     }
 
     public void gameOfLife() {
         this.generation += 1
-        def newAlive = []
-        def newDeath = []
+        newAlive.clear();
+        newDeath.clear();
         short alive = 0;
         short[][] clonedArray = new short[rows][columns];
         for (short row = 0; row < rows; row++) {
@@ -52,6 +52,9 @@ class GameOfLife {
                 if (cellNeighbors < S_MIN_VALUE || cellNeighbors > S_MAX_VALUE) {
                     // Dies of loneliness or Overpopulation
                     if (this.neighborhood[row][column] == 1) {
+                        int[] index = new int[2];
+                        index[0] = row;
+                        index[1] = column;
                         newDeath.add([row, column]);
                     }
                     clonedArray[row][column] = 0;
@@ -59,7 +62,10 @@ class GameOfLife {
                 }
                 if (cellNeighbors == S_MAX_VALUE && this.neighborhood[row][column] == 0) {
                     // It was a dead cell, a new one bears
-                    newAlive.add([row, column]);
+                    int[] index = new int[2];
+                    index[0] = row;
+                    index[1] = column;
+                    newAlive.add(index);
                     alive += 1;
                     clonedArray[row][column] = 1;
                     continue;
@@ -80,19 +86,18 @@ class GameOfLife {
         this.newAlive = newAlive;
         this.newDeath = newDeath;
         this.alive = alive;
-        return
     }
 
     boolean concurrentGameOfLife() {
         GParsPool.withPool(2) { ->
             // TODO implement concurrent gameOfLife method
         };
-        return true
+        return true;
     }
 
-    def resizeNeighborhood(int rows, int columns) {
-        this.neighborhood = generator.resizeArray(this.neighborhood, rows, columns)
-        this.rows = rows
-        this.columns = columns
+    public void resizeNeighborhood(int rows, int columns) {
+        this.neighborhood = generator.resizeArray(this.neighborhood, rows, columns);
+        this.rows = rows;
+        this.columns = columns;
     }
 }
