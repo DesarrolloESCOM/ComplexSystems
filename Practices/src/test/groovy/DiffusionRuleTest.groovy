@@ -1,10 +1,10 @@
-import mx.ipn.escom.complexSystems.simulation.engine.definition.GameOfLife
+import mx.ipn.escom.complexSystems.simulation.engine.definition.Diffusion
 import spock.lang.Specification
 
 /**
- * Created by alberto on 21/09/15.
+ * Created by alberto on 15/10/15.
  */
-class GameOfLifeTest extends Specification {
+class DiffusionRuleTest extends Specification {
     def "Should get all the neighbors from a given cell "() {
         given:
         short[][] population = [
@@ -12,13 +12,13 @@ class GameOfLifeTest extends Specification {
                 [0, 1, 0],
                 [0, 0, 1],
         ]
-        GameOfLife gameOfLife = GameOfLife.getInstance()
-        gameOfLife.neighborhood = population
-        gameOfLife.rows = 3
-        gameOfLife.columns = 3
+        Diffusion diffusion = Diffusion.getInstance()
+        diffusion.neighborhood = population
+        diffusion.rows = 3
+        diffusion.columns = 3
 
         expect:
-        gameOfLife.getNumberOfNeighbors(x, y) == result
+        diffusion.getNumberOfNeighbors(x, y) == result
         where:
         x | y || result
         0 | 0 || 3
@@ -36,17 +36,17 @@ class GameOfLifeTest extends Specification {
                 [0, 0, 0, 1, 0],
                 [0, 0, 0, 0, 0],
         ]
-        GameOfLife gameOfLife = GameOfLife.getInstance()
-        gameOfLife.neighborhood = givenPopulation
-        gameOfLife.rows = 5
-        gameOfLife.columns = 5
+        Diffusion diffusion = Diffusion.getInstance()
+        diffusion.neighborhood = givenPopulation
+        diffusion.rows = 5
+        diffusion.columns = 5
         expect:
         //
-        gameOfLife.gameOfLife()
-        gameOfLife.neighborhood == result.currentPopulation
-        gameOfLife.newAlive == result.newAlive as ArrayList<int[]>
-        gameOfLife.newDeath == result.newDeath as ArrayList<int[]>
-        gameOfLife.alive == result.alive
+        diffusion.diffusionRule()
+        diffusion.neighborhood == result.currentPopulation
+        diffusion.newAlive == result.newAlive as ArrayList<int[]>
+        diffusion.newDeath == result.newDeath as ArrayList<int[]>
+        diffusion.alive == result.alive
         where:
         result = [
                 'currentPopulation': [
@@ -59,5 +59,4 @@ class GameOfLifeTest extends Specification {
                 'newDeath'         : [[0, 0], [2, 0], [2, 2], [3, 3]],
                 'alive'            : 5]
     }
-
 }
