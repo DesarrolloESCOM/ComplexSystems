@@ -6,7 +6,9 @@
  * For more details take a look at the Groovy Quickstart chapter in the Gradle
  * user guide available at http://gradle.org/docs/2.1/userguide/tutorial_groovy_projects.html
  */
-
+plugins {
+    id "net.carlosgsouza.console" version "1.0.1"
+}
 // Apply the groovy plugin to add support for Groovy
 apply plugin: 'groovy'
 apply plugin: 'idea'
