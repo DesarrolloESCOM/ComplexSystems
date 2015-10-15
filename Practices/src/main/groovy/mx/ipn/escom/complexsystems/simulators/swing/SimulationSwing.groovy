@@ -1,8 +1,8 @@
-package mx.ipn.escom.complexsystems.swing
+package mx.ipn.escom.complexsystems.simulators.swing
 
-import mx.ipn.escom.complexsystems.engine.definition.Diffusion
-import mx.ipn.escom.complexsystems.engine.definition.GameOfLife
-import mx.ipn.escom.complexsystems.engine.impl.Automata;
+import mx.ipn.escom.complexsystems.simulators.engine.definition.Diffusion
+import mx.ipn.escom.complexsystems.simulators.engine.definition.GameOfLife
+import mx.ipn.escom.complexsystems.simulators.engine.impl.Automata;
 
 import javax.swing.Timer;
 import java.awt.event.WindowAdapter;
