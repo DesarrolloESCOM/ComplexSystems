@@ -23,7 +23,7 @@ dependencies {
     }
 }
 
-task StartGameOfLife(dependsOn: 'classes', type: JavaExec) {
+task StartSimulator(dependsOn: 'classes', type: JavaExec) {
     description = "Start a simulation of the game of life"
     main = 'mx.ipn.escom.complexSystems.simulation.SimulationSwing'
     classpath = sourceSets.main.runtimeClasspath
