@@ -23,7 +23,7 @@ public class DrawingPanel extends JPanel implements ActionListener {
 
     public DrawingPanel(Automata automata) {
         this.automata = automata        
-        rows = automata.rows;
+        rows = automata?.rows;
         columns = automata.columns;
         initTimer();
     }
