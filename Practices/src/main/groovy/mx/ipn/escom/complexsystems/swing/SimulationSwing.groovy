@@ -1,6 +1,7 @@
 package mx.ipn.escom.complexsystems.swing
 
 import mx.ipn.escom.complexsystems.engine.definition.Diffusion
+import mx.ipn.escom.complexsystems.engine.definition.GameOfLife
 import mx.ipn.escom.complexsystems.engine.impl.Automata;
 
 import javax.swing.Timer;
@@ -17,6 +18,8 @@ public class SimulationSwing extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBox2;
     DrawingPanel drawingPanel = null;
     Automata automata = null;
     int currentWidth = 0;
@@ -44,6 +47,8 @@ public class SimulationSwing extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox();
+        jComboBox2 = new javax.swing.JComboBox();
         //automata = (Automata) GameOfLife.getInstance();
         automata = (Automata) Diffusion.getInstance();
         drawingPanel = new DrawingPanel(automata);
@@ -93,22 +98,28 @@ public class SimulationSwing extends javax.swing.JFrame {
             }
         });
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(["GoL", "Diffusion"] as String[]));
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(["0.1", "0.2", "0.5", "0.7", "0.8", "0.9"] as String[]));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
+                        .addComponent(drawingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4)
-                        .addContainerGap(72, Short.MAX_VALUE))
-                        .addComponent(jSeparator1)
-                        .addComponent(drawingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton4))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,7 +132,9 @@ public class SimulationSwing extends javax.swing.JFrame {
                         .addComponent(jButton1)
                         .addComponent(jButton2)
                         .addComponent(jButton3)
-                        .addComponent(jButton4))
+                        .addComponent(jButton4)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(17, 17, 17))
         );
 
@@ -149,7 +162,18 @@ public class SimulationSwing extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        automata.init(0.8 as float, this.getWidth() - 2, this.getHeight() - 68);
+        switch (jComboBox1.selectedIndex) {
+            case 0:
+                automata = (Automata) GameOfLife.getInstance();
+                break;
+            case 1:
+                automata = (Automata) Diffusion.getInstance();
+                break;
+        }
+        float randomFactor = Float.parseFloat(jComboBox2.getSelectedItem().toString());
+        //
+        drawingPanel.automata = this.automata;
+        automata.init(randomFactor, this.getWidth() - 2, this.getHeight() - 68);
         drawingPanel.getTimer().start();
         jButton1.setEnabled(false);
         jButton2.setEnabled(false);
