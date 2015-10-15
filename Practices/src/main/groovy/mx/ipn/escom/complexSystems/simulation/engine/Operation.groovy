@@ -1,11 +1,8 @@
-package mx.ipn.escom.complexSystems.gameOfLife.engine;
-
-import java.util.Random;
-
+package mx.ipn.escom.complexSystems.simulation.engine
 /**
  * Created by alberto on 21/09/15.
  */
-public class Generator {
+public class Operation {
     public int[][] generateRandomArray(int rows, int columns) {
         Random random = new Random();
         int[][] randomArray = new int[rows][columns];
@@ -15,6 +12,33 @@ public class Generator {
             }
         }
 
+        return randomArray;
+    }
+
+    public int[][] generateSeededArray(float seed, int rows, int columns) {
+        int totalSize = rows * columns;
+        float hitPercentaje = 0.0;
+        int actualHits = 0;
+        Random random = new Random();
+        int[][] randomArray = new int[rows][columns];
+        // Initializing the array
+        for (int row = 0; row < rows; row++) {
+            for (int column = 0; column < columns; column++) {
+                randomArray[row][column] = 0;
+            }
+        }
+        //
+        while (!(hitPercentaje >= seed)) {
+            int row = random.nextInt(rows);
+            int column = random.nextInt(rows);
+            if (randomArray[row][column] == 1) {
+                continue;
+            } else {
+                randomArray[row][column] = 1;
+                actualHits = actualHits + 1;
+            }
+            hitPercentaje = actualHits / totalSize;
+        }
         return randomArray;
     }
 

@@ -1,6 +1,6 @@
-package mx.ipn.escom.complexSystems.gameOfLife;
+package mx.ipn.escom.complexSystems.simulation;
 
-import mx.ipn.escom.complexSystems.gameOfLife.engine.GameOfLife;
+import mx.ipn.escom.complexSystems.simulation.engine.definition.GameOfLife;
 
 import javax.swing.Timer;
 import java.awt.event.WindowAdapter;
@@ -9,7 +9,7 @@ import java.awt.event.WindowEvent;
 /**
  * Created by alberto on 27/09/15.
  */
-public class GameOfLifeSwing extends javax.swing.JFrame {
+public class SimulationSwing extends javax.swing.JFrame {
     // Variables declaration - do not modify
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -25,7 +25,7 @@ public class GameOfLifeSwing extends javax.swing.JFrame {
     /**
      * Creates new form GameOfLifeSwing
      */
-    public GameOfLifeSwing() {
+    public SimulationSwing() {
         initComponents();
     }
 
@@ -192,16 +192,16 @@ public class GameOfLifeSwing extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GameOfLifeSwing.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SimulationSwing.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GameOfLifeSwing.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SimulationSwing.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GameOfLifeSwing.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SimulationSwing.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GameOfLifeSwing.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SimulationSwing.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        final GameOfLifeSwing gameOfLifeSwing = new GameOfLifeSwing();
+        final SimulationSwing gameOfLifeSwing = new SimulationSwing();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

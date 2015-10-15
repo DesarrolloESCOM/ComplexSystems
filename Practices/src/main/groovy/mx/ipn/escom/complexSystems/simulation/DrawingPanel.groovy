@@ -1,6 +1,6 @@
-package mx.ipn.escom.complexSystems.gameOfLife;
+package mx.ipn.escom.complexSystems.simulation;
 
-import mx.ipn.escom.complexSystems.gameOfLife.engine.GameOfLife;
+import mx.ipn.escom.complexSystems.simulation.engine.definition.GameOfLife;
 
 import javax.swing.JPanel;
 import java.awt.Color;

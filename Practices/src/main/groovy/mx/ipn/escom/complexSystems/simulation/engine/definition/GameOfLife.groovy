@@ -1,23 +1,15 @@
-package mx.ipn.escom.complexSystems.gameOfLife.engine;
+package mx.ipn.escom.complexSystems.simulation.engine.definition;
 
-import java.util.ArrayList;
+import mx.ipn.escom.complexSystems.simulation.engine.impl.Automata
 
 /**
  * Created by alberto on 21/09/15.
  */
 
-public class GameOfLife {
-    public int[][] neighborhood;
-    public int generation = 0;
-    public int rows;
-    public int columns;
-    public int alive = 0;
-    public int S_MIN_VALUE = 2;
-    public int S_MAX_VALUE = 3;
-    public ArrayList<int[]> newAlive = new ArrayList<>();
-    public ArrayList<int[]> newDeath = new ArrayList<>();
-    public boolean start = false;
-    public Generator generator = new Generator();
+public class GameOfLife implements Automata {
+    // Game of life rules
+    int S_MIN_VALUE = 2;
+    int S_MAX_VALUE = 3;
 
     private static GameOfLife instance = null;
 
@@ -27,29 +19,10 @@ public class GameOfLife {
         this.neighborhood = neighborhood != null ? neighborhood : generator.generateRandomArray(this.rows, this.columns);
     }
 
-    int getNumberOfNeighbors(int x, int y) {
-        int numberOfNeighbors = 0;
-        int partialRow;
-        int partialColumn;
-        for (int row = x - 1; row < x + 2; row++) {
-            for (int column = y - 1; column < y + 2; column++) {
-                if (y == column && x == row) {
-                    continue;
-                }
-                partialRow = (row % this.rows) < 0 ? (row % this.rows) + this.rows : (row % this.rows);
-                partialColumn = (column % this.columns) < 0 ? (column % this.columns) + this.columns : (column % this.columns);
-                if (this.neighborhood[partialRow][partialColumn] == 1) {
-                    numberOfNeighbors += 1;
-                }
-            }
-        }
-        return numberOfNeighbors;
-    }
-
-    public void gameOfLife() {
+    def gameOfLife() {
         this.generation += 1;
-        newAlive.clear();
-        newDeath.clear();
+        this.newAlive.clear();
+        this.newDeath.clear();
         int alive = 0;
         int[][] clonedArray = new int[rows][columns];
         for (int row = 0; row < rows; row++) {
@@ -94,13 +67,6 @@ public class GameOfLife {
         }
         this.neighborhood = clonedArray;
         this.alive = alive;
-    }
-
-
-    public void resizeNeighborhood(int rows, int columns) {
-        this.neighborhood = generator.resizeArray(this.neighborhood, rows, columns);
-        this.rows = rows;
-        this.columns = columns;
     }
 
     public static GameOfLife getInstance() {
