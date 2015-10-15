@@ -1,4 +1,4 @@
-import mx.ipn.escom.complexSystems.simulation.engine.Operation
+import mx.ipn.escom.complexsystems.engine.Operation
 import spock.lang.Specification
 
 /**

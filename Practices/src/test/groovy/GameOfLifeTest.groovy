@@ -1,4 +1,4 @@
-import mx.ipn.escom.complexSystems.simulation.engine.definition.GameOfLife
+import mx.ipn.escom.complexsystems.engine.definition.GameOfLife
 import spock.lang.Specification
 
 /**

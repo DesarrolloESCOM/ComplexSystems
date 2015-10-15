@@ -1,4 +1,4 @@
-import mx.ipn.escom.complexSystems.simulation.engine.definition.Diffusion
+import mx.ipn.escom.complexsystems.engine.definition.Diffusion
 import spock.lang.Specification
 
 /**
