@@ -1,8 +1,6 @@
-package mx.ipn.escom.complexSystems.simulation
+package mx.ipn.escom.complexsystems
 
-import mx.ipn.escom.complexSystems.simulation.engine.definition.Diffusion;
-import mx.ipn.escom.complexSystems.simulation.engine.definition.GameOfLife
-import mx.ipn.escom.complexSystems.simulation.engine.impl.Automata;
+import mx.ipn.escom.complexsystems.engine.impl.Automata;
 
 import javax.swing.JPanel;
 import java.awt.Color;

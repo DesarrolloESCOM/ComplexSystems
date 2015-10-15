@@ -1,4 +1,4 @@
-package mx.ipn.escom.complexSystems.simulation.engine
+package mx.ipn.escom.complexsystems.engine
 /**
  * Created by alberto on 21/09/15.
  */

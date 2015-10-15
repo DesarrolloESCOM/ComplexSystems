@@ -1,6 +1,6 @@
-package mx.ipn.escom.complexSystems.simulation.engine.impl
+package mx.ipn.escom.complexsystems.engine.impl
 
-import mx.ipn.escom.complexSystems.simulation.engine.Operation
+import mx.ipn.escom.complexsystems.engine.Operation
 
 /**
  * Created by alberto on 14/10/15.

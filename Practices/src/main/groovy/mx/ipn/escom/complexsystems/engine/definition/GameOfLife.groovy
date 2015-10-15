@@ -1,22 +1,17 @@
-package mx.ipn.escom.complexSystems.simulation.engine.definition
+package mx.ipn.escom.complexsystems.engine.definition
 
-import mx.ipn.escom.complexSystems.simulation.engine.impl.Automata
+import mx.ipn.escom.complexsystems.engine.impl.Automata
 
 /**
- * Created by alberto on 14/10/15.
+ * Created by alberto on 21/09/15.
  */
-class Diffusion implements Automata {
-    // Diffusion Rule
+
+public class GameOfLife implements Automata {
+    // Game of life rules
     int S_MIN_VALUE = 2;
-    int S_MAX_VALUE = 7;
+    int S_MAX_VALUE = 3;
 
-    private static Diffusion instance = null;
-
-    public void init(int rows, int columns) {
-        this.rows = rows;
-        this.columns = columns;
-        this.neighborhood = neighborhood != null ? neighborhood : this.operation.generateRandomArray(this.rows, this.columns);
-    }
+    private static GameOfLife instance = null;
 
     void task() {
         this.generation += 1;
@@ -38,7 +33,7 @@ class Diffusion implements Automata {
                     clonedArray[row][column] = 0;
                     continue;
                 }
-                if (cellNeighbors == S_MIN_VALUE && this.neighborhood[row][column] == 0) {
+                if (cellNeighbors == S_MAX_VALUE && this.neighborhood[row][column] == 0) {
                     // It was a dead cell, a new one bears
                     int[] index = new int[2];
                     index[0] = row;
@@ -48,7 +43,7 @@ class Diffusion implements Automata {
                     clonedArray[row][column] = 1;
                     continue;
                 }
-                if ((cellNeighbors == S_MIN_VALUE || cellNeighbors == S_MAX_VALUE) && this.neighborhood[row][column] == 1) {
+                if ((cellNeighbors == S_MAX_VALUE || cellNeighbors == S_MIN_VALUE) && this.neighborhood[row][column] == 1) {
                     // Survives
                     int[] index = new int[2];
                     index[0] = row;
@@ -68,9 +63,9 @@ class Diffusion implements Automata {
         this.alive = alive;
     }
 
-    public static Diffusion getInstance() {
+    public static GameOfLife getInstance() {
         if (instance == null) {
-            instance = new Diffusion();
+            instance = new GameOfLife();
         }
         return instance;
     }
