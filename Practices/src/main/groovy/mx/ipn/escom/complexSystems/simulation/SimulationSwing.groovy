@@ -1,6 +1,8 @@
-package mx.ipn.escom.complexSystems.simulation;
+package mx.ipn.escom.complexSystems.simulation
 
+import mx.ipn.escom.complexSystems.simulation.engine.definition.Diffusion;
 import mx.ipn.escom.complexSystems.simulation.engine.definition.GameOfLife;
+import mx.ipn.escom.complexSystems.simulation.engine.impl.Automata;
 
 import javax.swing.Timer;
 import java.awt.event.WindowAdapter;
@@ -17,7 +19,7 @@ public class SimulationSwing extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JSeparator jSeparator1;
     DrawingPanel drawingPanel = null;
-    GameOfLife gameOfLife = null;
+    Automata automata = null;
     int currentWidth = 0;
     int currentHeight = 0;
     // End of variables declaration
@@ -43,8 +45,9 @@ public class SimulationSwing extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        gameOfLife = GameOfLife.getInstance();
-        drawingPanel = new DrawingPanel(gameOfLife);
+        //automata = (Automata) GameOfLife.getInstance();
+        automata = (Automata) Diffusion.getInstance();
+        drawingPanel = new DrawingPanel(automata);
         drawingPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         drawingPanel.setBackground(new java.awt.Color(254, 254, 254));
 
@@ -132,7 +135,7 @@ public class SimulationSwing extends javax.swing.JFrame {
         this.currentWidth = this.getWidth();
         this.currentHeight = this.getHeight();
         //jButton2.setText("Reanudar")
-        if (gameOfLife.generation == 0) {
+        if (automata.generation == 0) {
             jButton1.setEnabled(true);
         } else {
             jButton2.setEnabled(true);
@@ -147,7 +150,7 @@ public class SimulationSwing extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        gameOfLife.init(this.getWidth() - 2, this.getHeight() - 68);
+        automata.init(0.8 as float, this.getWidth() - 2, this.getHeight() - 68);
         drawingPanel.getTimer().start();
         jButton1.setEnabled(false);
         jButton2.setEnabled(false);
@@ -156,8 +159,8 @@ public class SimulationSwing extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        if (gameOfLife.rows != this.getWidth() || gameOfLife.columns != this.getHeight()) {
-            gameOfLife.resizeNeighborhood(this.currentWidth, this.currentHeight);
+        if (automata.rows != this.getWidth() || automata.columns != this.getHeight()) {
+            automata.resizeNeighborhood(this.currentWidth, this.currentHeight);
         }
         jButton2.setEnabled(false);
         jButton3.setEnabled(true);
@@ -212,7 +215,7 @@ public class SimulationSwing extends javax.swing.JFrame {
                         timer.stop();
                     }
                 });
-                gameOfLifeSwing.setTitle("Juego de la Vida - Reséndiz Arteaga Juan Alberto");
+                gameOfLifeSwing.setTitle("Simulación de Automatas - Reséndiz Arteaga Juan Alberto");
                 gameOfLifeSwing.setSize(500, 350);
                 gameOfLifeSwing.setVisible(true);
             }

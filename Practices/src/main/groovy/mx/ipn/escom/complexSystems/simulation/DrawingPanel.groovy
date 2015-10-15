@@ -1,7 +1,8 @@
 package mx.ipn.escom.complexSystems.simulation
 
 import mx.ipn.escom.complexSystems.simulation.engine.definition.Diffusion;
-import mx.ipn.escom.complexSystems.simulation.engine.definition.GameOfLife;
+import mx.ipn.escom.complexSystems.simulation.engine.definition.GameOfLife
+import mx.ipn.escom.complexSystems.simulation.engine.impl.Automata;
 
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -20,14 +21,12 @@ public class DrawingPanel extends JPanel implements ActionListener {
     public int rows = 0;
     public int columns = 0;
     public Timer timer;
-    public GameOfLife gameOfLifeInstance;
-    public Diffusion diffusionInstance;
+    public Automata automata;
 
-    public DrawingPanel() {
-        this.gameOfLifeInstance = GameOfLife.getInstance();
-        this.diffusionInstance = Diffusion.getInstance()
-        rows = gameOfLifeInstance.rows;
-        columns = gameOfLifeInstance.columns;
+    public DrawingPanel(Automata automata) {
+        this.automata = automata        
+        rows = automata.rows;
+        columns = automata.columns;
         initTimer();
     }
 
@@ -44,18 +43,18 @@ public class DrawingPanel extends JPanel implements ActionListener {
 
         Graphics2D g2d = (Graphics2D) g;
         g2d.setBackground(Color.white);
-        if (gameOfLifeInstance.generation == 0 && gameOfLifeInstance.start == true) {
+        if (automata.generation == 0 && automata.start == true) {
             this.drawEntireNeighborhood(g2d);
-            gameOfLifeInstance.start = false;
+            automata.start = false;
             return;
         }
 
-        if (gameOfLifeInstance.generation == 1) {
+        if (automata.generation == 1) {
             this.drawEntireNeighborhood(g2d);
             return;
         }
 
-        if (gameOfLifeInstance.generation > 1) {
+        if (automata.generation > 1) {
             this.drawAlive(g2d);
             this.drawDeath(g2d);
             return;
@@ -70,7 +69,7 @@ public class DrawingPanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        gameOfLifeInstance.gameOfLife();
+        automata.task();
         repaint();
     }
 
@@ -78,7 +77,7 @@ public class DrawingPanel extends JPanel implements ActionListener {
         g2d.setPaint(Color.black);
         for (short row = 0; row < rows; row++) {
             for (short column = 0; column < columns; column++) {
-                if (gameOfLifeInstance.neighborhood[row][column] == 1) {
+                if (automata.neighborhood[row][column] == 1) {
                     g2d.drawLine(row, column, row, column);
                 }
             }
@@ -87,14 +86,14 @@ public class DrawingPanel extends JPanel implements ActionListener {
 
     public void drawAlive(Graphics2D g2d) {
         g2d.setPaint(Color.black);
-        for (int[] cell : gameOfLifeInstance.newAlive) {
+        for (int[] cell : automata.newAlive) {
             g2d.drawLine(cell[0], cell[1], cell[0], cell[1]);
         }
     }
 
     public void drawDeath(Graphics2D g2d) {
         g2d.setPaint(Color.white);
-        for (int[] cell : gameOfLifeInstance.newDeath) {
+        for (int[] cell : automata.newDeath) {
             g2d.drawLine(cell[0], cell[1], cell[0], cell[1]);
         }
     }
