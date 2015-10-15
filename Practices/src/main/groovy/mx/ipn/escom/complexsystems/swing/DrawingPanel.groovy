@@ -1,4 +1,4 @@
-package mx.ipn.escom.complexsystems
+package mx.ipn.escom.complexsystems.swing
 
 import mx.ipn.escom.complexsystems.engine.impl.Automata;
 
