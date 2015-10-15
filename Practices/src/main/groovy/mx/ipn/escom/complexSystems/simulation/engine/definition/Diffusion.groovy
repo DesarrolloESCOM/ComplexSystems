@@ -38,7 +38,7 @@ class Diffusion implements Automata {
                     clonedArray[row][column] = 0;
                     continue;
                 }
-                if (cellNeighbors == S_MAX_VALUE && this.neighborhood[row][column] == 0) {
+                if (cellNeighbors == S_MIN_VALUE && this.neighborhood[row][column] == 0) {
                     // It was a dead cell, a new one bears
                     int[] index = new int[2];
                     index[0] = row;
@@ -48,7 +48,7 @@ class Diffusion implements Automata {
                     clonedArray[row][column] = 1;
                     continue;
                 }
-                if ((cellNeighbors == S_MAX_VALUE || cellNeighbors == S_MIN_VALUE) && this.neighborhood[row][column] == 1) {
+                if ((cellNeighbors == S_MIN_VALUE || cellNeighbors == S_MAX_VALUE) && this.neighborhood[row][column] == 1) {
                     // Survives
                     int[] index = new int[2];
                     index[0] = row;
