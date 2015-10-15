@@ -42,7 +42,7 @@ class GameOfLifeTest extends Specification {
         gameOfLife.columns = 5
         expect:
         //
-        gameOfLife.gameOfLife()
+        gameOfLife.task()
         gameOfLife.neighborhood == result.currentPopulation
         gameOfLife.newAlive == result.newAlive as ArrayList<int[]>
         gameOfLife.newDeath == result.newDeath as ArrayList<int[]>

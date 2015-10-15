@@ -27,7 +27,7 @@ class DiffusionRuleTest extends Specification {
         2 | 1 || 4
     }
 
-    def "Should apply game of life rules using a defined configuration"() {
+    def "Should apply diffusion rules using a defined configuration"() {
         given:
         short[][] givenPopulation = [
                 [1, 0, 0, 0, 0],
@@ -42,7 +42,7 @@ class DiffusionRuleTest extends Specification {
         diffusion.columns = 5
         expect:
         //
-        diffusion.diffusionRule()
+        diffusion.task()
         diffusion.neighborhood == result.currentPopulation
         diffusion.newAlive == result.newAlive as ArrayList<int[]>
         diffusion.newDeath == result.newDeath as ArrayList<int[]>
