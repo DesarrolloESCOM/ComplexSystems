@@ -227,20 +227,20 @@ public class SimulationSwing extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(SimulationSwing.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        final SimulationSwing gameOfLifeSwing = new SimulationSwing();
+        final SimulationSwing simulatorSwing = new SimulationSwing();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                gameOfLifeSwing.addWindowListener(new WindowAdapter() {
+                simulatorSwing.addWindowListener(new WindowAdapter() {
                     @Override
                     public void windowClosing(WindowEvent e) {
-                        Timer timer = gameOfLifeSwing.drawingPanel.getTimer();
+                        Timer timer = simulatorSwing.drawingPanel.getTimer();
                         timer.stop();
                     }
                 });
-                gameOfLifeSwing.setTitle("Simulación de Automatas - Reséndiz Arteaga Juan Alberto");
-                gameOfLifeSwing.setSize(500, 350);
-                gameOfLifeSwing.setVisible(true);
+                simulatorSwing.setTitle("Simulación de Automatas - Reséndiz Arteaga Juan Alberto");
+                simulatorSwing.setSize(500, 350);
+                simulatorSwing.setVisible(true);
             }
         });
         // Monitoring process

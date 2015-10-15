@@ -15,7 +15,7 @@ import javax.swing.Timer;
  */
 public class DrawingPanel extends JPanel implements ActionListener {
 
-    public final int DELAY = 250;
+    public final int DELAY = 200;
     public int rows = 0;
     public int columns = 0;
     public Timer timer;
