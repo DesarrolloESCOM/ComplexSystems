@@ -1,6 +1,6 @@
 package mx.ipn.escom.complexsystems.simulators.swing
 
-import mx.ipn.escom.complexsystems.simulators.engine.impl.Automata;
+import mx.ipn.escom.complexsystems.engine.impl.Automata;
 
 import javax.swing.JPanel;
 import java.awt.Color;
