@@ -16,6 +16,18 @@ trait Automata {
     boolean start = false;
     Operation operation = new Operation();
 
+    void init(int rows, int columns) {
+        this.rows = rows;
+        this.columns = columns;
+        this.neighborhood = neighborhood != null ? neighborhood : this.operation.generateRandomArray(this.rows, this.columns);
+    }
+
+    void init(float seed, int rows, int columns) {
+        this.rows = rows;
+        this.columns = columns;
+        this.neighborhood = this.operation.generateSeededArray(seed, this.rows, this.columns);
+    }
+
     int getNumberOfNeighbors(int x, int y) { // Considering Moore neighborhood
         int numberOfNeighbors = 0;
         int partialRow;
@@ -40,4 +52,6 @@ trait Automata {
         this.rows = rows;
         this.columns = columns;
     }
+
+    void task() {}
 }

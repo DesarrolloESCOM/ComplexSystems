@@ -10,7 +10,7 @@ class Diffusion implements Automata {
     int S_MIN_VALUE = 2;
     int S_MAX_VALUE = 7;
 
-    private static GameOfLife instance = null;
+    private static Diffusion instance = null;
 
     public void init(int rows, int columns) {
         this.rows = rows;
@@ -18,7 +18,7 @@ class Diffusion implements Automata {
         this.neighborhood = neighborhood != null ? neighborhood : this.operation.generateRandomArray(this.rows, this.columns);
     }
 
-    def diffusionRule() {
+    void task() {
         this.generation += 1;
         this.newAlive.clear();
         this.newDeath.clear();

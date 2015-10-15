@@ -13,13 +13,7 @@ public class GameOfLife implements Automata {
 
     private static GameOfLife instance = null;
 
-    public void init(int rows, int columns) {
-        this.rows = rows;
-        this.columns = columns;
-        this.neighborhood = neighborhood != null ? neighborhood : this.operation.generateRandomArray(this.rows, this.columns);
-    }
-
-    def gameOfLife() {
+    void task() {
         this.generation += 1;
         this.newAlive.clear();
         this.newDeath.clear();

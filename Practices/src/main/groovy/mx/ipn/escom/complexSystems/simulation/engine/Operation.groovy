@@ -29,8 +29,8 @@ public class Operation {
         }
         //
         while (!(hitPercentage >= seed)) {
-            int row = random.nextInt(rows);
-            int column = random.nextInt(rows);
+            int row = random.nextInt(rows) % rows;
+            int column = random.nextInt(columns) % columns;
             if (randomArray[row][column] == 1) {
                 continue;
             } else {
@@ -39,7 +39,6 @@ public class Operation {
             }
             hitPercentage = actualHits / totalSize;
         }
-        println(randomArray);
         return randomArray;
     }
 
