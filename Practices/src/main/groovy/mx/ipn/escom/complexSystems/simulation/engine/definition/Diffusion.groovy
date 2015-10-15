@@ -1,15 +1,14 @@
-package mx.ipn.escom.complexSystems.simulation.engine.definition;
+package mx.ipn.escom.complexSystems.simulation.engine.definition
 
 import mx.ipn.escom.complexSystems.simulation.engine.impl.Automata
 
 /**
- * Created by alberto on 21/09/15.
+ * Created by alberto on 14/10/15.
  */
-
-public class GameOfLife implements Automata {
-    // Game of life rules
+class Diffusion implements Automata {
+    // Diffusion Rule
     int S_MIN_VALUE = 2;
-    int S_MAX_VALUE = 3;
+    int S_MAX_VALUE = 7;
 
     private static GameOfLife instance = null;
 
@@ -19,7 +18,7 @@ public class GameOfLife implements Automata {
         this.neighborhood = neighborhood != null ? neighborhood : this.operation.generateRandomArray(this.rows, this.columns);
     }
 
-    def gameOfLife() {
+    def diffusionRule() {
         this.generation += 1;
         this.newAlive.clear();
         this.newDeath.clear();
@@ -69,9 +68,9 @@ public class GameOfLife implements Automata {
         this.alive = alive;
     }
 
-    public static GameOfLife getInstance() {
+    public static Diffusion getInstance() {
         if (instance == null) {
-            instance = new GameOfLife();
+            instance = new Diffusion();
         }
         return instance;
     }

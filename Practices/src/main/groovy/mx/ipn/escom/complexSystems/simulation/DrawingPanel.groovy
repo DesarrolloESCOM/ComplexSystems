@@ -1,5 +1,6 @@
-package mx.ipn.escom.complexSystems.simulation;
+package mx.ipn.escom.complexSystems.simulation
 
+import mx.ipn.escom.complexSystems.simulation.engine.definition.Diffusion;
 import mx.ipn.escom.complexSystems.simulation.engine.definition.GameOfLife;
 
 import javax.swing.JPanel;
@@ -20,9 +21,11 @@ public class DrawingPanel extends JPanel implements ActionListener {
     public int columns = 0;
     public Timer timer;
     public GameOfLife gameOfLifeInstance;
+    public Diffusion diffusionInstance;
 
-    public DrawingPanel(GameOfLife gameOfLifeInstance) {
-        this.gameOfLifeInstance = gameOfLifeInstance;
+    public DrawingPanel() {
+        this.gameOfLifeInstance = GameOfLife.getInstance();
+        this.diffusionInstance = Diffusion.getInstance()
         rows = gameOfLifeInstance.rows;
         columns = gameOfLifeInstance.columns;
         initTimer();

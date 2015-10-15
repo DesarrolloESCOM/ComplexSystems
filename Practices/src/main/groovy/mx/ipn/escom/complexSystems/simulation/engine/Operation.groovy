@@ -17,7 +17,7 @@ public class Operation {
 
     public int[][] generateSeededArray(float seed, int rows, int columns) {
         int totalSize = rows * columns;
-        float hitPercentaje = 0.0;
+        float hitPercentage = 0.0;
         int actualHits = 0;
         Random random = new Random();
         int[][] randomArray = new int[rows][columns];
@@ -28,7 +28,7 @@ public class Operation {
             }
         }
         //
-        while (!(hitPercentaje >= seed)) {
+        while (!(hitPercentage >= seed)) {
             int row = random.nextInt(rows);
             int column = random.nextInt(rows);
             if (randomArray[row][column] == 1) {
@@ -37,8 +37,9 @@ public class Operation {
                 randomArray[row][column] = 1;
                 actualHits = actualHits + 1;
             }
-            hitPercentaje = actualHits / totalSize;
+            hitPercentage = actualHits / totalSize;
         }
+        println(randomArray);
         return randomArray;
     }
 
