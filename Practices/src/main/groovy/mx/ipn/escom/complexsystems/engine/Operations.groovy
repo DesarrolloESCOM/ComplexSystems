@@ -2,7 +2,7 @@ package mx.ipn.escom.complexsystems.engine
 /**
  * Created by alberto on 21/09/15.
  */
-public class Operation {
+public class Operations {
     public int[][] generateRandomArray(int rows, int columns) {
         Random random = new Random();
         int[][] randomArray = new int[rows][columns];

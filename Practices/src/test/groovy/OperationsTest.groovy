@@ -1,10 +1,10 @@
-import mx.ipn.escom.complexsystems.engine.Operation
+import mx.ipn.escom.complexsystems.engine.Operations
 import spock.lang.Specification
 
 /**
  * Created by alberto on 15/10/15.
  */
-class OperationTest extends Specification {
+class OperationsTest extends Specification {
     def "Should resize or chop a defined array"() {
         given:
         int[][] givenPopulation = [
@@ -18,7 +18,7 @@ class OperationTest extends Specification {
                 [1, 0, 1, 0, 0],
                 [1, 0, 0, 0, 1],
         ]
-        Operation operation = new Operation()
+        Operations operation = new Operations()
         expect:
         operation.resizeArray(givenPopulation, 3, 3) == choppedPopulation
         operation.resizeArray(smallPopulation, 5, 6) == augmentedPopulation
@@ -42,7 +42,7 @@ class OperationTest extends Specification {
         given:
         int rows = 5;
         int columns = 5;
-        Operation operation = new Operation()
+        Operations operation = new Operations()
         float seed_25 = 0.25
         float seed_50 = 0.5
         float seed_75 = 0.75
