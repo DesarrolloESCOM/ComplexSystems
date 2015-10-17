@@ -1,6 +1,6 @@
 package mx.ipn.escom.complexsystems.engine.impl
 
-import mx.ipn.escom.complexsystems.engine.Operation
+import mx.ipn.escom.complexsystems.engine.Operations
 
 /**
  * Created by alberto on 14/10/15.
@@ -14,12 +14,17 @@ trait Automata {
     ArrayList<int[]> newAlive = new ArrayList<>();
     ArrayList<int[]> newDeath = new ArrayList<>();
     boolean start = false;
-    Operation operation = new Operation();
+    Operations operation = new Operations();
 
     void init(int rows, int columns) {
         this.rows = rows;
         this.columns = columns;
         this.neighborhood = neighborhood != null ? neighborhood : this.operation.generateRandomArray(this.rows, this.columns);
+    }
+    void init(int[][] neighborhood) {
+        this.rows = neighborhood.length;
+        this.columns = neighborhood[0].length;
+        this.neighborhood = neighborhood;
     }
 
     void init(float seed, int rows, int columns) {

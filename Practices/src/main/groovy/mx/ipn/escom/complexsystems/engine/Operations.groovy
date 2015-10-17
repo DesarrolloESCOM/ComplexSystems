@@ -67,4 +67,9 @@ public class Operations {
         }
         return newArray;
     }
+
+    int getNeighborhoodId(int[][] neighborhood) {
+        String binary = (neighborhood as List).flatten().join("");
+        return Integer.parseInt(binary,2)
+    }
 }
