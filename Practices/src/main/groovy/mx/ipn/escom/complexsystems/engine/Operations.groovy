@@ -72,4 +72,8 @@ public class Operations {
         String binary = (neighborhood as List).flatten().join("");
         return Integer.parseInt(binary,2)
     }
+    int[][] decimalToBinaryArray(int value) {
+        String binaryValue = Integer.toString(value, 2);
+
+    }
 }
