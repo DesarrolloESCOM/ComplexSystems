@@ -1,5 +1,4 @@
-package mx.ipn.escom.complexsystems.scripts
-
+package mx.ipn.escom.complexsystems.scripts.GoL
 
 import mx.ipn.escom.complexsystems.engine.definition.GameOfLife
 import mx.ipn.escom.complexsystems.engine.history.AutomataNode
@@ -18,11 +17,11 @@ def size = 5
 }
 
 def maxValue = Math.pow(2,size*size) - 1
-List<Integer> allStates = (((Integer)(2*maxValue/4)) .. ((Integer)(3*maxValue/4)))
+List<Integer> allStates = (((Integer)(maxValue/4)) .. ((Integer)(2*maxValue/4)))
 //
 GameOfLife gol = new GameOfLife()
 AutomataNode node = new AutomataNode();
-println "Started GoL_5x5_3 ${new Date()}"
+println "Started GoL_5x5_2 ${new Date()}"
 for(state in allStates) {
     String binaryNumber = Integer.toString(state,2);
     //

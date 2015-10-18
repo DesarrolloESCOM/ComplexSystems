@@ -1,4 +1,5 @@
-package mx.ipn.escom.complexsystems.scripts
+package mx.ipn.escom.complexsystems.scripts.GoL
+
 
 import mx.ipn.escom.complexsystems.engine.definition.GameOfLife
 import mx.ipn.escom.complexsystems.engine.history.AutomataNode
@@ -11,18 +12,17 @@ def db = mongo.getDB("GameOfLifeHistory");
 // db.GameOfLifeHistory.insert([])
 String nineZeros = "";
 def size = 5
-db["states_$size"].drop()
+//db["states_$size"].drop()
 (0..size*size-1).each{it -> 
     nineZeros = nineZeros.concat("0");
 }
 
 def maxValue = Math.pow(2,size*size) - 1
-List<Integer> allStates = (0 .. (Integer)(maxValue/4))
-//List<Integer> allStates = (0 .. 10)
+List<Integer> allStates = (((Integer)(2*maxValue/4)) .. ((Integer)(3*maxValue/4)))
 //
 GameOfLife gol = new GameOfLife()
 AutomataNode node = new AutomataNode();
-println "Started GoL_5x5_1 ${new Date()}"
+println "Started GoL_5x5_3 ${new Date()}"
 for(state in allStates) {
     String binaryNumber = Integer.toString(state,2);
     //

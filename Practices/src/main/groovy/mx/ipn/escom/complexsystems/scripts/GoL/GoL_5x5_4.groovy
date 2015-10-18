@@ -1,4 +1,4 @@
-package mx.ipn.escom.complexsystems.scripts
+package mx.ipn.escom.complexsystems.scripts.GoL
 
 import mx.ipn.escom.complexsystems.engine.definition.GameOfLife
 import mx.ipn.escom.complexsystems.engine.history.AutomataNode
