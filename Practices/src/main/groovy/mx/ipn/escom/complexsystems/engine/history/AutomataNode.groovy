@@ -5,8 +5,9 @@ package mx.ipn.escom.complexsystems.engine.history
  */
 @groovy.transform.Canonical
 class AutomataNode {
-    Integer id
-    boolean finalState
+    Integer decimalState
+    String binaryState
+    boolean isFinal
     Integer hits
     List neighborhood
     Integer contains // reference to previous node
