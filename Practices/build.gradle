@@ -28,3 +28,18 @@ task StartSimulator(dependsOn: 'classes', type: JavaExec) {
     main = 'mx.ipn.escom.complexsystems.simulators.swing.SimulationSwing'
     classpath = sourceSets.main.runtimeClasspath
 }
+// Automata(GameOfLife, Diffusion rule) 5x5 insertion tasks
+for (index in 1..4) {
+    // Game Of life
+    task "GoL_5x5_$index"(dependsOn: 'classes', type: JavaExec) {
+        description = "Insertion job for 5x5 GoL $index of 4"
+        main = "mx.ipn.escom.complexsystems.scripts.GoL.GoL_5x5_$index"
+        classpath = sourceSets.main.runtimeClasspath
+    }
+    // Diffusion rule
+    task "Diffusion_5x5_$index"(dependsOn: 'classes', type: JavaExec) {
+        description = "Insertion job for 5x5 Diffusion $index of 4"
+        main = "mx.ipn.escom.complexsystems.scripts.diffusion.Diffusion_5x5_$index"
+        classpath = sourceSets.main.runtimeClasspath
+    }
+}
