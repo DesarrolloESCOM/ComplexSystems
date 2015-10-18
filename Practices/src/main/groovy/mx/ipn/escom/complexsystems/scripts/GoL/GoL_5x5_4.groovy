@@ -12,19 +12,19 @@ def db = mongo.getDB("GameOfLifeHistory");
 String nineZeros = "";
 def size = 5
 //db["states_$size"].drop()
-(0..size*size-1).each{it -> 
+(0..size * size - 1).each { it ->
     nineZeros = nineZeros.concat("0");
 }
-def maxValue = Math.pow(2,size*size) - 1
-List<Integer> allStates = (((Integer)(3*maxValue/4)) .. ((Integer)(maxValue)))
+def maxValue = Math.pow(2, size * size) - 1
+List<Integer> allStates = (((Integer) (3 * maxValue / 4))..((Integer) (maxValue)))
 //
 println "Started GoL_5x5_4 ${new Date()}"
 GameOfLife gol = new GameOfLife()
 AutomataNode node = new AutomataNode();
-for(state in allStates) {
-    String binaryNumber = Integer.toString(state,2);
+for (state in allStates) {
+    String binaryNumber = Integer.toString(state, 2);
     //
-    gol.init((nineZeros.concat(binaryNumber)).substring(binaryNumber.length()).toList().each{it-> Integer.parseInt(it)}.collate(size) as int[][]);
+    gol.init((nineZeros.concat(binaryNumber)).substring(binaryNumber.length()).toList().each { it -> Integer.parseInt(it) }.collate(size) as int[][]);
     //
     node.decimalState = state
     node.binaryState = binaryNumber
@@ -34,15 +34,15 @@ for(state in allStates) {
     //
     gol.task();
     //
-    node.contains = Integer.parseInt(gol.neighborhood.flatten().join(""),2)
+    node.contains = Integer.parseInt(gol.neighborhood.flatten().join(""), 2)
     node.calculated = 2;
     def properties = node.properties.findAll { property ->
-            if (!(property.key in ["metaClass", "class"])) {
-                return true
-            } else {
-                return false
-            }
+        if (!(property.key in ["metaClass", "class"])) {
+            return true
+        } else {
+            return false
         }
+    }
     db["states_$size"].insert(properties)
 }
 println "Done"

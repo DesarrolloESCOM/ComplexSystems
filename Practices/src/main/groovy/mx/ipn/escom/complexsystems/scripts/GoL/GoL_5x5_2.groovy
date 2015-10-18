@@ -21,7 +21,7 @@ List<Integer> allStates = (((Integer)(maxValue/4)) .. ((Integer)(2*maxValue/4)))
 //
 GameOfLife gol = new GameOfLife()
 AutomataNode node = new AutomataNode();
-println "Started GoL_5x5_2 ${new Date()}"
+println "Started Diffusion_5x5_2 ${new Date()}"
 for(state in allStates) {
     String binaryNumber = Integer.toString(state,2);
     //
