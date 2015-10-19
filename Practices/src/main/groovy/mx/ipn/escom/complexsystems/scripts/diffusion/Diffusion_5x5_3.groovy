@@ -1,33 +1,29 @@
 package mx.ipn.escom.complexsystems.scripts.diffusion
 
-
 import mx.ipn.escom.complexsystems.engine.definition.Diffusion
+import mx.ipn.escom.complexsystems.engine.history.AutomataNode
 import com.gmongo.GMongo
 
 
 def mongo = new GMongo()
 def db = mongo.getDB("DiffusionRuleHistory");
 
+// db.DiffusionHistory.insert([])
+String nineZeros = "";
 def size = 5
-
-String paddingZeros = "";
-
 db["states_$size"].drop()
-//
 (0..size * size - 1).each { it ->
-    paddingZeros = paddingZeros.concat("0");
+    nineZeros = nineZeros.concat("0");
 }
-
-def maxValue = Math.pow(2, size * size) - 1
-List<Integer> allStates = (((Integer) (2 * maxValue / 4) + 1)..((Integer) (3 * maxValue / 4)))
-
+Integer maxValue = (Math.pow(2, size * size) - 1)
+List<Integer> allStates = (((Integer) 2 * maxValue / 4 + 1)..((Integer) 3 * maxValue / 4))
+//
 Diffusion diffusion = new Diffusion()
-Map node = [:]
-println "Started Diffusion_5x5_3 ${new Date()}"
+AutomataNode node = new AutomataNode();
 for (state in allStates) {
     String binaryNumber = Integer.toString(state, 2);
     //
-    diffusion.init((paddingZeros.concat(binaryNumber)).substring(binaryNumber.length()).toList().each { it -> Integer.parseInt(it) }.collate(size) as int[][]);
+    diffusion.init((nineZeros.concat(binaryNumber)).substring(binaryNumber.length()).toList().each { it -> Integer.parseInt(it) }.collate(size) as int[][]);
     //
     node.decimalState = state
     node.binaryState = binaryNumber
