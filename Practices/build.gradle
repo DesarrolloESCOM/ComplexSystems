@@ -33,13 +33,13 @@ for (index in 1..4) {
     // Game Of life
     task "GoL_5x5_$index"(dependsOn: 'classes', type: JavaExec) {
         description = "Insertion job for 5x5 GoL $index of 4"
-        main = "mx.ipn.escom.complexsystems.scripts.GoL.GoL_5x5_$index"
+        main = "mx.ipn.escom.complexsystems.scripts.insertion.GoL.GoL_5x5_$index"
         classpath = sourceSets.main.runtimeClasspath
     }
     // Diffusion rule
     task "Diffusion_5x5_$index"(dependsOn: 'classes', type: JavaExec) {
         description = "Insertion job for 5x5 Diffusion $index of 4"
-        main = "mx.ipn.escom.complexsystems.scripts.diffusion.Diffusion_5x5_$index"
+        main = "mx.ipn.escom.complexsystems.scripts.insertion.diffusion.Diffusion_5x5_$index"
         classpath = sourceSets.main.runtimeClasspath
     }
 }
@@ -65,5 +65,18 @@ task "Generator_GoL_5x5"(dependsOn: 'classes', type: JavaExec) {
 task "Generator_DiffusionRule_5x5"(dependsOn: 'classes', type: JavaExec) {
     description = "Dot file generation GoL 4x4"
     main = "mx.ipn.escom.complexsystems.scripts.generator.ExploringDiffusionRule_5x5"
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+
+task "CreateGameOfLifeStatistics"(dependsOn:'classes', type:JavaExec) {
+    description = "Generate GameOfLife statistics from 0.1, 0.2, 0.5 and 0.75"
+    main = "mx.ipn.escom.complexsystems.scripts.statistics.GameOfLifeStatistics"
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task "CreateDiffusioNRuleStatistics"(dependsOn:'classes', type:JavaExec) {
+    description = "Generate GameOfLife statistics from 0.1, 0.2, 0.5 and 0.75"
+    main = "mx.ipn.escom.complexsystems.scripts.statistics.DiffusionRuleStatistics"
     classpath = sourceSets.main.runtimeClasspath
 }
