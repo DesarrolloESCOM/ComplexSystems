@@ -23,7 +23,7 @@ for (state in allStates) {
     }
     if (currentStates.count(0) == 0) {
         file = new File(folder.concat(currentIndex) + "GoL_${state.decimalState}.dot")
-        file.write("diagraph{ ${currentStates.join(" -> ")} }")
+        file.write("digraph { ${currentStates.join(" -> ")} }")
     }
 
 
