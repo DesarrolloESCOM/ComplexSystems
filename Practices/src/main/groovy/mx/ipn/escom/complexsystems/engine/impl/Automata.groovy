@@ -31,6 +31,7 @@ trait Automata {
         this.rows = rows;
         this.columns = columns;
         this.neighborhood = this.operation.generateSeededArray(seed, this.rows, this.columns);
+        this.alive = this.neighborhood.flatten().count(1);
     }
 
     int getNumberOfNeighbors(int x, int y) { // Considering Moore neighborhood
