@@ -43,3 +43,15 @@ for (index in 1..4) {
         classpath = sourceSets.main.runtimeClasspath
     }
 }
+
+task "Generator_GoL_4x4"(dependsOn: 'classes', type: JavaExec) {
+    description = "Dot file generation GoL 4x4"
+    main = "mx.ipn.escom.complexsystems.scripts.generator.ExploringGameOfLife_4x4"
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task "Generator_DiffusionRule_4x4"(dependsOn: 'classes', type: JavaExec) {
+    description = "Dot file generation GoL 4x4"
+    main = "mx.ipn.escom.complexsystems.scripts.generator.ExploringDiffusionRule_4x4"
+    classpath = sourceSets.main.runtimeClasspath
+}
