@@ -1,4 +1,4 @@
-package mx.ipn.escom.complexsystems.scripts.diffusion
+package mx.ipn.escom.complexsystems.scripts.insertion.diffusion
 
 import mx.ipn.escom.complexsystems.engine.definition.Diffusion
 import mx.ipn.escom.complexsystems.engine.history.AutomataNode
@@ -16,7 +16,7 @@ db["states_$size"].drop()
     nineZeros = nineZeros.concat("0");
 }
 Integer maxValue = (Math.pow(2, size * size) - 1)
-List<Integer> allStates = (((Integer) 3 * maxValue / 4 + 1)..((Integer) 4 * maxValue / 4))
+List<Integer> allStates = (((Integer) maxValue / 4 + 1) .. ((Integer) maxValue/2))
 //
 Diffusion diffusion = new Diffusion()
 AutomataNode node = new AutomataNode();

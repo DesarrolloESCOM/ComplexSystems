@@ -1,40 +1,39 @@
-package mx.ipn.escom.complexsystems.scripts.GoL
+package mx.ipn.escom.complexsystems.scripts.insertion.diffusion
 
-import mx.ipn.escom.complexsystems.engine.definition.GameOfLife
+import mx.ipn.escom.complexsystems.engine.definition.Diffusion
 import mx.ipn.escom.complexsystems.engine.history.AutomataNode
 import com.gmongo.GMongo
 
 
 def mongo = new GMongo()
-def db = mongo.getDB("GameOfLifeHistory");
+def db = mongo.getDB("DiffusionRuleHistory");
 
-// db.GameOfLifeHistory.insert([])
+// db.DiffusionHistory.insert([])
 String nineZeros = "";
 def size = 5
-//db["states_$size"].drop()
+db["states_$size"].drop()
 (0..size * size - 1).each { it ->
     nineZeros = nineZeros.concat("0");
 }
-def maxValue = Math.pow(2, size * size) - 1
-List<Integer> allStates = (((Integer) (3 * maxValue / 4))..((Integer) (maxValue)))
+Integer maxValue = (Math.pow(2, size * size) - 1)
+List<Integer> allStates = (((Integer) 3 * maxValue / 4 + 1)..((Integer) 4 * maxValue / 4))
 //
-println "Started GoL_5x5_4 ${new Date()}"
-GameOfLife gol = new GameOfLife()
+Diffusion diffusion = new Diffusion()
 AutomataNode node = new AutomataNode();
 for (state in allStates) {
     String binaryNumber = Integer.toString(state, 2);
     //
-    gol.init((nineZeros.concat(binaryNumber)).substring(binaryNumber.length()).toList().each { it -> Integer.parseInt(it) }.collate(size) as int[][]);
+    diffusion.init((nineZeros.concat(binaryNumber)).substring(binaryNumber.length()).toList().each { it -> Integer.parseInt(it) }.collate(size) as int[][]);
     //
     node.decimalState = state
     node.binaryState = binaryNumber
     node.isFinal = false
     node.hits = 0
-    node.neighborhood = gol.neighborhood
+    node.neighborhood = diffusion.neighborhood
     //
-    gol.task();
+    diffusion.task();
     //
-    node.contains = Integer.parseInt(gol.neighborhood.flatten().join(""), 2)
+    node.contains = Integer.parseInt(diffusion.neighborhood.flatten().join(""), 2)
     node.calculated = 2;
     def properties = node.properties.findAll { property ->
         if (!(property.key in ["metaClass", "class"])) {
