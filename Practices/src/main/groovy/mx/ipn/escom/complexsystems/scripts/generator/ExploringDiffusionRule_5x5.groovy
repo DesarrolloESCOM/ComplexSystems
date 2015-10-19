@@ -1,14 +1,17 @@
 package mx.ipn.escom.complexsystems.scripts.generator
 
+/**
+ * Created by alberto on 19/10/15.
+ */
 import com.gmongo.GMongo
 
 def mongo = new GMongo()
-def db = mongo.getDB("GameOfLifeHistory");
+def db = mongo.getDB("DiffusionRuleHistory");
 
-def size = 4
-def allStates = db["states_$size"].find([contains: [$gt: 0]], [decimalState: 1, _id: 0])
+def size = 5
+def allStates = db["states_$size"].find([contains: [$gt: 0]], [decimalState: 1, _id: 0]).limit(7000000)
 
-def folder = "/media/alberto/ADATA HD710/ComplexSystems/GameOfLife/"
+def folder = "/media/alberto/ADATA HD710/ComplexSystems/DiffusionRule/"
 def currentIndex = "${size}x${size}/"
 def file
 
@@ -22,7 +25,7 @@ for (state in allStates) {
         currentStates.add(golState.decimalState);
     }
     if (currentStates.count(0) == 0) {
-        file = new File(folder.concat(currentIndex) + "GoL_${state.decimalState}.dot")
+        file = new File(folder.concat(currentIndex) + "DR_${state.decimalState}.dot")
         file.write("digraph { ${currentStates.join(" -> ")} }")
     }
 

@@ -1,12 +1,15 @@
 package mx.ipn.escom.complexsystems.scripts.generator
 
+/**
+ * Created by alberto on 19/10/15.
+ */
 import com.gmongo.GMongo
 
 def mongo = new GMongo()
 def db = mongo.getDB("GameOfLifeHistory");
 
-def size = 4
-def allStates = db["states_$size"].find([contains: [$gt: 0]], [decimalState: 1, _id: 0])
+def size = 5
+def allStates = db["states_$size"].find([contains: [$gt: 0]], [decimalState: 1, _id: 0]).limit(7000000)
 
 def folder = "/media/alberto/ADATA HD710/ComplexSystems/GameOfLife/"
 def currentIndex = "${size}x${size}/"
