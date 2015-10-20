@@ -5,8 +5,8 @@ import mx.ipn.escom.complexsystems.engine.definition.Diffusion
 /**
  * Created by alberto on 19/10/15.
  */
-def size = 270
-def epsilon = 7
+def size = 500
+def epsilon = 5
 Diffusion diffusion = new Diffusion()
 diffusion.init(0.1 as float, size, size);
 def file = new File("/home/alberto/Desktop/DR_01.csv")
