@@ -20,29 +20,19 @@ List<Integer> allStates = (((Integer) (3 * maxValue / 4))..((Integer) (maxValue)
 //
 println "Started GoL_5x5_4 ${new Date()}"
 GameOfLife gol = new GameOfLife()
-AutomataNode node = new AutomataNode();
+//def node = [:];
+println "Started Diffusion_5x5_4 ${new Date()}"
 for (state in allStates) {
+    def node = [:]
     String binaryNumber = Integer.toString(state, 2);
     //
     gol.init((nineZeros.concat(binaryNumber)).substring(binaryNumber.length()).toList().each { it -> Integer.parseInt(it) }.collate(size) as int[][]);
     //
     node.decimalState = state
-    node.binaryState = binaryNumber
-    node.isFinal = false
-    node.hits = 0
-    node.neighborhood = gol.neighborhood
     //
     gol.task();
     //
     node.contains = Integer.parseInt(gol.neighborhood.flatten().join(""), 2)
-    node.calculated = 2;
-    def properties = node.properties.findAll { property ->
-        if (!(property.key in ["metaClass", "class"])) {
-            return true
-        } else {
-            return false
-        }
-    }
-    db["states_$size"].insert(properties)
+    db["states_$size"].insert(node)
 }
 println "Done"
