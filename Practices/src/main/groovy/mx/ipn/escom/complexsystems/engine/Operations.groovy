@@ -16,28 +16,13 @@ public class Operations {
     }
 
     public int[][] generateSeededArray(float seed, int rows, int columns) {
-        int totalSize = rows * columns;
-        float hitPercentage = 0.0;
-        int actualHits = 0;
         Random random = new Random();
         int[][] randomArray = new int[rows][columns];
         // Initializing the array
         for (int row = 0; row < rows; row++) {
             for (int column = 0; column < columns; column++) {
-                randomArray[row][column] = 0;
+                randomArray[row][column] = random.nextInt(100) <= (100 * seed) ? 1 : 0;
             }
-        }
-        //
-        while (!(hitPercentage >= seed)) {
-            int row = random.nextInt(rows) % rows;
-            int column = random.nextInt(columns) % columns;
-            if (randomArray[row][column] == 1) {
-                continue;
-            } else {
-                randomArray[row][column] = 1;
-                actualHits = actualHits + 1;
-            }
-            hitPercentage = actualHits / totalSize;
         }
         return randomArray;
     }
@@ -70,8 +55,9 @@ public class Operations {
 
     int getNeighborhoodId(int[][] neighborhood) {
         String binary = (neighborhood as List).flatten().join("");
-        return Integer.parseInt(binary,2)
+        return Integer.parseInt(binary, 2)
     }
+
     int[][] decimalToBinaryArray(int value) {
         String binaryValue = Integer.toString(value, 2);
 
