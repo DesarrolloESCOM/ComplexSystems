@@ -5,8 +5,8 @@ import mx.ipn.escom.complexsystems.engine.definition.GameOfLife
 /**
  * Created by alberto on 19/10/15.
  */
-def size = 500
-def epsilon = 5
+def size = 700
+def epsilon = 2
 GameOfLife gameOfLife = new GameOfLife()
 gameOfLife.init(0.1 as float, size, size);
 def file = new File("/home/alberto/Desktop/GoL_01.csv")
