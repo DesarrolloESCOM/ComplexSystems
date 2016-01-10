@@ -46,9 +46,16 @@ class OperationsTest extends Specification {
         float seed_25 = 0.25
         float seed_50 = 0.5
         float seed_75 = 0.75
+        float expectedSeed25 = rows * columns * seed_25
+        float expectedSeed50 = rows * columns * seed_50
+        float expectedSeed75 = rows * columns * seed_75
         expect:
-        operation.generateSeededArray(seed_25, rows, columns).flatten().findAll { element -> element > 0 }.size() >= rows * columns * seed_25
-        operation.generateSeededArray(seed_50, rows, columns).flatten().findAll { element -> element > 0 }.size() >= rows * columns * seed_50
-        operation.generateSeededArray(seed_75, rows, columns).flatten().findAll { element -> element > 0 }.size() >= rows * columns * seed_75
+        int seedCount25 = operation.generateSeededArray(seed_25, rows, columns).flatten().findAll { element -> element > 0 }.size()
+        int seedCount50 = operation.generateSeededArray(seed_50, rows, columns).flatten().findAll { element -> element > 0 }.size()
+        int seedCount75 = operation.generateSeededArray(seed_75, rows, columns).flatten().findAll { element -> element > 0 }.size()
+        Math.abs(seedCount25 - expectedSeed25) <= 1
+        Math.abs(seedCount50 - expectedSeed50) <= 1
+        Math.abs(seedCount75 - expectedSeed75) <= 1
+
     }
 }

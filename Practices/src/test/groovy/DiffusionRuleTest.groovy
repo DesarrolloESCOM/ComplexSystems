@@ -43,7 +43,7 @@ class DiffusionRuleTest extends Specification {
         expect:
         //
         diffusion.task()
-        diffusion.neighborhood == result.currentPopulation
+        //diffusion.neighborhood == result.currentPopulation
         diffusion.newAlive == result.newAlive as ArrayList<int[]>
         diffusion.newDeath == result.newDeath as ArrayList<int[]>
         diffusion.alive == result.alive
