@@ -18,14 +18,14 @@ public class Operations {
     public int[][] generateSeededArray(float seed, int rows, int columns) {
         Random random = new Random();
         int[][] randomArray = new int[rows][columns];
-        int seedPercentage = (100 * seed)
+        int seedPercentage = (rows * columns * seed)
         int hits = 0
         int value
         // Initializing the array
         for (int row = 0; row < rows; row++) {
             for (int column = 0; column < columns; column++) {
                 if (hits <= seedPercentage) {
-                    value = random.nextInt(100) <= seedPercentage ? 1 : 0;
+                    value = random.nextInt(rows * columns) <= seedPercentage ? 1 : 0;
                     if (value) {
                         hits++
                     }
