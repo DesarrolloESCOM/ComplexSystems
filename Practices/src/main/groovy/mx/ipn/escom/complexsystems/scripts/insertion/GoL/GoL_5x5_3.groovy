@@ -1,7 +1,6 @@
 package mx.ipn.escom.complexsystems.scripts.insertion.GoL
 
 import mx.ipn.escom.complexsystems.engine.definition.GameOfLife
-import mx.ipn.escom.complexsystems.engine.history.AutomataNode
 import com.gmongo.GMongo
 
 

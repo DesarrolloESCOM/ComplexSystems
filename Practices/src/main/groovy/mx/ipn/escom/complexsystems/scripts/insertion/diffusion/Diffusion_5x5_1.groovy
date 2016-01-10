@@ -1,7 +1,6 @@
 package mx.ipn.escom.complexsystems.scripts.insertion.diffusion
 
 import mx.ipn.escom.complexsystems.engine.definition.Diffusion
-import mx.ipn.escom.complexsystems.engine.history.AutomataNode
 import com.gmongo.GMongo
 
 
@@ -19,7 +18,7 @@ Integer maxValue = (Math.pow(2, size * size) - 1)
 List<Integer> allStates = (0..(Integer) maxValue / 4)
 //
 Diffusion diffusion = new Diffusion()
-AutomataNode node = new AutomataNode();
+Map node = [:];
 for (state in allStates) {
     String binaryNumber = Integer.toString(state, 2);
     //
