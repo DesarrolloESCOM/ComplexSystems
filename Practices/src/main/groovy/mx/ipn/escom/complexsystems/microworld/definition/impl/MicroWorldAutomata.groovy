@@ -1,15 +1,19 @@
 package mx.ipn.escom.complexsystems.microworld.definition.impl
 
 import mx.ipn.escom.complexsystems.engine.Operations
-import mx.ipn.escom.complexsystems.microworld.definition.impl.WorldElement
 
 /**
  * Created by alberto on 9/01/16.
  */
 trait MicroWorldAutomata {
-    WorldElement[][] neighborhood;
+    // MicroWorld properties
     int rows = 0;
     int columns = 0;
+    boolean start = false;
+    Operations operation = new Operations();
+    WorldElement[][] world;
+    def typeOrder = [0: "carnivores", 1: "herbivores", 2: "scavengers", 3: "corpses", 4: "plants", 5: "ground"]
+    def actionsOrder = [0: "drink", 1: "eat", 2: "locationInformation", 3: "move", 4: "reproduce", 5: "generatePlants"]
     // Statistics
     int currentCarnivore = 0;
     int currentHerbivore = 0;
@@ -17,28 +21,20 @@ trait MicroWorldAutomata {
     int currentCorpses = 0;
     int currentPlants = 0;
     int currentGround = 0;
-    // Animals and Corpses
-    ArrayList<int[]> newCarnivore = new ArrayList<>();
-    ArrayList<int[]> newHerbivore = new ArrayList<>();
-    ArrayList<int[]> newScavenger = new ArrayList<>();
-    ArrayList<int[]> newCorpses = new ArrayList<>();
-    // Plants and Ground
-    ArrayList<int[]> newPlants = new ArrayList<>();
-    ArrayList<int[]> newGround = new ArrayList<>();
-
-    boolean start = false;
-    Operations operation = new Operations();
+    // Current Animals, Corpses, Plants and Ground
+    // New Animals, Corpses, Plants and Ground
+    Map worldElements = [:]
 
     void init(int rows, int columns) {
         this.rows = rows;
         this.columns = columns;
-        this.neighborhood = neighborhood != null ? neighborhood : this.operation.generateRandomWorld(this.rows, this.columns);
+        this.world = world != null ? world : this.operation.generateRandomWorld(this.rows, this.columns);
     }
 
     void init(WorldElement[][] neighborhood) {
         this.rows = neighborhood.length;
         this.columns = neighborhood[0].length;
-        this.neighborhood = neighborhood;
+        this.world = neighborhood;
     }
 
     void init(float seed, int rows, int columns) {
@@ -46,7 +42,7 @@ trait MicroWorldAutomata {
         this.columns = columns;
         //
         Map worldComponents = this.operation.generateMicroWorldAnimals(seed, this.rows, this.columns);
-        this.neighborhood = worldComponents.world
+        this.world = worldComponents.world
         //
         currentCarnivore = worldComponents.currentCarnivore
         currentCorpses = worldComponents.currentCorpses
@@ -55,14 +51,28 @@ trait MicroWorldAutomata {
         currentPlants = worldComponents.currentPlants
         currentScavenger = worldComponents.currentScavenger
         //
-        newCarnivore = worldComponents.newCarnivore
-        newHerbivore = worldComponents.newHerbivore
-        newScavenger = worldComponents.newScavenger
-        newCorpses = worldComponents.newCorpses
-        newPlants = worldComponents.newPlants
-        newGround = worldComponents.newGround
+        worldElements.carnivores = worldComponents.carnivores
+        worldElements.herbivores = worldComponents.herbivors
+        worldElements.scavengers = worldComponents.scavengers
+        worldElements.corpses = worldComponents.corpses
+        worldElements.plants = worldComponents.plants
+        worldElements.ground = worldComponents.ground
 
     }
 
-    void task() {}
+    void task() {
+        int typeSize = typeOrder.size()
+        int actionSize = actionsOrder.size()
+        int elementIndex = Integer.parseInt("${typeSize * Math.random()}")
+        int actionIndex = Integer.parseInt("${actionSize * Math.random()}")
+        for (int i = elementIndex; i < typeSize + elementIndex; i++) {
+            for (int j = actionIndex; j < actionSize + actionIndex; j++) {
+                String type = typeOrder[i % typeSize]
+                for (element in worldElements."$type") {
+                    String action = actionsOrder[j % actionSize]
+                    element."$action"()
+                }
+            }
+        }
+    }
 }

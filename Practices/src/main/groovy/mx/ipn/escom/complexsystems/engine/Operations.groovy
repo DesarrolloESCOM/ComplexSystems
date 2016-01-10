@@ -1,4 +1,7 @@
 package mx.ipn.escom.complexsystems.engine
+
+import mx.ipn.escom.complexsystems.microworld.definition.impl.WorldElement
+
 /**
  * Created by alberto on 21/09/15.
  */
@@ -74,5 +77,13 @@ public class Operations {
     int[][] decimalToBinaryArray(int value) {
         String binaryValue = Integer.toString(value, 2);
 
+    }
+
+    Map generateMicroWorldAnimals(float seed, WorldElement[][] world) {
+
+    }
+
+    WorldElement[][] generateRandomWorld(int rows, int columns) {
+        new WorldElement[0][]
     }
 }
