@@ -12,6 +12,10 @@ repositories {
     mavenCentral()
 }
 
+compileGroovy{
+    groovyOptions.optimizationOptions = [all:true]
+}
+
 dependencies {
     // We use the latest groovy 2.x version for building this library
     compile 'org.codehaus.groovy:groovy-all:2.3.6'
@@ -78,5 +82,12 @@ task "CreateGameOfLifeStatistics"(dependsOn:'classes', type:JavaExec) {
 task "CreateDiffusioNRuleStatistics"(dependsOn:'classes', type:JavaExec) {
     description = "Generate GameOfLife statistics from 0.1, 0.2, 0.5 and 0.75"
     main = "mx.ipn.escom.complexsystems.scripts.statistics.DiffusionRuleStatistics"
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task "MicroWorldSimulation"(dependsOn:"classes", type: JavaExec) {
+    println "Work in progress";
+    description = "Start a simulation of the game of life"
+    main = 'mx.ipn.escom.complexsystems.simulators.swing.SimulationSwing'
     classpath = sourceSets.main.runtimeClasspath
 }
