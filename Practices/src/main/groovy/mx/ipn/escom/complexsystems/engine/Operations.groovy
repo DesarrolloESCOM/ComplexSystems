@@ -18,10 +18,23 @@ public class Operations {
     public int[][] generateSeededArray(float seed, int rows, int columns) {
         Random random = new Random();
         int[][] randomArray = new int[rows][columns];
+        int seedPercentage = (100 * seed)
+        int hits = 0
+        int value
         // Initializing the array
         for (int row = 0; row < rows; row++) {
             for (int column = 0; column < columns; column++) {
-                randomArray[row][column] = random.nextInt(100) <= (100 * seed) ? 1 : 0;
+                if (hits <= seedPercentage) {
+                    value = random.nextInt(100) <= seedPercentage ? 1 : 0;
+                    if (value) {
+                        hits++
+                    }
+                    randomArray[row][column] = value
+                } else {
+                    randomArray[row][column] = 0
+                }
+
+
             }
         }
         return randomArray;
