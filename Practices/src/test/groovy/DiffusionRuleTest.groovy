@@ -1,9 +1,11 @@
 import mx.ipn.escom.complexsystems.engine.definition.Diffusion
+import spock.lang.Ignore
 import spock.lang.Specification
 
 /**
  * Created by alberto on 15/10/15.
  */
+@Ignore
 class DiffusionRuleTest extends Specification {
     def "Should get all the neighbors from a given cell "() {
         given:

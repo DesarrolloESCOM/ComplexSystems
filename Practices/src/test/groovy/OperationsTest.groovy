@@ -1,4 +1,5 @@
 import mx.ipn.escom.complexsystems.engine.Operations
+import spock.lang.Ignore
 import spock.lang.Specification
 
 /**
@@ -37,7 +38,7 @@ class OperationsTest extends Specification {
         ] as short[][]
 
     }
-
+    @Ignore
     def "Should generate a seeded array"() {
         given:
         int rows = 5;
