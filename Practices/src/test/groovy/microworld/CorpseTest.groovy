@@ -42,9 +42,6 @@ class CorpseTest extends Specification {
         corpse.position = [1, 1]
         corpse.decreaseLife(1);
         expect:
-        for(row in world) {
-            println row
-        }
         world.flatten().count { element -> element.type == WorldTypes.Plant.getValue() } >= 4
     }
 }

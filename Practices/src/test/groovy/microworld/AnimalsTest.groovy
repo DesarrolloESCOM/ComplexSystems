@@ -1,7 +1,6 @@
 package microworld
 
 import mx.ipn.escom.complexsystems.engine.Operations
-import mx.ipn.escom.complexsystems.microworld.definition.elements.Corpse
 import mx.ipn.escom.complexsystems.microworld.definition.elements.Ground
 import mx.ipn.escom.complexsystems.microworld.definition.elements.Herbivore
 import mx.ipn.escom.complexsystems.microworld.definition.elements.Plant
@@ -18,53 +17,65 @@ import java.lang.Void as Should
  */
 class AnimalsTest extends Specification {
     @Shared
-    Ground ground = new Ground();
+            ground = new Ground();
     @Shared
-    Water water = new Water();
+            water = new Water();
+    @Shared
+    WorldElement herbivore
     @Shared
     WorldElement[][] world = [
-            [water, new Plant(), ground, ground, ground],
+            [water, ground, ground, ground, ground],
             [new Plant(), ground, ground, ground, ground],
             [ground, ground, ground, ground, ground],
             [ground, ground, ground, ground, ground],
             [ground, ground, ground, ground, ground],
     ]
 
+    def setup() {
+        herbivore = new Herbivore()
+        herbivore.position = [0, 1]
+        world[0][1] = herbivore
+        herbivore.worldCopy = world
+    }
+
+
     Should "Die from life points"() {
         given:
-        WorldElement animal = new Herbivore()
-        animal.life = 1;
-        animal.decreaseLife(1)
-        animal = Operations.verifyElement(animal)
+        herbivore.life = 1;
+        herbivore.decreaseLife(1)
+        herbivore = Operations.verifyElement(herbivore)
         expect:
-        assert animal.class.getSimpleName() == "Corpse"
-        assert animal.type == WorldTypes.Corpse.value
-        assert animal.alive == false
-        assert animal.life == 20
-    }
-    // Drink
-    @Ignore
-    Should "Drink water from the nearest weather source"() {
-
+        assert herbivore.class.getSimpleName() == "Corpse"
+        assert herbivore.type == WorldTypes.Corpse.value
+        assert herbivore.alive == false
+        assert herbivore.life == 20
     }
 
-    @Ignore
+    Should "Drink water from the nearest source"() {
+        given:
+        int prevLife = herbivore.life
+        herbivore.drink()
+        herbivore = Operations.verifyElement(herbivore)
+        expect:
+        assert herbivore.class.getSimpleName() == "Herbivore"
+        assert prevLife < herbivore.life
+    }
+
     Should "generate a new Carnivore/Herbivore/Scavenger (reproduction)"() {
-
-    }
-    // Move
-    @Ignore
-    Should "Move to a new place considering predator presence"() {
-
-    }
-
-    @Ignore
-    Should "Move to a new place considering water existence"() {
-
+        given:
+        herbivore.life = 70
+        herbivore.reproduce()
+        expect:
+        world.flatten().count { element -> element.type == WorldTypes.Herbivore.value } > 1
     }
 
     @Ignore
-    Should "Move to a new place randomly (Considering nothing near of the animal)"() {
+    Should "Move to a new place considering water/food/predator existence"() {
+
+    }
+
+    @Ignore
+    Should "Eat from nearest food source"() {
 
     }
 }
