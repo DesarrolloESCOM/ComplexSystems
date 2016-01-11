@@ -1,7 +1,11 @@
 package mx.ipn.escom.complexsystems.engine
 
+import mx.ipn.escom.complexsystems.microworld.definition.elements.scenario.NatureElement
 import mx.ipn.escom.complexsystems.microworld.definition.impl.WorldElement
 import mx.ipn.escom.complexsystems.microworld.definition.impl.WorldTypes
+
+import javax.imageio.ImageIO
+import java.awt.image.BufferedImage
 
 /**
  * Created by alberto on 21/09/15.
@@ -146,10 +150,48 @@ public class Operations {
                 }
             }
         }
-        for (row in world) {
-            println row
-        }
-        println worldComponents
         return worldComponents
+    }
+
+    WorldElement[][] getMapFromImage(String path) {
+        File image = new File(path);
+        BufferedImage bufferedImage = ImageIO.read(image);
+        int height = bufferedImage.getHeight()
+        int width = bufferedImage.getWidth()
+        WorldElement[][] finalMap = new WorldElement[width][height]
+        for (int row = 0; row < height; row++) {
+            for (int column = 0; column < width; column++) {
+                // The pixels are read in reverse order (?)
+                int rgbColor = bufferedImage.getRGB(column, row);
+                int red = (rgbColor & 0x00ff0000) >> 16;
+                int green = (rgbColor & 0x0000ff00) >> 8;
+                int blue = rgbColor & 0x000000ff;
+                String hexColor = String.format("%02x%02x%02x", red, green, blue).toUpperCase();
+                WorldElement element;
+                switch (hexColor) {
+                    case "00FF00":
+                        element = new NatureElement()
+                        element.type = WorldTypes.Plant.getValue()
+                        finalMap[row][column] = element
+                        break;
+                    case "0000FF":
+                        element = new NatureElement()
+                        element.type = WorldTypes.Water.getValue()
+                        finalMap[row][column] = element
+                        break;
+                    case "FFDEAD":
+                        element = new NatureElement()
+                        element.type = WorldTypes.Ground.getValue()
+                        finalMap[row][column] = element
+                        break;
+                    default:
+                        element = new NatureElement()
+                        element.type = WorldTypes.Ground.getValue()
+                        finalMap[row][column] = element
+                        break;
+                }
+            }
+        }
+        return finalMap
     }
 }
