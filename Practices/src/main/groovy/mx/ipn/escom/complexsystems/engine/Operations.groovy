@@ -201,11 +201,14 @@ public class Operations {
         String elementClassName = element.class.getSimpleName()
         if (element.type != WorldTypes."$elementClassName".value) {
             String newElementClassName = WorldTypes.values()[element.type]
-            println newElementClassName
             Map previousProperties = element.properties
             element = Class.forName("${elementsPackageName}.${newElementClassName}").newInstance();
             element.position = previousProperties.position
         }
         return element
+    }
+
+    static int distance(int[] source, int[] destination) {
+        Math.abs(source[0] - destination[0]) + Math.abs(source[1] - destination[1]);
     }
 }
