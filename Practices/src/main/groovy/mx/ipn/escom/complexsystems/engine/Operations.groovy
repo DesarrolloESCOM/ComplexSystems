@@ -13,10 +13,10 @@ import java.awt.image.BufferedImage
  * Created by alberto on 21/09/15.
  */
 public class Operations {
-    String animalsPackageName = "mx.ipn.escom.complexsystems.microworld.definition.elements"
+    static String elementsPackageName = "mx.ipn.escom.complexsystems.microworld.definition.elements"
     Map typeOrder = [0: "Carnivore", 1: "Herbivore", 2: "Scavenger", 3: "Corpse", 4: "Plant", 5: "Ground", 6: "Water"]
     Map animalsOrder = [0: "Carnivore", 1: "Herbivore", 2: "Scavenger", 3: "Corpse"]
-    Map actionsOrder = [0: "drink", 1: "eat", 2: "locationInformation", 3: "move", 4: "reproduce", 5: "generatePlants", 6: "decreaseLife"]
+    Map actionsOrder = [0: "drink", 1: "eat", 2: "locationInformation", 3: "move", 4: "reproduce", 5: "die", 6: "decreaseLife"]
 
     public int[][] generateRandomArray(int rows, int columns) {
         Random random = new Random();
@@ -141,7 +141,7 @@ public class Operations {
                         }
                     }
                     // generate a new animal
-                    WorldElement animalInstance = Class.forName("${animalsPackageName}.${animalType}").newInstance();
+                    WorldElement animalInstance = Class.forName("${elementsPackageName}.${animalType}").newInstance();
                     animalInstance.type = WorldTypes."${animalType}".getValue()
                     // Add it into the statistics map
                     worldComponents.statistics[animalType]++
@@ -195,5 +195,17 @@ public class Operations {
             }
         }
         return finalMap
+    }
+
+    static WorldElement verifyElement(WorldElement element) {
+        String elementClassName = element.class.getSimpleName()
+        if (element.type != WorldTypes."$elementClassName".value) {
+            String newElementClassName = WorldTypes.values()[element.type]
+            println newElementClassName
+            Map previousProperties = element.properties
+            element = Class.forName("${elementsPackageName}.${newElementClassName}").newInstance();
+            element.position = previousProperties.position
+        }
+        return element
     }
 }
