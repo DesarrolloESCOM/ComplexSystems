@@ -10,18 +10,20 @@ class Corpse implements WorldElement {
     public Corpse() {
         this.sightRange = 1;
         this.life = 20;
+        this.alive = false;
+        this.type = WorldTypes.Corpse.value
     }
 
     void decreaseLife(int value) {
         this.life -= value;
         if (life <= 0) {
-            this.generatePlants()
+            this.die()
         }
         this.alive = false
         this.type = WorldTypes.Ground.value
     }
 
-    void generatePlants() {
+    void die() {
         Random random = new Random()
         int rows = worldCopy.length
         int columns = worldCopy[0].length
