@@ -1,6 +1,8 @@
 package mx.ipn.escom.complexsystems.engine
 
-import mx.ipn.escom.complexsystems.microworld.definition.elements.scenario.NatureElement
+import mx.ipn.escom.complexsystems.microworld.definition.elements.Ground
+import mx.ipn.escom.complexsystems.microworld.definition.elements.Plant
+import mx.ipn.escom.complexsystems.microworld.definition.elements.Water
 import mx.ipn.escom.complexsystems.microworld.definition.impl.WorldElement
 import mx.ipn.escom.complexsystems.microworld.definition.impl.WorldTypes
 
@@ -11,7 +13,7 @@ import java.awt.image.BufferedImage
  * Created by alberto on 21/09/15.
  */
 public class Operations {
-    String animalsPackageName = "mx.ipn.escom.complexsystems.microworld.definition.elements.animals"
+    String animalsPackageName = "mx.ipn.escom.complexsystems.microworld.definition.elements"
     Map typeOrder = [0: "Carnivore", 1: "Herbivore", 2: "Scavenger", 3: "Corpse", 4: "Plant", 5: "Ground", 6: "Water"]
     Map animalsOrder = [0: "Carnivore", 1: "Herbivore", 2: "Scavenger", 3: "Corpse"]
     Map actionsOrder = [0: "drink", 1: "eat", 2: "locationInformation", 3: "move", 4: "reproduce", 5: "generatePlants", 6: "decreaseLife"]
@@ -170,22 +172,22 @@ public class Operations {
                 WorldElement element;
                 switch (hexColor) {
                     case "00FF00":
-                        element = new NatureElement()
+                        element = new Plant()
                         element.type = WorldTypes.Plant.getValue()
                         finalMap[row][column] = element
                         break;
                     case "0000FF":
-                        element = new NatureElement()
+                        element = new Water()
                         element.type = WorldTypes.Water.getValue()
                         finalMap[row][column] = element
                         break;
                     case "FFDEAD":
-                        element = new NatureElement()
+                        element = new Ground()
                         element.type = WorldTypes.Ground.getValue()
                         finalMap[row][column] = element
                         break;
                     default:
-                        element = new NatureElement()
+                        element = new Ground()
                         element.type = WorldTypes.Ground.getValue()
                         finalMap[row][column] = element
                         break;
