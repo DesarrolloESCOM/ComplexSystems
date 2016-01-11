@@ -3,9 +3,10 @@ package microworld
  * Created by alberto on 9/01/16.
  */
 
-
 import mx.ipn.escom.complexsystems.engine.Operations
-import mx.ipn.escom.complexsystems.microworld.definition.elements.scenario.NatureElement
+import mx.ipn.escom.complexsystems.microworld.definition.elements.Ground
+import mx.ipn.escom.complexsystems.microworld.definition.elements.Plant
+import mx.ipn.escom.complexsystems.microworld.definition.elements.Water
 import mx.ipn.escom.complexsystems.microworld.definition.impl.WorldElement
 import mx.ipn.escom.complexsystems.microworld.definition.impl.WorldTypes
 import spock.lang.Ignore
@@ -16,9 +17,9 @@ import java.lang.Void as Should
 class NatureElementsTest extends Specification {
 
     @Shared
-    def water = new NatureElement([type: WorldTypes.Water.getValue(), life: -1])
-    def ground = new NatureElement([type: WorldTypes.Ground.getValue(), life: -1])
-    def plant = new NatureElement([type: WorldTypes.Plant.getValue(), life: 50])
+    def water = new Water([type: WorldTypes.Water.getValue(), life: -1])
+    def ground = new Ground([type: WorldTypes.Ground.getValue(), life: -1])
+    def plant = new Plant([type: WorldTypes.Plant.getValue(), life: 50])
     WorldElement[][] world = [
             [water, water, water, plant, ground, ground],
             [water, water, plant, ground, ground, ground],
@@ -34,15 +35,10 @@ class NatureElementsTest extends Specification {
             [ground, ground, ground, ground]
     ]
     Operations operations = new Operations()
-    int rows = 6
-    int columns = 6;
-    int currentNatureElements = 9
     float seed = 0.10;
-    float expectedPopulation = (rows * columns - currentNatureElements) * seed
 
     Should "generate the world from a given image"() {
         expect:
-        println testImage
         def mapFromImage = operations.getMapFromImage("/home/alberto/Desktop/Mini.png");
         assert mapFromImage.toString() == testImage.toString()
     }
