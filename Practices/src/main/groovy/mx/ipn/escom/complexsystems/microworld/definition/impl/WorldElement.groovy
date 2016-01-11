@@ -13,14 +13,20 @@ trait WorldElement {
     int type
     WorldElement[][] worldCopy
 
-    void drink() {}
-    void eat() {}
-    Map locationInformation() {}
-    void move() {}
-    void reproduce() {}
     void decreaseLife(int value) {}
-    void decreaseFood(int value) {}
-    void decreaseWater(int value) {}
+
+    void die() {}
+
+    void drink() {}
+
+    void eat() {}
+
+    Map locationInformation() {}
+
+    void move() {}
+
+    void reproduce() {}
+
     String toString() {
         return "$type:$life"
     }
