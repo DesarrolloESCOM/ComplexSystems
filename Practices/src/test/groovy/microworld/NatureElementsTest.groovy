@@ -17,9 +17,9 @@ import java.lang.Void as Should
 class NatureElementsTest extends Specification {
 
     @Shared
-    def water = new Water([type: WorldTypes.Water.getValue(), life: -1])
-    def ground = new Ground([type: WorldTypes.Ground.getValue(), life: -1])
-    def plant = new Plant([type: WorldTypes.Plant.getValue(), life: 50])
+    def water = new Water([type: WorldTypes.Water.getValue()])
+    def ground = new Ground([type: WorldTypes.Ground.getValue()])
+    def plant = new Plant([type: WorldTypes.Plant.getValue()])
     WorldElement[][] world = [
             [water, water, water, plant, ground, ground],
             [water, water, plant, ground, ground, ground],
