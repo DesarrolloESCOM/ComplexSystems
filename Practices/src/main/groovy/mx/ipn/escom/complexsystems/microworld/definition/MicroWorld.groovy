@@ -1,4 +1,4 @@
-package mx.ipn.escom.complexsystems.microworld.definition.elements
+package mx.ipn.escom.complexsystems.microworld.definition
 
 import mx.ipn.escom.complexsystems.microworld.definition.impl.MicroWorldAutomata
 

@@ -1,4 +1,4 @@
-package mx.ipn.escom.complexsystems.microworld.definition.elements.scenario
+package mx.ipn.escom.complexsystems.microworld.definition.elements
 
 import mx.ipn.escom.complexsystems.microworld.definition.impl.WorldElement
 
