@@ -1,5 +1,6 @@
 package mx.ipn.escom.complexsystems.microworld.definition.elements
 
+import mx.ipn.escom.complexsystems.engine.Operations
 import mx.ipn.escom.complexsystems.microworld.definition.impl.WorldElement
 import mx.ipn.escom.complexsystems.microworld.definition.impl.WorldTypes
 
@@ -12,18 +13,14 @@ class Corpse implements WorldElement {
         this.life = 20;
         this.alive = false;
         this.type = WorldTypes.Corpse.value
-    }
-
-    void decreaseLife(int value) {
-        this.life -= value;
-        if (life <= 0) {
-            this.die()
-        }
-        this.alive = false
-        this.type = WorldTypes.Ground.value
+        this.canonicalName = "${Operations.elementsPackageName}.${this.class.getSimpleName()}"
     }
 
     void die() {
+        // changing types
+        this.alive = false
+        this.type = WorldTypes.Ground.value
+        //
         Random random = new Random()
         int rows = worldCopy.length
         int columns = worldCopy[0].length

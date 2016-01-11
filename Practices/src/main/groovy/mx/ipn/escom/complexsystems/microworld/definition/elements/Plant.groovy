@@ -9,12 +9,15 @@ import mx.ipn.escom.complexsystems.microworld.definition.impl.WorldTypes
 class Plant implements WorldElement {
     public Plant() {
         this.life = 100;
-        this.water = 0;
-        this.food = 0
         this.type = WorldTypes.Plant.getValue()
     }
 
     void decreaseLife(int value) {
         this.life -= value;
+    }
+
+    void die() {
+        this.type = WorldTypes.Ground.value
+        this.alive = false;
     }
 }
