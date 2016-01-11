@@ -38,10 +38,6 @@ class CorpseTest extends Specification {
 
     Should "Generate plants randomly after corpse's time of life"() {
         given:
-        for(row in world) {
-            println row
-        }
-        println "-------------------------------------------------------"
         corpse.life = 1;
         corpse.position = [1, 1]
         corpse.decreaseLife(1);
@@ -49,6 +45,6 @@ class CorpseTest extends Specification {
         for(row in world) {
             println row
         }
-        world.flatten().count { element -> element.type == WorldTypes.Plant.getValue() } > 4
+        world.flatten().count { element -> element.type == WorldTypes.Plant.getValue() } >= 4
     }
 }
