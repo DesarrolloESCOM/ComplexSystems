@@ -16,8 +16,8 @@ import java.awt.image.BufferedImage
 public class Operations {
     static String elementsPackageName = "mx.ipn.escom.complexsystems.microworld.definition.elements"
     Map animalsOrder = [0: "Carnivore", 1: "Herbivore", 2: "Scavenger", 3: "Corpse"]
-    //Map actionsOrder = [0: "drink", 1: "eat", 2: "moveWithInformation", 3: "move", 4: "reproduce"]
-    Map actionsOrder = [0: "drink", 1: "eat", 2: "move", 3: "reproduce"]
+    Map actionsOrder = [0: "drink", 1: "eat", 2: "moveWithInformation", 3: "move", 4: "reproduce"]
+    //Map actionsOrder = [0: "drink", 1: "eat", 2: "move", 3: "reproduce"]
     Map movementsReasonMap = [0: "Water", 1: "Plant", 2: "Carnivore", 3: "Herbivore", 4: "Scavenger", 5: "Corpse"]
 
     public int[][] generateRandomArray(int rows, int columns) {
