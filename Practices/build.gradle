@@ -85,6 +85,12 @@ task "CreateDiffusioNRuleStatistics"(dependsOn:'classes', type:JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
 }
 
+task "CreateMicroWorldStatistics"(dependsOn:'classes', type:JavaExec) {
+    description = "Generate MicroWorld statistics 0.0001, 0.001, 0.01, 0.1"
+    main = "mx.ipn.escom.complexsystems.scripts.statistics.MicroWorldStatistics"
+    classpath = sourceSets.main.runtimeClasspath
+}
+
 task "MicroWorldSimulation"(dependsOn:"classes", type: JavaExec) {
     println "Work in progress";
     description = "Start the simulation of a microworld"
