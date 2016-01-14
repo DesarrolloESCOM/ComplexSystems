@@ -87,7 +87,7 @@ task "CreateDiffusioNRuleStatistics"(dependsOn:'classes', type:JavaExec) {
 
 task "MicroWorldSimulation"(dependsOn:"classes", type: JavaExec) {
     println "Work in progress";
-    description = "Start a simulation of the game of life"
-    main = 'mx.ipn.escom.complexsystems.simulators.swing.SimulationSwing'
+    description = "Start the simulation of a microworld"
+    main = 'mx.ipn.escom.complexsystems.microworld.swing.SimulationSwing'
     classpath = sourceSets.main.runtimeClasspath
 }
