@@ -81,6 +81,8 @@ public class SimulationSwing extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setVisible(false);
+
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(["GoL", "Diffusion"] as String[]));
         jComboBox1.setEnabled(false)
         jComboBox1.setVisible(false)
@@ -131,7 +133,7 @@ public class SimulationSwing extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         drawingPanel.automata = this.automata;
-        WorldElement[][] world = automata.operation.getMapFromImage("/home/alberto/Desktop/Medium2.png")
+        WorldElement[][] world = automata.operation.getMapFromImage("/home/alberto/Desktop/Medium.png")
         automata.world = world
         automata.operation.generateMicroWorldAnimals(0.0001, automata.world)
         automata.init(world);
@@ -190,7 +192,7 @@ public class SimulationSwing extends javax.swing.JFrame {
                         timer.stop();
                     }
                 });
-                simulatorSwing.setTitle("Simulación de Automatas - Reséndiz Arteaga Juan Alberto");
+                simulatorSwing.setTitle("Simulación de MicroMundo - Reséndiz Arteaga Juan Alberto");
                 simulatorSwing.setSize(400, 300);
                 simulatorSwing.setVisible(true);
                 simulatorSwing.setResizable(false);

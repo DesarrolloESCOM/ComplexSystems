@@ -14,7 +14,7 @@ import java.awt.event.ActionListener
  */
 public class DrawingPanel extends JPanel implements ActionListener {
 
-    public final int DELAY = 400;
+    public final int DELAY = 500;
     public int rows = 0;
     public int columns = 0;
     public Timer timer;
@@ -64,41 +64,35 @@ public class DrawingPanel extends JPanel implements ActionListener {
     }
 
     public void drawEntireMap(Graphics2D g2d) {
-        for (short row = 0; row < automata.rows; row++) {
-            for (short column = 0; column < automata.columns; column++) {
-                switch (automata.world[row][column].type) {
-                    case WorldTypes.Plant.value:
-                        g2d.setPaint(Color.GREEN);
-                        g2d.drawLine(row, column, row, column);
-                        break;
-                    case WorldTypes.Water.value:
-                        g2d.setPaint(Color.BLUE);
-                        g2d.drawLine(row, column, row, column);
-                        break;
-                    case WorldTypes.Ground.value:
-                        g2d.setPaint(Color.YELLOW);
-                        g2d.drawLine(row, column, row, column);
-                        break;
-                    case WorldTypes.Herbivore.value:
-                        g2d.setPaint(Color.CYAN);
-                        g2d.drawLine(row, column, row, column);
-                        break;
-                    case WorldTypes.Carnivore.value:
-                        g2d.setPaint(Color.red);
-                        g2d.drawLine(row, column, row, column);
-                        break;
-                    case WorldTypes.Scavenger.value:
-                        g2d.setPaint(Color.ORANGE);
-                        g2d.drawLine(row, column, row, column);
-                        break;
-                    case WorldTypes.Corpse.value:
-                        g2d.setPaint(Color.BLACK);
-                        g2d.drawLine(row, column, row, column);
-                        break;
-                }
-
-            }
+        automata.currentElements.Water.each { water ->
+            g2d.setPaint(Color.BLUE);
+            g2d.drawLine(water.position[0], water.position[1], water.position[0], water.position[1]);
         }
+        automata.currentElements.Plant.each { plant ->
+            g2d.setPaint(Color.GREEN);
+            g2d.drawLine(plant.position[0], plant.position[1], plant.position[0], plant.position[1]);
+        }
+        automata.currentElements.Ground.each { ground ->
+            g2d.setPaint(Color.YELLOW);
+            g2d.drawLine(ground.position[0], ground.position[1], ground.position[0], ground.position[1]);
+        }
+        automata.currentElements.Herbivore.each { herbivore ->
+            g2d.setPaint(Color.CYAN);
+            g2d.drawLine(herbivore.position[0], herbivore.position[1], herbivore.position[0], herbivore.position[1]);
+        }
+        automata.currentElements.Carnivore.each { carnivore ->
+            g2d.setPaint(Color.RED);
+            g2d.drawLine(carnivore.position[0], carnivore.position[1], carnivore.position[0], carnivore.position[1]);
+        }
+        automata.currentElements.Scavenger.each { scavenger ->
+            g2d.setPaint(Color.ORANGE);
+            g2d.drawLine(scavenger.position[0], scavenger.position[1], scavenger.position[0], scavenger.position[1]);
+        }
+        automata.currentElements.Corpse.each { corpse ->
+            g2d.setPaint(Color.BLACK);
+            g2d.drawLine(corpse.position[0], corpse.position[1], corpse.position[0], corpse.position[1]);
+        }
+
     }
 
 }
