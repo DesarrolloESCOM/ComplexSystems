@@ -35,7 +35,11 @@ class Corpse implements WorldElement {
                 partialColumn = (column % columns) < 0 ? (column % columns) + columns : (column % columns);
                 if (random.nextBoolean()) {
                     if (worldCopy[partialRow][partialColumn].type == WorldTypes.Ground.getValue()) {
-                        worldCopy[partialRow][partialColumn] = new Plant()
+                        WorldElement plant = new Plant()
+                        plant.position = [partialRow, partialColumn]
+                        plant.worldCopy = worldCopy
+                        worldCopy[partialRow][partialColumn] = plant
+
                     }
                 }
             }
@@ -56,6 +60,7 @@ class Corpse implements WorldElement {
                 partialColumn = (column % columns) < 0 ? (column % columns) + columns : (column % columns);
                 if (worldCopy[partialRow][partialColumn].type == WorldTypes.Plant.getValue()) {
                     worldCopy[partialRow][partialColumn].decreaseLife(5);
+                    worldCopy[partialRow][partialColumn] = Operations.verifyElement(worldCopy[partialRow][partialColumn])
                 }
             }
         }
