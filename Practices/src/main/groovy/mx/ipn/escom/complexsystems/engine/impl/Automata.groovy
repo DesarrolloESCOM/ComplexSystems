@@ -14,7 +14,7 @@ trait Automata {
     ArrayList<int[]> newAlive = new ArrayList<>();
     ArrayList<int[]> newDeath = new ArrayList<>();
     boolean start = false;
-    Operations operation = new Operations();
+    Operations operation = Operations.instance;
 
     void init(int rows, int columns) {
         this.rows = rows;

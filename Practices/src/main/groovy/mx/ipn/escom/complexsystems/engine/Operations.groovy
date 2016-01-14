@@ -12,11 +12,13 @@ import java.awt.image.BufferedImage
 /**
  * Created by alberto on 21/09/15.
  */
+@Singleton
 public class Operations {
     static String elementsPackageName = "mx.ipn.escom.complexsystems.microworld.definition.elements"
     Map typeOrder = [0: "Carnivore", 1: "Herbivore", 2: "Scavenger", 3: "Corpse", 4: "Plant", 5: "Ground", 6: "Water"]
     Map animalsOrder = [0: "Carnivore", 1: "Herbivore", 2: "Scavenger", 3: "Corpse"]
-    Map actionsOrder = [0: "drink", 1: "eat", 2: "locationInformation", 3: "move", 4: "reproduce", 5: "die", 6: "decreaseLife"]
+    Map actionsOrder = [0: "drink", 1: "eat", 2: "moveWithInformation", 3: "move", 4: "reproduce", 5: "decreaseLife"]
+    Map movementsReasonMap = [0: "Water", 1: "Plant", 2: "Carnivore", 3: "Herbivore", 4: "Scavenger", 5: "Corpse"]
 
     public int[][] generateRandomArray(int rows, int columns) {
         Random random = new Random();
@@ -208,7 +210,18 @@ public class Operations {
         return element
     }
 
-    static int distance(int[] source, int[] destination) {
+    int distance(List source, List destination) {
         Math.abs(source[0] - destination[0]) + Math.abs(source[1] - destination[1]);
+    }
+
+    void printMap(WorldElement[][] world) {
+        println "*************************************************"
+        for (row in world) {
+            for (element in row) {
+                print("[${element.type}]")
+            }
+            println()
+        }
+        println "*************************************************"
     }
 }
