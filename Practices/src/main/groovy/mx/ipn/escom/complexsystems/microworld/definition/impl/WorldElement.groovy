@@ -218,18 +218,6 @@ trait WorldElement {
                         operations.distance(it.position, neighborInformation."$reason".position)
                     }
                 }
-                // creating a new Ground Element
-                def prevPosition = this.position
-                WorldElement newGround = new Ground()
-                newGround.position = this.position
-                // assign the nearest/furthest ground position to this object
-                this.position = elementsList.Ground[0].position
-                worldCopy[this.position[0]][this.position[1]] = this
-                // Now assigns to the previous animals position a ground object
-                worldCopy[prevPosition[0]][prevPosition[1]] = newGround
-                // Decreasing life from this animal after it moved!
-                this.decreaseLife(operations.distance(this.position, newGround.position))
-            } else {
                 if (elementsList.Ground.size()) { // the animal can move just if there's ground near him!
                     // considering the random reason movement!
                     if (elementsList."$reason") {
@@ -253,6 +241,8 @@ trait WorldElement {
                     // Decreasing life from this animal after it moved!
                     this.decreaseLife(operations.distance(this.position, newGround.position))
                 }
+            } else {
+                this.decreaseLife(1)
             }
         } else { // couldnt move :(
             this.decreaseLife(1)

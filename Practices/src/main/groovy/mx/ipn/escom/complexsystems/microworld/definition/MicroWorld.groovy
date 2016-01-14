@@ -9,8 +9,26 @@ import mx.ipn.escom.complexsystems.microworld.definition.impl.WorldTypes
  */
 @Singleton
 class MicroWorld implements MicroWorldAutomata {
+
     void task() {
         this.generation += 1;
+        currentElements = [
+                "Plant"    : [],
+                "Corpse"   : [],
+                "Scavenger": [],
+                "Herbivore": [],
+                "Carnivore": [],
+                "Water"    : [],
+                "Ground"   : []];
+        this.statistics = [
+                "Plant"    : 0,
+                "Corpse"   : 0,
+                "Scavenger": 0,
+                "Herbivore": 0,
+                "Carnivore": 0,
+                "Water"    : 0,
+                "Ground"   : 0]
+
         Random random = new Random()
         int actionSize = this.operation.actionsOrder.size()
         rows = world.length
@@ -25,12 +43,14 @@ class MicroWorld implements MicroWorldAutomata {
                 if (world[i][j].type in [WorldTypes.Herbivore.value, WorldTypes.Carnivore.value, WorldTypes.Scavenger.value]) {
                     world[i][j]."${operation.actionsOrder[actionIndex]}"()
                 }
+                currentElements["${WorldTypes.values()[world[i][j].type]}"].add(world[i][j])
+                statistics["${WorldTypes.values()[world[i][j].type]}"]++;
             }
         }
     }
 
-    Map getStatistics() {
-        Map statistics = [
+    /*Map getStatistics() {
+        this.statistics = [
                 "Plant"    : 0,
                 "Corpse"   : 0,
                 "Scavenger": 0,
@@ -45,5 +65,5 @@ class MicroWorld implements MicroWorldAutomata {
             }
         }
         return statistics
-    }
+    }*/
 }
