@@ -173,8 +173,7 @@ trait WorldElement {
         Random random = new Random()
         int movementReasonsSize = operations.movementsReasonMap.size();
         int movementReasonIndex = random.nextInt(movementReasonsSize);
-        //String reason = operations.movementsReasonMap[movementReasonIndex]
-        String reason = "Corpse"
+        String reason = operations.movementsReasonMap[movementReasonIndex]
 
         Map elementsList = [
                 "Ground"   : [],
@@ -231,7 +230,7 @@ trait WorldElement {
                 // Decreasing life from this animal after it moved!
                 this.decreaseLife(operations.distance(this.position, newGround.position))
             } else {
-                if (elementsList.Ground) { // the animal can move just if there's ground near him!
+                if (elementsList.Ground.size()) { // the animal can move just if there's ground near him!
                     // considering the random reason movement!
                     if (elementsList."$reason") {
                         elementsList."$reason".sort {
@@ -245,6 +244,7 @@ trait WorldElement {
                     def prevPosition = this.position
                     WorldElement newGround = new Ground()
                     newGround.position = this.position
+                    newGround.worldCopy = this.worldCopy
                     // assign the nearest/furthest ground position to this object
                     this.position = elementsList.Ground[0].position
                     worldCopy[this.position[0]][this.position[1]] = this
@@ -276,6 +276,7 @@ trait WorldElement {
                     if (worldCopy[partialRow][partialColumn].type == WorldTypes.Ground.value) {
                         WorldElement element = Class.forName(canonicalName).newInstance()
                         element.position = [partialRow, partialColumn]
+                        element.worldCopy = this.worldCopy
                         worldCopy[partialRow][partialColumn] = element
                         hasBorn = true;
                         decreaseLife(50);
@@ -286,6 +287,6 @@ trait WorldElement {
     }
 
     String toString() {
-        return "$type:$life"
+        return "[$position]|$type|$life"
     }
 }

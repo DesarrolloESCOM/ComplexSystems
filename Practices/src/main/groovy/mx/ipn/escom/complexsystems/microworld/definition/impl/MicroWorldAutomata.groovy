@@ -1,19 +1,21 @@
 package mx.ipn.escom.complexsystems.microworld.definition.impl
 
 import mx.ipn.escom.complexsystems.engine.Operations
+import mx.ipn.escom.complexsystems.microworld.definition.elements.Corpse
 
 /**
  * Created by alberto on 9/01/16.
  */
 trait MicroWorldAutomata {
+    // Automata basic property
+    int generation = 0;
     // MicroWorld properties
     int rows = 0;
     int columns = 0;
     boolean start = false;
     Operations operation = Operations.instance
     WorldElement[][] world;
-    // currentElements and elements lists
-    Map worldElements = [:]
+
 
     void init(WorldElement[][] world) {
         this.rows = world.length;
@@ -21,25 +23,6 @@ trait MicroWorldAutomata {
         this.world = world;
     }
 
-    void seedMap(float seed) {
-        //
-        this.worldElements = this.operation.generateMicroWorldAnimals(seed, this.world);
-    }
-
     void task() {
-        Random random = new Random()
-        int typeSize = this.operation.animalsOrder.size()
-        int actionSize = this.operation.actionsOrder.size()
-        int elementIndex = random.nextInt(typeSize)
-        int actionIndex = random.nextInt(actionSize)
-        for (int i = elementIndex; i < typeSize + elementIndex; i++) {
-            for (int j = actionIndex; j < actionSize + actionIndex; j++) {
-                String type = this.operation.animalsOrder[i % typeSize]
-                for (element in worldElements."$type") {
-                    String action = this.operation.actionsOrder[j % actionSize]
-                    element."$action"()
-                }
-            }
-        }
     }
 }
