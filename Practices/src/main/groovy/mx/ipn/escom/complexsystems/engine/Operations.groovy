@@ -15,9 +15,9 @@ import java.awt.image.BufferedImage
 @Singleton
 public class Operations {
     static String elementsPackageName = "mx.ipn.escom.complexsystems.microworld.definition.elements"
-    Map typeOrder = [0: "Carnivore", 1: "Herbivore", 2: "Scavenger", 3: "Corpse", 4: "Plant", 5: "Ground", 6: "Water"]
     Map animalsOrder = [0: "Carnivore", 1: "Herbivore", 2: "Scavenger", 3: "Corpse"]
-    Map actionsOrder = [0: "drink", 1: "eat", 2: "moveWithInformation", 3: "move", 4: "reproduce", 5: "decreaseLife"]
+    //Map actionsOrder = [0: "drink", 1: "eat", 2: "moveWithInformation", 3: "move", 4: "reproduce"]
+    Map actionsOrder = [0: "drink", 1: "eat", 2: "move", 3: "reproduce"]
     Map movementsReasonMap = [0: "Water", 1: "Plant", 2: "Carnivore", 3: "Herbivore", 4: "Scavenger", 5: "Corpse"]
 
     public int[][] generateRandomArray(int rows, int columns) {
@@ -113,16 +113,8 @@ public class Operations {
         ]
         for (int row = 0; row < rows; row++) {
             for (int column = 0; column < columns; column++) {
-                if (world[row][column].type == WorldTypes.Water.getValue()) {
-                    worldComponents.statistics["Water"]++
+                if (world[row][column].type == WorldTypes.Water.value) {
                     continue;
-                } else if (world[row][column].type == WorldTypes.Plant.getValue()) {
-                    worldComponents.statistics["Plant"]++
-                    worldComponents.elements["Plant"].add(world[row][column])
-                    continue;
-                } else if (world[row][column].type == WorldTypes.Ground.getValue()) {
-                    worldComponents.statistics["Ground"]++
-                    worldComponents.elements["Ground"].add(world[row][column])
                 }
                 // Letting some ground alive!
                 if (random.nextInt(5) <= 2) {
@@ -145,12 +137,9 @@ public class Operations {
                     // generate a new animal
                     WorldElement animalInstance = Class.forName("${elementsPackageName}.${animalType}").newInstance();
                     animalInstance.type = WorldTypes."${animalType}".getValue()
-                    // Add it into the statistics map
-                    worldComponents.statistics[animalType]++
-                    worldComponents.statistics["Ground"]--
-                    worldComponents.elements["Ground"].remove(world[row][column])
+                    animalInstance.position = [row, column]
+                    animalInstance.worldCopy = world;
                     world[row][column] = animalInstance;
-                    worldComponents.elements[animalType].add(animalInstance)
                 }
             }
         }
@@ -163,10 +152,10 @@ public class Operations {
         int height = bufferedImage.getHeight()
         int width = bufferedImage.getWidth()
         WorldElement[][] finalMap = new WorldElement[width][height]
-        for (int row = 0; row < height; row++) {
-            for (int column = 0; column < width; column++) {
+        for (int row = 0; row < width; row++) {
+            for (int column = 0; column < height; column++) {
                 // The pixels are read in reverse order (?)
-                int rgbColor = bufferedImage.getRGB(column, row);
+                int rgbColor = bufferedImage.getRGB(row, column);
                 int red = (rgbColor & 0x00ff0000) >> 16;
                 int green = (rgbColor & 0x0000ff00) >> 8;
                 int blue = rgbColor & 0x000000ff;
@@ -175,22 +164,30 @@ public class Operations {
                 switch (hexColor) {
                     case "00FF00":
                         element = new Plant()
+                        element.position = [row, column]
                         element.type = WorldTypes.Plant.getValue()
+                        element.worldCopy = finalMap
                         finalMap[row][column] = element
                         break;
                     case "0000FF":
                         element = new Water()
+                        element.position = [row, column]
                         element.type = WorldTypes.Water.getValue()
+                        element.worldCopy = finalMap
                         finalMap[row][column] = element
                         break;
                     case "FFDEAD":
                         element = new Ground()
+                        element.position = [row, column]
                         element.type = WorldTypes.Ground.getValue()
+                        element.worldCopy = finalMap
                         finalMap[row][column] = element
                         break;
                     default:
                         element = new Ground()
+                        element.position = [row, column]
                         element.type = WorldTypes.Ground.getValue()
+                        element.worldCopy = finalMap
                         finalMap[row][column] = element
                         break;
                 }
@@ -206,12 +203,18 @@ public class Operations {
             Map previousProperties = element.properties
             element = Class.forName("${elementsPackageName}.${newElementClassName}").newInstance();
             element.position = previousProperties.position
+            element.worldCopy = previousProperties.worldCopy
         }
         return element
     }
 
     int distance(List source, List destination) {
-        Math.abs(source[0] - destination[0]) + Math.abs(source[1] - destination[1]);
+        try {
+            return Math.abs(source[0] - destination[0]) + Math.abs(source[1] - destination[1]);
+        } catch (Exception e) {
+            return 1
+        }
+
     }
 
     void printMap(WorldElement[][] world) {
