@@ -36,4 +36,31 @@ class Herbivore implements WorldElement {
             }
         }
     }
+
+    void reproduce() {
+        int rows = worldCopy.length
+        int columns = worldCopy[0].length
+        int partialRow;
+        int partialColumn;
+        boolean hasBorn = false;
+        if (life > 25) {
+            for (int row = position[0] - 1; (row <= position[0] + 1) && !hasBorn; row++) {
+                for (int column = position[1] - 1; (column <= position[1] + 1) && !hasBorn; column++) {
+                    if (position[1] == column && position[0] == row) {
+                        continue;
+                    }
+                    partialRow = (row % rows) < 0 ? (row % rows) + rows : (row % rows);
+                    partialColumn = (column % columns) < 0 ? (column % columns) + columns : (column % columns);
+                    if (worldCopy[partialRow][partialColumn].type == WorldTypes.Ground.value) {
+                        WorldElement element = Class.forName(canonicalName).newInstance()
+                        element.position = [partialRow, partialColumn]
+                        element.worldCopy = this.worldCopy
+                        worldCopy[partialRow][partialColumn] = element
+                        hasBorn = true;
+                        decreaseLife(15);
+                    }
+                }
+            }
+        }
+    }
 }
