@@ -29,14 +29,14 @@ class Carnivore implements WorldElement {
                 }
                 partialRow = (row % rows) < 0 ? (row % rows) + rows : (row % rows);
                 partialColumn = (column % columns) < 0 ? (column % columns) + columns : (column % columns);
-                if (worldCopy[partialRow][partialColumn].type == WorldTypes.Herbivore.value) {
+                if (worldCopy[partialRow][partialColumn].type in [WorldTypes.Herbivore.value, WorldTypes.Scavenger.value]) {
                     increaseLife(20);
                     hasEaten = true;
                     // the carnivore kills the herbivore
-                    WorldElement plant = worldCopy[partialRow][partialColumn]
+                    WorldElement element = worldCopy[partialRow][partialColumn]
                     worldCopy[partialRow][partialColumn].die()
                     // changes the type considering that the herbivore now has become a corpse!
-                    worldCopy[partialRow][partialColumn] = operations.verifyElement(plant)
+                    worldCopy[partialRow][partialColumn] = operations.verifyElement(element)
                 }
             }
         }
