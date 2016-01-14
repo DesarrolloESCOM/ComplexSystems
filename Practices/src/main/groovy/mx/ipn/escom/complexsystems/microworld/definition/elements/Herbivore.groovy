@@ -9,9 +9,31 @@ import mx.ipn.escom.complexsystems.microworld.definition.impl.WorldTypes
  */
 class Herbivore implements WorldElement {
     public Herbivore() {
-        this.sightRange = 1;
+        this.sightRange = 2;
         this.life = 50;
         this.type = WorldTypes.Herbivore.value;
         this.canonicalName = "${Operations.elementsPackageName}.${this.class.getSimpleName()}"
+    }
+
+    void eat() {
+        int rows = worldCopy.length
+        int columns = worldCopy[0].length
+        int partialRow;
+        int partialColumn;
+        boolean hasEaten = false;
+        for (int row = position[0] - 1; (row <= position[0] + 1) && !hasEaten; row++) {
+            for (int column = position[1] - 1; (column <= position[1] + 1) && !hasEaten; column++) {
+                if (position[1] == column && position[0] == row) {
+                    continue;
+                }
+                partialRow = (row % rows) < 0 ? (row % rows) + rows : (row % rows);
+                partialColumn = (column % columns) < 0 ? (column % columns) + columns : (column % columns);
+                if (worldCopy[partialRow][partialColumn].type == WorldTypes.Plant.value) {
+                    increaseLife(5);
+                    hasEaten = true;
+                    worldCopy[partialRow][partialColumn].decreaseLife(5)
+                }
+            }
+        }
     }
 }
