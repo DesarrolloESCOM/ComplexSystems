@@ -10,7 +10,7 @@ import mx.ipn.escom.complexsystems.microworld.definition.impl.WorldElement
 /**
  * Created by alberto on 19/10/15.
  */
-def epsilon = 5
+def epsilon = 2
 MicroWorld microWorld = MicroWorld.instance
 WorldElement[][] world = microWorld.operation.getMapFromImage("/home/alberto/Desktop/Huge.png")
 microWorld.world = world
@@ -30,7 +30,7 @@ while (true) {
             (Math.abs(prevStatistics.Scavenger - currentStatistics.Scavenger) < epsilon) ||
             (Math.abs(prevStatistics.Corpse - currentStatistics.Corpse) < epsilon) ||
             (Math.abs(prevStatistics.Plant - currentStatistics.Plant) < epsilon) ||
-            microWorld.generation > 1000) {
+            microWorld.generation > 1500) {
         file.append("${microWorld.generation},${prevStatistics.Herbivore}, ${prevStatistics.Carnivore}, ${prevStatistics.Scavenger}, ${prevStatistics.Corpse}, ${prevStatistics.Plant}\n")
         break;
     }
@@ -44,11 +44,18 @@ microWorld.init(world);
 file = new File("/home/alberto/Desktop/MicroWorld-0_001.csv")
 file.write("generation, Herbivore, Carnivore, Scavenger, Corpse, Plant\n")
 while (true) {
-    prevAlive = microWorld.alive
-    file.append("${microWorld.generation},${microWorld.alive}\n")
+    Map prevStatistics = microWorld.getStatistics()
+    file.append("${microWorld.generation},${prevStatistics.Herbivore}, ${prevStatistics.Carnivore}, ${prevStatistics.Scavenger}, ${prevStatistics.Corpse}, ${prevStatistics.Plant}\n")
     microWorld.task()
-    if ((Math.abs(microWorld.alive - prevAlive) < epsilon) || microWorld.generation > 1000) {
-        file.append("${microWorld.generation},${microWorld.alive}\n")
+    Map currentStatistics = microWorld.getStatistics()
+    if (
+    (Math.abs(prevStatistics.Herbivore - currentStatistics.Herbivore) < epsilon) ||
+            (Math.abs(prevStatistics.Carnivore - currentStatistics.Carnivore) < epsilon) ||
+            (Math.abs(prevStatistics.Scavenger - currentStatistics.Scavenger) < epsilon) ||
+            (Math.abs(prevStatistics.Corpse - currentStatistics.Corpse) < epsilon) ||
+            (Math.abs(prevStatistics.Plant - currentStatistics.Plant) < epsilon) ||
+            microWorld.generation > 1500) {
+        file.append("${microWorld.generation},${prevStatistics.Herbivore}, ${prevStatistics.Carnivore}, ${prevStatistics.Scavenger}, ${prevStatistics.Corpse}, ${prevStatistics.Plant}\n")
         break;
     }
 }
@@ -61,11 +68,18 @@ microWorld.init(world);
 file = new File("/home/alberto/Desktop/MicroWorld-0_01.csv")
 file.write("generation, Herbivore, Carnivore, Scavenger, Corpse, Plant\n")
 while (true) {
-    prevAlive = microWorld.alive
-    file.append("${microWorld.generation},${microWorld.alive}\n")
+    Map prevStatistics = microWorld.getStatistics()
+    file.append("${microWorld.generation},${prevStatistics.Herbivore}, ${prevStatistics.Carnivore}, ${prevStatistics.Scavenger}, ${prevStatistics.Corpse}, ${prevStatistics.Plant}\n")
     microWorld.task()
-    if ((Math.abs(microWorld.alive - prevAlive) < epsilon) || microWorld.generation > 1000) {
-        file.append("${microWorld.generation},${microWorld.alive}\n")
+    Map currentStatistics = microWorld.getStatistics()
+    if (
+    (Math.abs(prevStatistics.Herbivore - currentStatistics.Herbivore) < epsilon) ||
+            (Math.abs(prevStatistics.Carnivore - currentStatistics.Carnivore) < epsilon) ||
+            (Math.abs(prevStatistics.Scavenger - currentStatistics.Scavenger) < epsilon) ||
+            (Math.abs(prevStatistics.Corpse - currentStatistics.Corpse) < epsilon) ||
+            (Math.abs(prevStatistics.Plant - currentStatistics.Plant) < epsilon) ||
+            microWorld.generation > 1500) {
+        file.append("${microWorld.generation},${prevStatistics.Herbivore}, ${prevStatistics.Carnivore}, ${prevStatistics.Scavenger}, ${prevStatistics.Corpse}, ${prevStatistics.Plant}\n")
         break;
     }
 }
@@ -78,11 +92,18 @@ microWorld.init(world);
 file = new File("/home/alberto/Desktop/MicroWorld-0_1.csv")
 file.write("generation, Herbivore, Carnivore, Scavenger, Corpse, Plant\n")
 while (true) {
-    prevAlive = microWorld.alive
-    file.append("${microWorld.generation},${microWorld.alive}\n")
+    Map prevStatistics = microWorld.getStatistics()
+    file.append("${microWorld.generation},${prevStatistics.Herbivore}, ${prevStatistics.Carnivore}, ${prevStatistics.Scavenger}, ${prevStatistics.Corpse}, ${prevStatistics.Plant}\n")
     microWorld.task()
-    if ((Math.abs(microWorld.alive - prevAlive) < epsilon) || microWorld.generation > 1000) {
-        file.append("${microWorld.generation},${microWorld.alive}\n")
+    Map currentStatistics = microWorld.getStatistics()
+    if (
+    (Math.abs(prevStatistics.Herbivore - currentStatistics.Herbivore) < epsilon) ||
+            (Math.abs(prevStatistics.Carnivore - currentStatistics.Carnivore) < epsilon) ||
+            (Math.abs(prevStatistics.Scavenger - currentStatistics.Scavenger) < epsilon) ||
+            (Math.abs(prevStatistics.Corpse - currentStatistics.Corpse) < epsilon) ||
+            (Math.abs(prevStatistics.Plant - currentStatistics.Plant) < epsilon) ||
+            microWorld.generation > 1500) {
+        file.append("${microWorld.generation},${prevStatistics.Herbivore}, ${prevStatistics.Carnivore}, ${prevStatistics.Scavenger}, ${prevStatistics.Corpse}, ${prevStatistics.Plant}\n")
         break;
     }
 }
