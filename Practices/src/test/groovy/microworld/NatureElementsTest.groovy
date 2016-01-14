@@ -34,7 +34,7 @@ class NatureElementsTest extends Specification {
             [ground, ground, ground, ground],
             [ground, ground, ground, ground]
     ]
-    Operations operations = new Operations()
+    Operations operations = Operations.instance
     float seed = 0.10;
 
     Should "generate the world from a given image"() {

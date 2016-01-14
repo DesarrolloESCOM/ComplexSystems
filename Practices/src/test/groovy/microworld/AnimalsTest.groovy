@@ -1,6 +1,8 @@
 package microworld
 
 import mx.ipn.escom.complexsystems.engine.Operations
+import mx.ipn.escom.complexsystems.microworld.definition.elements.Carnivore
+import mx.ipn.escom.complexsystems.microworld.definition.elements.Corpse
 import mx.ipn.escom.complexsystems.microworld.definition.elements.Ground
 import mx.ipn.escom.complexsystems.microworld.definition.elements.Herbivore
 import mx.ipn.escom.complexsystems.microworld.definition.elements.Plant
@@ -17,25 +19,54 @@ import java.lang.Void as Should
  */
 class AnimalsTest extends Specification {
     @Shared
-            ground = new Ground();
-    @Shared
-            water = new Water();
+    WorldElement plant
     @Shared
     WorldElement herbivore
     @Shared
-    WorldElement[][] world = [
-            [water, ground, ground, ground, ground],
-            [new Plant(), ground, ground, ground, ground],
-            [ground, ground, ground, ground, ground],
-            [ground, ground, ground, ground, ground],
-            [ground, ground, ground, ground, ground],
-    ]
+    WorldElement carnivore
+    @Shared
+    WorldElement carnivore2
+    @Shared
+    WorldElement corpse
+    @Shared
+    WorldElement[][] world = new WorldElement[5][5]
+    @Shared
+    Operations operations = Operations.instance
 
     def setup() {
+
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                if (i == 0 && j == 0) {
+                    world[i][j] = new Water(position: [0, 0])
+                } else {
+                    world[i][j] = new Ground(position: [i, j])
+                }
+            }
+        }
+        //
+        plant = new Plant(position: [1, 0])
+        world[1][0] = plant
+        //
         herbivore = new Herbivore()
         herbivore.position = [0, 1]
         world[0][1] = herbivore
         herbivore.worldCopy = world
+        //
+        carnivore = new Carnivore()
+        carnivore.position = [4, 4]
+        world[4][4] = carnivore
+        carnivore.worldCopy = world
+        //
+        carnivore2 = new Carnivore()
+        carnivore2.position = [3, 3]
+        world[3][3] = carnivore2
+        carnivore2.worldCopy = world
+        //
+        corpse = new Corpse()
+        corpse.position = [2, 2]
+        world[2][2] = corpse
+        corpse.worldCopy = world
     }
 
 
@@ -69,13 +100,39 @@ class AnimalsTest extends Specification {
         world.flatten().count { element -> element.type == WorldTypes.Herbivore.value } > 1
     }
 
-    @Ignore
     Should "Move to a new place considering water/food/predator existence"() {
+        given:
+        List prevPosition = carnivore.position
+        carnivore.move()
+        expect:
+        carnivore.position != prevPosition
+    }
+
+    Should "Move to a new place using nearest neighbor information"() {
+        given:
+        List prevPosition = carnivore.position
+        carnivore.moveWithInformation()
+        expect:
+        carnivore.position != prevPosition
+    }
+
+    Should "Eat from nearest food source (Herbivore)/Carnivore/Scavenger"() {
+        given:
+        int prevLife = herbivore.life
+        herbivore.eat()
+        expect:
+        herbivore.life > prevLife
 
     }
 
     @Ignore
-    Should "Eat from nearest food source"() {
-
+    Should "Eat from nearest food source (Carnivore/Scavenger)"() {
+        given:
+        operations.printMap(world)
+        int prevLife = carnivore.life
+        carnivore.eat()
+        expect:
+        operations.printMap(world)
+        carnivore.life > prevLife
     }
 }

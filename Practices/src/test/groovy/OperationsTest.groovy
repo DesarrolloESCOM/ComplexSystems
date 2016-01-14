@@ -19,7 +19,7 @@ class OperationsTest extends Specification {
                 [1, 0, 1, 0, 0],
                 [1, 0, 0, 0, 1],
         ]
-        Operations operation = new Operations()
+        Operations operation = Operations.instance
         expect:
         operation.resizeArray(givenPopulation, 3, 3) == choppedPopulation
         operation.resizeArray(smallPopulation, 5, 6) == augmentedPopulation
@@ -43,7 +43,7 @@ class OperationsTest extends Specification {
         given:
         int rows = 5;
         int columns = 5;
-        Operations operation = new Operations()
+        Operations operation = Operations.instance
         float seed_25 = 0.25
         float seed_50 = 0.5
         float seed_75 = 0.75
