@@ -10,7 +10,7 @@ trait MicroWorldAutomata {
     int rows = 0;
     int columns = 0;
     boolean start = false;
-    Operations operation = new Operations();
+    Operations operation = Operations.instance
     WorldElement[][] world;
     // currentElements and elements lists
     Map worldElements = [:]
@@ -27,10 +27,11 @@ trait MicroWorldAutomata {
     }
 
     void task() {
+        Random random = new Random()
         int typeSize = this.operation.animalsOrder.size()
         int actionSize = this.operation.actionsOrder.size()
-        int elementIndex = Integer.parseInt("${typeSize * Math.random()}")
-        int actionIndex = Integer.parseInt("${actionSize * Math.random()}")
+        int elementIndex = random.nextInt(typeSize)
+        int actionIndex = random.nextInt(actionSize)
         for (int i = elementIndex; i < typeSize + elementIndex; i++) {
             for (int j = actionIndex; j < actionSize + actionIndex; j++) {
                 String type = this.operation.animalsOrder[i % typeSize]
