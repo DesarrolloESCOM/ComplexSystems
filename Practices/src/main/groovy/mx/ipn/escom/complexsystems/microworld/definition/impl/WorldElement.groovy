@@ -244,7 +244,7 @@ trait WorldElement {
             } else {
                 this.decreaseLife(1)
             }
-        } else { // couldnt move :(
+        } else { // couldn't move :(
             this.decreaseLife(1)
         }
     }
@@ -269,7 +269,8 @@ trait WorldElement {
                         element.worldCopy = this.worldCopy
                         worldCopy[partialRow][partialColumn] = element
                         hasBorn = true;
-                        decreaseLife(50);
+                        decreaseLife((int) (this.life / 2));
+                        continue;
                     }
                 }
             }

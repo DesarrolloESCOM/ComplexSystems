@@ -35,6 +35,15 @@ class MicroWorld implements MicroWorldAutomata {
         columns = world[0].length
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
+                if (world[i][j].type == WorldTypes.Water.value) {
+                    continue;
+                }
+                if (world[i][j].type == WorldTypes.Ground.value) {
+                    currentElements["${WorldTypes.values()[world[i][j].type]}"].add(world[i][j])
+                    statistics["${WorldTypes.values()[world[i][j].type]}"]++;
+                    continue;
+                }
+
                 int actionIndex = random.nextInt(actionSize)
                 world[i][j] = operation.verifyElement(world[i][j])
                 if (world[i][j].type == WorldTypes.Corpse.value) {
@@ -48,22 +57,4 @@ class MicroWorld implements MicroWorldAutomata {
             }
         }
     }
-
-    /*Map getStatistics() {
-        this.statistics = [
-                "Plant"    : 0,
-                "Corpse"   : 0,
-                "Scavenger": 0,
-                "Herbivore": 0,
-                "Carnivore": 0,
-                "Water"    : 0,
-                "Ground"   : 0]
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                String className = world[i][j].class.getSimpleName()
-                statistics["$className"]++
-            }
-        }
-        return statistics
-    }*/
 }
