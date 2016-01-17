@@ -1,13 +1,11 @@
 package mx.ipn.escom.complexsystems.microworld.swing
 
-import mx.ipn.escom.complexsystems.engine.definition.Diffusion
-import mx.ipn.escom.complexsystems.engine.definition.GameOfLife
-import mx.ipn.escom.complexsystems.engine.impl.Automata
 import mx.ipn.escom.complexsystems.microworld.definition.MicroWorld
 import mx.ipn.escom.complexsystems.microworld.definition.impl.MicroWorldAutomata
 import mx.ipn.escom.complexsystems.microworld.definition.impl.WorldElement
 
 import javax.swing.*
+import java.awt.Color
 import java.awt.event.WindowAdapter
 import java.awt.event.WindowEvent
 
@@ -19,10 +17,17 @@ public class SimulationSwing extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
     DrawingPanel drawingPanel = null;
     MicroWorldAutomata automata = null;
     // End of variables declaration
@@ -44,19 +49,74 @@ public class SimulationSwing extends javax.swing.JFrame {
     private void initComponents() {
 
         jSeparator1 = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        automata = (MicroWorldAutomata) MicroWorld.instance
+        drawingPanel = new DrawingPanel(automata);
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
-        //automata = (Automata) GameOfLife.getInstance();
-        automata = (MicroWorldAutomata) MicroWorld.instance;
-        drawingPanel = new DrawingPanel(automata);
-        drawingPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        drawingPanel.setBackground(new java.awt.Color(254, 254, 254));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(640, 500));
+        setMinimumSize(new java.awt.Dimension(640, 500));
+        setPreferredSize(new java.awt.Dimension(640, 500));
+        setResizable(false);
+        setBackground(Color.WHITE)
+
+        jLabel1.setText("Herbivoros");
+
+        jLabel2.setText("Carnivoros");
+
+        drawingPanel.setMaximumSize(new java.awt.Dimension(640, 400));
+        drawingPanel.setMinimumSize(new java.awt.Dimension(640, 400));
+        drawingPanel.setPreferredSize(new java.awt.Dimension(640, 400));
+
+        javax.swing.GroupLayout drawingPanelLayout = new javax.swing.GroupLayout(drawingPanel);
+        drawingPanel.setLayout(drawingPanelLayout);
+        drawingPanelLayout.setHorizontalGroup(
+                drawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 640, Short.MAX_VALUE)
+        );
+        drawingPanelLayout.setVerticalGroup(
+                drawingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 400, Short.MAX_VALUE)
+        );
+
+        jLabel3.setText("Carroñeros");
+
+        jLabel4.setText("Cadáveres");
+
+        jLabel5.setText("Plantas");
+
+        jLabel6.setText("0");
+        jLabel6.setForeground(drawingPanel.herbivore);
+
+        jLabel7.setText("0");
+        jLabel7.setForeground(drawingPanel.carnivore);
+
+        jLabel8.setText("0");
+        jLabel8.setForeground(drawingPanel.scavenger);
+
+        jLabel9.setText("0");
+        jLabel9.setForeground(drawingPanel.corpse);
+
+        jLabel10.setText("0");
+        jLabel10.setForeground(drawingPanel.plant);
+
+        drawingPanel.herbivoresLabel = this.jLabel6
+        drawingPanel.carnivoresLabel = this.jLabel7
+        drawingPanel.scavengersLabel = this.jLabel8
+        drawingPanel.corpsesLabel = this.jLabel9
+        drawingPanel.plantsLabel = this.jLabel10
 
         jButton1.setText("Iniciar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -66,7 +126,6 @@ public class SimulationSwing extends javax.swing.JFrame {
         });
 
         jButton2.setText("Reanudar");
-        jButton2.setEnabled(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -74,57 +133,87 @@ public class SimulationSwing extends javax.swing.JFrame {
         });
 
         jButton3.setText("Detener");
-        jButton3.setEnabled(false);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
 
-        jButton4.setVisible(false);
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(["GoL", "Diffusion"] as String[]));
-        jComboBox1.setEnabled(false)
-        jComboBox1.setVisible(false)
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(["0.1", "0.2", "0.5", "0.7", "0.8", "0.9"] as String[]));
-        jComboBox2.setEnabled(false)
-        jComboBox2.setVisible(false)
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
-                        .addComponent(drawingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jSeparator1)
+                        .addComponent(drawingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                        .addGap(302, 302, 302)
+                        .addComponent(jButton3))
+                        .addComponent(jButton1))
+                        .addGap(128, 128, 128))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4))
+                        .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel1)
+                        .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel6)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel2)
+                        .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel7)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel3)
+                        .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel8)))))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel4)
+                        .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel9)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel10)
+                        .addComponent(jLabel5))
+                        .addGap(103, 103, 103))))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(drawingPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(drawingPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel6)
+                        .addComponent(jLabel7)
+                        .addComponent(jLabel8)
+                        .addComponent(jLabel9)
+                        .addComponent(jLabel10))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton1)
                         .addComponent(jButton2)
-                        .addComponent(jButton3)
-                        .addComponent(jButton4)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(17, 17, 17))
+                        .addComponent(jButton3))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -133,9 +222,9 @@ public class SimulationSwing extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         drawingPanel.automata = this.automata;
-        WorldElement[][] world = automata.operation.getMapFromImage("/home/alberto/Desktop/Medium.png")
+        WorldElement[][] world = automata.operation.getMapFromImage("/home/alberto/Desktop/Sample.png")
         automata.world = world
-        automata.operation.generateMicroWorldAnimals(0.0001, automata.world)
+        automata.operation.generateMicroWorldAnimals(0.0007, automata.world)
         automata.init(world);
         drawingPanel.getTimer().start();
         jButton1.setEnabled(false);
@@ -192,8 +281,8 @@ public class SimulationSwing extends javax.swing.JFrame {
                         timer.stop();
                     }
                 });
-                simulatorSwing.setTitle("Simulación de MicroMundo - Reséndiz Arteaga Juan Alberto");
-                simulatorSwing.setSize(400, 300);
+                simulatorSwing.setTitle("Simulación de MicroMundo");
+                simulatorSwing.setSize(640, 500);
                 simulatorSwing.setVisible(true);
                 simulatorSwing.setResizable(false);
             }

@@ -1,8 +1,6 @@
 package mx.ipn.escom.complexsystems.microworld.swing
 
-import mx.ipn.escom.complexsystems.engine.impl.Automata
 import mx.ipn.escom.complexsystems.microworld.definition.impl.MicroWorldAutomata
-import mx.ipn.escom.complexsystems.microworld.definition.impl.WorldTypes
 
 import javax.swing.*
 import java.awt.*
@@ -14,11 +12,26 @@ import java.awt.event.ActionListener
  */
 public class DrawingPanel extends JPanel implements ActionListener {
 
-    public final int DELAY = 500;
+    public final int DELAY = 8000;
     public int rows = 0;
     public int columns = 0;
     public Timer timer;
     public MicroWorldAutomata automata;
+    //Labels Copies
+    JLabel herbivoresLabel
+    JLabel carnivoresLabel
+    JLabel plantsLabel
+    JLabel scavengersLabel
+    JLabel corpsesLabel
+    //Colors
+    public Color water = new Color(32, 178, 170) // 20B2AA
+    public Color ground = new Color(255, 222, 173) // FFDEAD
+    public Color plant = new Color(0, 100, 0) // 006400
+    public Color carnivore = new Color(165, 42, 42) // A52A2A
+    public Color herbivore = new Color(47, 79, 79) // 2F4F4F
+    public Color scavenger = new Color(210, 105, 30) // D2691E
+    public Color corpse = new Color(189, 183, 107) // BDB76B
+
 
     public DrawingPanel(MicroWorldAutomata automata) {
         this.automata = automata
@@ -39,7 +52,6 @@ public class DrawingPanel extends JPanel implements ActionListener {
     private void doDrawing(Graphics g) {
 
         Graphics2D g2d = (Graphics2D) g;
-
         if (automata.generation == 0 && automata.start == true) {
             this.drawEntireMap(g2d);
             automata.start = false;
@@ -60,37 +72,57 @@ public class DrawingPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         automata.task();
+
+        this.herbivoresLabel.setText("$automata.statistics.Herbivore")
+        this.carnivoresLabel.setText("$automata.statistics.Carnivore")
+        this.scavengersLabel.setText("$automata.statistics.Scavenger")
+        this.corpsesLabel.setText("$automata.statistics.Scavenger")
+        this.plantsLabel.setText("$automata.statistics.Plant")
+
         repaint();
     }
 
     public void drawEntireMap(Graphics2D g2d) {
-        automata.currentElements.Water.each { water ->
-            g2d.setPaint(Color.BLUE);
-            g2d.drawLine(water.position[0], water.position[1], water.position[0], water.position[1]);
+        this.setBackground(this.water)
+        int posX = 0;
+        int posY = 0;
+        g2d.scale(2.0, 2.0)
+        automata.currentElements.Plant.each { element ->
+            g2d.setPaint(this.plant);
+            posX = element.position[0]
+            posY = element.position[1]
+            g2d.fillRect(posX, posY, 1, 1);
+
         }
-        automata.currentElements.Plant.each { plant ->
-            g2d.setPaint(Color.GREEN);
-            g2d.drawLine(plant.position[0], plant.position[1], plant.position[0], plant.position[1]);
+        automata.currentElements.Ground.each { element ->
+            g2d.setPaint(this.ground);
+            posX = element.position[0]
+            posY = element.position[1]
+            g2d.fillRect(posX, posY, 1, 1);
         }
-        automata.currentElements.Ground.each { ground ->
-            g2d.setPaint(Color.YELLOW);
-            g2d.drawLine(ground.position[0], ground.position[1], ground.position[0], ground.position[1]);
+        automata.currentElements.Herbivore.each { element ->
+            g2d.setPaint(this.herbivore);
+            posX = element.position[0]
+            posY = element.position[1]
+            g2d.fillRect(posX, posY, 1, 1);
         }
-        automata.currentElements.Herbivore.each { herbivore ->
-            g2d.setPaint(Color.CYAN);
-            g2d.drawLine(herbivore.position[0], herbivore.position[1], herbivore.position[0], herbivore.position[1]);
+        automata.currentElements.Carnivore.each { element ->
+            g2d.setPaint(this.carnivore);
+            posX = element.position[0]
+            posY = element.position[1]
+            g2d.fillRect(posX, posY, 1, 1);
         }
-        automata.currentElements.Carnivore.each { carnivore ->
-            g2d.setPaint(Color.RED);
-            g2d.drawLine(carnivore.position[0], carnivore.position[1], carnivore.position[0], carnivore.position[1]);
+        automata.currentElements.Scavenger.each { element ->
+            g2d.setPaint(this.scavenger);
+            posX = element.position[0]
+            posY = element.position[1]
+            g2d.fillRect(posX, posY, 1, 1);
         }
-        automata.currentElements.Scavenger.each { scavenger ->
-            g2d.setPaint(Color.ORANGE);
-            g2d.drawLine(scavenger.position[0], scavenger.position[1], scavenger.position[0], scavenger.position[1]);
-        }
-        automata.currentElements.Corpse.each { corpse ->
-            g2d.setPaint(Color.BLACK);
-            g2d.drawLine(corpse.position[0], corpse.position[1], corpse.position[0], corpse.position[1]);
+        automata.currentElements.Corpse.each { element ->
+            g2d.setPaint(this.corpse);
+            posX = element.position[0]
+            posY = element.position[1]
+            g2d.fillRect(posX, posY, 1, 1);
         }
 
     }
