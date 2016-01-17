@@ -113,7 +113,7 @@ public class Operations {
         ]
         for (int row = 0; row < rows; row++) {
             for (int column = 0; column < columns; column++) {
-                if (world[row][column].type == WorldTypes.Water.value) {
+                if (world[row][column].type in [WorldTypes.Water.value, WorldTypes.Plant.value]) {
                     continue;
                 }
                 // Letting some ground alive!
