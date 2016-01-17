@@ -239,7 +239,7 @@ public class SimulationSwing extends javax.swing.JFrame {
         drawingPanel.automata = this.automata;
         WorldElement[][] world = automata.operation.getMapFromImage("/home/alberto/Desktop/Sample.png")
         automata.world = world
-        automata.operation.generateMicroWorldAnimals(0.00002, automata.world)
+        automata.operation.generateMicroWorldAnimals(0.1, automata.world)
         automata.init(world);
         drawingPanel.getTimer().start();
         jButton1.setEnabled(false);
