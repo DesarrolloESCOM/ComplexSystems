@@ -106,18 +106,18 @@ public class Operations {
 
         int typeSize = this.animalsOrder.size()
         int moves = 0;
-
+        int hits = 0;
         Map worldComponents = [
                 statistics: ["Water": 0, "Plant": 0, "Ground": 0, "Carnivore": 0, "Herbivore": 0, "Corpse": 0, "Scavenger": 0],
                 elements  : ["Carnivore": [], "Herbivore": [], "Corpse": [], "Scavenger": [], "Plant": [], "Ground": []]
         ]
-        for (int row = 0; row < rows; row++) {
-            for (int column = 0; column < columns; column++) {
+        for (int row = 0; row < rows && (hits / 4) <= seedPercentage; row++) {
+            for (int column = 0; column < columns && (hits / 4) <= seedPercentage; column++) {
                 if (world[row][column].type in [WorldTypes.Water.value, WorldTypes.Plant.value]) {
                     continue;
                 }
                 // Letting some ground alive!
-                if (random.nextInt(5) <= 2) {
+                if (random.nextInt(5) <= 3) {
                     continue;
                 }
 
@@ -134,6 +134,7 @@ public class Operations {
                             break;
                         }
                     }
+                    hits++;
                     // generate a new animal
                     WorldElement animalInstance = Class.forName("${elementsPackageName}.${animalType}").newInstance();
                     animalInstance.type = WorldTypes."${animalType}".getValue()
