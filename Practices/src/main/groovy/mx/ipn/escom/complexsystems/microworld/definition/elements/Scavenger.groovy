@@ -9,7 +9,7 @@ import mx.ipn.escom.complexsystems.microworld.definition.impl.WorldTypes
  */
 class Scavenger implements WorldElement {
     public Scavenger() {
-        this.sightRange = 3;
+        this.sightRange = 4;
         this.life = 50;
         this.type = WorldTypes.Scavenger.value;
         this.canonicalName = "${Operations.elementsPackageName}.${this.class.getSimpleName()}"
@@ -29,11 +29,12 @@ class Scavenger implements WorldElement {
                 partialRow = (row % rows) < 0 ? (row % rows) + rows : (row % rows);
                 partialColumn = (column % columns) < 0 ? (column % columns) + columns : (column % columns);
                 if (worldCopy[partialRow][partialColumn].type == WorldTypes.Corpse.value) {
-                    increaseLife(10);
+                    increaseLife(15);
                     hasEaten = true;
                     // Verify if the corpse has just become ground and plants!
-                    worldCopy[partialRow][partialColumn].decreaseLife(10)
+                    worldCopy[partialRow][partialColumn].decreaseLife(15)
                     worldCopy[partialRow][partialColumn] = operations.verifyElement(worldCopy[partialRow][partialColumn])
+                    break;
                 }
             }
         }

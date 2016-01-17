@@ -32,6 +32,7 @@ class Herbivore implements WorldElement {
                     increaseLife(10);
                     hasEaten = true;
                     worldCopy[partialRow][partialColumn].decreaseLife(10)
+                    break;
                 }
             }
         }
@@ -43,7 +44,7 @@ class Herbivore implements WorldElement {
         int partialRow;
         int partialColumn;
         boolean hasBorn = false;
-        if (life > 25) {
+        if (life > 40) {
             for (int row = position[0] - 1; (row <= position[0] + 1) && !hasBorn; row++) {
                 for (int column = position[1] - 1; (column <= position[1] + 1) && !hasBorn; column++) {
                     if (position[1] == column && position[0] == row) {
@@ -57,7 +58,8 @@ class Herbivore implements WorldElement {
                         element.worldCopy = this.worldCopy
                         worldCopy[partialRow][partialColumn] = element
                         hasBorn = true;
-                        decreaseLife(15);
+                        decreaseLife((int) (this.life / 2));
+                        break;
                     }
                 }
             }
