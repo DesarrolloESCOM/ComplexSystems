@@ -26,9 +26,9 @@
   \item{Se necesita tener más de la mitad de su energía máxima para poder reproducirce.}
   \item{Al reproducirse, el animal pierde la mitad de su energía.}
   \end{itemize}
-  \paragraph{Las reglas mencionadas forman parte del documento original de la práctica del \"MicroMundo\" dada en la asignatura de Inteligencia Artificial. El documento original forma parte del anexo de este proyecto.\cite{9}}
+  \paragraph{Las reglas mencionadas forman parte del documento original de la práctica del "MicroMundo" dada en la asignatura de Inteligencia Artificial. El documento original forma parte del anexo de este proyecto.\cite{9}}
 \subsection{Adaptación de la práctica: Migrando a un enfóque complejo.}
   \paragraph{El proceso de adaptación del enfóque simbólico hacia el enfoque complejo fue relativamente sencillo, sin embargo se encontraron diversos contratiempos durante el proceso de implementación. Las reglas debieron ser cambiadas y adaptadas considerando que no existiría un proceso de búsqueda y las acciones serían ejecutadas de forma aleatoria.}
   \paragraph{Otro factor importante es que ahora los elementos debían contar con un proceso mínimo de comunicación. Se debió adaptar la lógica y agregar información de lo que cada animal podía ver, sin dar datos exactos o puntuales de lo que se encontraba a su alrededor.}
   \paragraph{Se debió considerar que cada elemento del sistema era un autómata celular, tomando en cuenta las propiedades descritas previamente, tomando como limite el rango de visión de los animales, dejando algunos de tomar una vecindad de Moore como para interacción con elementos contiguos.}
-  \paragraph{Otro factor importante durante la adaptación es que los puntos de vida se vieron unificados }
+  \paragraph{Otro factor importante durante la adaptación es que los puntos de vida se vieron unificados para fines de practicidad al ejecutar las acciones. Esta decisión se tomó debido a la complejidad que se llegaba a tener con mapas relativamente pequeños, de 320 x 200 pixeles por ejemplo.}
