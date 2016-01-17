@@ -23,6 +23,7 @@ public class DrawingPanel extends JPanel implements ActionListener {
     JLabel plantsLabel
     JLabel scavengersLabel
     JLabel corpsesLabel
+    JLabel generationLabel
     //Colors
     public Color water = new Color(32, 178, 170) // 20B2AA
     public Color ground = new Color(255, 222, 173) // FFDEAD
@@ -78,7 +79,7 @@ public class DrawingPanel extends JPanel implements ActionListener {
         this.scavengersLabel.setText("$automata.statistics.Scavenger")
         this.corpsesLabel.setText("$automata.statistics.Scavenger")
         this.plantsLabel.setText("$automata.statistics.Plant")
-
+        this.generationLabel.setText("$automata.generation")
         repaint();
     }
 
@@ -91,38 +92,38 @@ public class DrawingPanel extends JPanel implements ActionListener {
             g2d.setPaint(this.plant);
             posX = element.position[0]
             posY = element.position[1]
-            g2d.fillRect(posX, posY, 1, 1);
+            g2d.drawLine(posX, posY, posX, posY);
 
         }
         automata.currentElements.Ground.each { element ->
             g2d.setPaint(this.ground);
             posX = element.position[0]
             posY = element.position[1]
-            g2d.fillRect(posX, posY, 1, 1);
+            g2d.drawLine(posX, posY, posX, posY);
         }
         automata.currentElements.Herbivore.each { element ->
             g2d.setPaint(this.herbivore);
             posX = element.position[0]
             posY = element.position[1]
-            g2d.fillRect(posX, posY, 1, 1);
+            g2d.drawLine(posX, posY, posX, posY);
         }
         automata.currentElements.Carnivore.each { element ->
             g2d.setPaint(this.carnivore);
             posX = element.position[0]
             posY = element.position[1]
-            g2d.fillRect(posX, posY, 1, 1);
+            g2d.drawLine(posX, posY, posX, posY);
         }
         automata.currentElements.Scavenger.each { element ->
             g2d.setPaint(this.scavenger);
             posX = element.position[0]
             posY = element.position[1]
-            g2d.fillRect(posX, posY, 1, 1);
+            g2d.drawLine(posX, posY, posX, posY);
         }
         automata.currentElements.Corpse.each { element ->
             g2d.setPaint(this.corpse);
             posX = element.position[0]
             posY = element.position[1]
-            g2d.fillRect(posX, posY, 1, 1);
+            g2d.drawLine(posX, posY, posX, posY);
         }
 
     }
