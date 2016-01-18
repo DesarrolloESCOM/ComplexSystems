@@ -29,7 +29,7 @@ class Herbivore implements WorldElement {
                 partialRow = (row % rows) < 0 ? (row % rows) + rows : (row % rows);
                 partialColumn = (column % columns) < 0 ? (column % columns) + columns : (column % columns);
                 if (worldCopy[partialRow][partialColumn].type == WorldTypes.Plant.value) {
-                    increaseLife(10);
+                    increaseLife(7);
                     hasEaten = true;
                     worldCopy[partialRow][partialColumn].decreaseLife(10)
                     break;
