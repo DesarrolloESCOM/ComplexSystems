@@ -1,0 +1,77 @@
+\section{Desarrollo e Implementación}
+  \subsection{Descripción de la implementación}    
+    \paragraph{Principalmente la implementación se realizó utilizando los conceptos de TDD, Refactor y utilizando partes de programación orientada a objetos combinadas con programación funcional.}
+    \paragraph{Después de definir las acciones que iban a realizar los objetos que iban a interactuar con el sistema se procedió a determinar los posibles valores de entrada de las mismas así como los valores de salida, concepto ampliamente usado en TDD. Las pruebas fueron pensadas considerando distintos elementos del ecosistema, a continuación se muestra una lista de las pruebas realizadas:}
+      \begin{itemize}
+        \item{\textbf{AnimalsTest}}
+          \begin{itemize}
+            \item{Morir por falta de puntos de vida}
+            \item{Beber agua considerando la fuente más cercana.}
+            \item{Reproducción de un nuevo animal.}
+            \item{Moverse a un nuevo lugar considerando Agua/Comida/Depredadores}
+            \item{Moverse a un nuevo lugar considerando la información de algún vecino dentro del rango de visión}
+            \item{Comer considerando la fuente de comida más cercana.}
+          \end{itemize}
+        \item{CorpseTest}
+          \begin{itemize}
+            \item{Decrementar la vida de los elementos cercanos al cadaver}            
+            \item{Generar plantas de forma aleatoria después del tiempo de vida del cadaver.}
+          \end{itemize}
+        \item{NatureElements}
+          \begin{itemize}
+            \item{Generar un mundo dada una imagen en formato PNG y colores definidos}
+            \item{Generar "n" carnívoros, herbívoros, carroñeros y cadáveres de forma uniforme en un mapa.}
+            \item{Convertir una planta que carece de puntos de vida en un trozo de tierra.}
+          \end{itemize}
+      \end{itemize}      
+    \paragraph{Todas las pruebas cuentan con un mapa de prueba generado por imagenes definidas o bien como valores de entrada del mismo desarrollador. Las pruebas pueden encontrarse dentro de la carpeta \textit{Practices/src/test/}, donde las pruebas pueden verse más detalladas.}
+    \paragraph{Se consideró que todos los animales contaban con el mismo comportamiento, ya que las acciones son similares en todos ellos, es por eso que se decidió usar una clase madre de la cual las clases que definen a los herbívoros, carnívoros y carroñeros sobreescribieran si era necesario el comportamiento inicial. }
+    \paragraph{Considerando el trabajo previo realizado con el juego de la vida y la regla de difusión, la adaptación lógica fue relativamente sencilla gracias al uso de Traits (Nativos del lenguaje Groovy) e implementación de polimorfismo. La estructura (propiedades y métodos) del Trait de WorldElement  se define a continuación:}
+    \begin{itemize}
+        \item{\textbf{Propiedades}}
+          \begin{itemize}
+            \item{\textit{alive}: Indica el estatus del objeto, vivo o muerto.}            
+            \item{\textit{life}: Indica los puntos actuales de vida del objeto en cuestion.}
+            \item{\textit{sightRange}: Rango de visión (Definido por las reglas del micromundo).}
+            \item{\textit{position}: Ubicación en el plano x,y.}
+            \item{\textit{type}: Indica el tipo de objeto, util para el cambio de estados.}
+            \item{\textit{worldCopy}: Referencia al objeto actual del mundo, se utiliza para fines de exploración.}
+            \item{\textit{nearInformation}: Dentro de un objeto de tipo llave-valor indica qué elementos puede visualizar dentro de su rango.}
+            \item{\textit{canonicalName}: Nombre del objeto indicando packete y nombre de la clase, util para la generación dinámica de objetos con comportamientos distintos.}
+            \item{\textit{operations}: Instancia del objeto operations, éste objeto define arreglos con el orden de ejecución y métodos de utilería general.}
+          \end{itemize}
+        \item{Métodos}
+          \begin{itemize}            
+            \item{\textit{decreaseLife}: Realiza el decremento de la vida dado un valor.}
+            \item{\textit{increaseLife}: Realiza el aumento de la vida dado un valor.}
+            \item{\textit{die}: Método que ejecuta cierta acción cuando el animal muere, se sobreescribe dependiendo el animal.}
+            \item{\textit{drink}: Ejecuta la acción de beber agua considerando fuentes cercanas.}
+            \item{\textit{eat}: Ejecuta la acción de comer, se sobreescribe dependiendo el animal.}
+            \item{\textit{locationInformation}: Ejecuta una inspección visual del animal, actualiza el campo de nearInformation para poder consultar los datos dentro de su rango de visión.}
+            \item{\textit{move}: Ejecuta la acción de moverse, es aleatoria la razón.}
+            \item{\textit{moveWithInformation}: Ejecuta la acción de moverse, considerando la información que el vecino más cercano tiene, la razón es aleatoria.}
+          \end{itemize}        
+      \end{itemize}
+    \paragraph{Además de llevar el control de forma dinámica de las acciones que realizarán los elementos que se encuentran dentro del mapa, también es necesario controlar y manejar las acciones propias del mapa.}
+    \paragraph{Para ello se utiliza una convención semejante, definiciendo un Trait nuevo llamado \textit{MicroWorldAutomata} donde se lleva el control de los automatas (elementos del vecindario). Cuenta con una tarea única llamada \textit{task} donde se lleva la lógica del recorrido de los elementos del mapa y ejecucion de las acciones pertinentes. A continuación se define la estructura de dicho Trait:}
+      \begin{itemize}
+        \item{\textbf{Propiedades}}
+            \begin{itemize}
+              \item{\textit{rows}: Indica el número de filas que tiene el vecindario.}
+              \item{\textit{columns}: Indica el número de columnas que tiene el vecindario.}
+              \item{\textit{start}: Bandera que indica si el proceso del ejecución ha comenzado.}
+              \item{\textit{operation}: Instancia del objeto operations, éste objeto define arreglos con el orden de ejecución y métodos de utilería general.}
+              \item{\textit{world}: Arreglo de dos dimensiones donde se encuentran los animales y elementos del ecosistema definido.}
+              \item{\textit{statistics}: Lleva el conteo de los elementos activos dentro del mapa, considera agua, plantas, carnívoros, herbívoros, carroñeros, cadáveres y tierra.}
+              \item{\textit{currentElements}: Guarda la referencia de cada tipo de dato en una lista para posteriormente poder dibujarla, interactua de forma directa con la interfáz gráfica.}
+            \end{itemize}
+          \item{Métodos}
+            \begin{itemize}            
+              \item{\textit{init}: Método que se encarga de inicializar variables como rows, columns y world.}
+              \item{\textit{task}: Implementación de la lógica que implica el recorrido de los elementos del vecindario y el orden de las acciones a realizar.}            
+            \end{itemize}        
+      \end{itemize}
+    \paragraph{El método task es de gran utilidad debido a que nos permitiría contemplar trabajo a futuro sin modificar del todo la lógica existente, bastaría con generar un objeto que haga uso de las funcionalidades del trait y definir una nueva lógica de negocio.}
+  \subsection{Tecnologías}
+    \paragraph{Se optó por realizar el trabajo usando un lenguaje multiparadigma y políglota como lo es \textbf{Groovy}. Groovy es un lenguaje de tipado dinámico que se ejecuta sobre la máquina virtual de Java (JVM), es decir, cuenta con una gramática y semánticas distintas al lenguaje Java pero puede hacer uso de muchas de sus bibliotecas o api's de forma nativa. Esto nos trae como mayor ventaja la compatibilidad con otros sistemas que hacen uso de Java o bien bibliotecas que sólo fueron desarrolladas para ese lenguaje.}
+  \subsection{Capturas de pantalla}  
