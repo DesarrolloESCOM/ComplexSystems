@@ -10,7 +10,7 @@ import mx.ipn.escom.complexsystems.microworld.definition.impl.WorldTypes
 class Corpse implements WorldElement {
     public Corpse() {
         this.sightRange = 1;
-        this.life = 20;
+        this.life = 25;
         this.alive = false;
         this.type = WorldTypes.Corpse.value
         this.canonicalName = "${Operations.elementsPackageName}.${this.class.getSimpleName()}"
@@ -33,7 +33,7 @@ class Corpse implements WorldElement {
                 }
                 partialRow = (row % rows) < 0 ? (row % rows) + rows : (row % rows);
                 partialColumn = (column % columns) < 0 ? (column % columns) + columns : (column % columns);
-                if (random.nextBoolean()) {
+                if (random.nextInt(8) < 3) {
                     if (worldCopy[partialRow][partialColumn].type == WorldTypes.Ground.getValue()) {
                         WorldElement plant = new Plant()
                         plant.position = [partialRow, partialColumn]
@@ -58,8 +58,8 @@ class Corpse implements WorldElement {
                 }
                 partialRow = (row % rows) < 0 ? (row % rows) + rows : (row % rows);
                 partialColumn = (column % columns) < 0 ? (column % columns) + columns : (column % columns);
-                if (worldCopy[partialRow][partialColumn].type == WorldTypes.Plant.getValue()) {
-                    worldCopy[partialRow][partialColumn].decreaseLife(5);
+                if (worldCopy[partialRow][partialColumn].type in [WorldTypes.Herbivore.value, WorldTypes.Carnivore.value, WorldTypes.Plant.getValue()]) {
+                    worldCopy[partialRow][partialColumn].decreaseLife(2);
                     worldCopy[partialRow][partialColumn] = Operations.verifyElement(worldCopy[partialRow][partialColumn])
                 }
             }
