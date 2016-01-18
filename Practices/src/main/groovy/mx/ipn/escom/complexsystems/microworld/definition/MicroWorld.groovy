@@ -1,6 +1,7 @@
 package mx.ipn.escom.complexsystems.microworld.definition
 
 import mx.ipn.escom.complexsystems.microworld.definition.elements.Corpse
+import mx.ipn.escom.complexsystems.microworld.definition.elements.Plant
 import mx.ipn.escom.complexsystems.microworld.definition.impl.MicroWorldAutomata
 import mx.ipn.escom.complexsystems.microworld.definition.impl.WorldTypes
 
@@ -44,10 +45,15 @@ class MicroWorld implements MicroWorldAutomata {
                     continue;
                 }
 
+                if (world[i][j].type == WorldTypes.Plant.value) {
+                    ((Plant) world[i][j]).decreaseLife(1);
+                }
+
                 int actionIndex = random.nextInt(actionSize)
                 world[i][j] = operation.verifyElement(world[i][j])
                 if (world[i][j].type == WorldTypes.Corpse.value) {
                     ((Corpse) world[i][j]).decreasePlantsLifePoints()
+                    ((Corpse) world[i][j]).decreaseLife(5)
                 }
                 if (world[i][j].type in [WorldTypes.Herbivore.value, WorldTypes.Carnivore.value, WorldTypes.Scavenger.value]) {
                     world[i][j]."${operation.actionsOrder[actionIndex]}"()
