@@ -56,7 +56,7 @@ trait WorldElement {
                 partialRow = (row % rows) < 0 ? (row % rows) + rows : (row % rows);
                 partialColumn = (column % columns) < 0 ? (column % columns) + columns : (column % columns);
                 if (worldCopy[partialRow][partialColumn].type == WorldTypes.Water.value) {
-                    increaseLife(5);
+                    increaseLife(10);
                     hasDrunk = true;
                 }
             }

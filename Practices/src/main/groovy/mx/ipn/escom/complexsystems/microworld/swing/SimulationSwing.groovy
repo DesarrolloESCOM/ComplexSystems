@@ -72,9 +72,9 @@ public class SimulationSwing extends javax.swing.JFrame {
         drawingPanel = new DrawingPanel(automata);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(640, 500));
-        setMinimumSize(new java.awt.Dimension(640, 500));
-        setPreferredSize(new java.awt.Dimension(640, 500));
+        setMaximumSize(new java.awt.Dimension(640, 550));
+        setMinimumSize(new java.awt.Dimension(640, 550));
+        setPreferredSize(new java.awt.Dimension(640, 550));
         setResizable(false);
         setBackground(Color.WHITE);
 
@@ -239,7 +239,7 @@ public class SimulationSwing extends javax.swing.JFrame {
         drawingPanel.automata = this.automata;
         WorldElement[][] world = automata.operation.getMapFromImage("/home/alberto/Desktop/Sample.png")
         automata.world = world
-        automata.operation.generateMicroWorldAnimals(0.1, automata.world)
+        automata.operation.generateMicroWorldAnimals(0.05, automata.world)
         automata.init(world);
         drawingPanel.getTimer().start();
         jButton1.setEnabled(false);

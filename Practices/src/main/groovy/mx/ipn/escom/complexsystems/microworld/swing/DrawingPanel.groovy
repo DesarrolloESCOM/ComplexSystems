@@ -12,7 +12,7 @@ import java.awt.event.ActionListener
  */
 public class DrawingPanel extends JPanel implements ActionListener {
 
-    public final int DELAY = 8000;
+    public final int DELAY = 7000;
     public int rows = 0;
     public int columns = 0;
     public Timer timer;
@@ -28,7 +28,7 @@ public class DrawingPanel extends JPanel implements ActionListener {
     public Color water = new Color(32, 178, 170) // 20B2AA
     public Color ground = new Color(255, 222, 173) // FFDEAD
     public Color plant = new Color(0, 100, 0) // 006400
-    public Color carnivore = new Color(165, 42, 42) // A52A2A
+    public Color carnivore = new Color(255, 00, 00) // A52A2A
     public Color herbivore = new Color(47, 79, 79) // 2F4F4F
     public Color scavenger = new Color(210, 105, 30) // D2691E
     public Color corpse = new Color(189, 183, 107) // BDB76B
@@ -77,7 +77,7 @@ public class DrawingPanel extends JPanel implements ActionListener {
         this.herbivoresLabel.setText("$automata.statistics.Herbivore")
         this.carnivoresLabel.setText("$automata.statistics.Carnivore")
         this.scavengersLabel.setText("$automata.statistics.Scavenger")
-        this.corpsesLabel.setText("$automata.statistics.Scavenger")
+        this.corpsesLabel.setText("$automata.statistics.Corpse")
         this.plantsLabel.setText("$automata.statistics.Plant")
         this.generationLabel.setText("$automata.generation")
         repaint();
