@@ -3,28 +3,28 @@
   \paragraph{El objetivo de la práctica escolar era diseñar la lógica necesaria para poder simular el comportamiento de tres tipos de especies en un ecosistema no variable (dado por el titular de la asignatura) y lograr que las especies pudieran permanecer sin extinguirse por más de 200 generaciones.}
   \paragraph{Las búsquedas en grafos, un motor de inferencia y una base de conocimiento eran los tres principales componentes a implementar para poder lograr el objetivo. La práctica también tenía como objetivo la visualización de los elementos mediante una interfáz dada por el titular (Diseñada en Common Lisp), donde los alumnos debian adaptarse a un contrato para simplemente hacer uso de los métodos y funciones del simulador.}
   \paragraph{El caso de estudio del MicroMundo fue analizado desde un enfóque de la inteligencia artificial, considerando búsquedas, manejo de símbolos y eurísticas para poder determinar, sin embargo, al determinar el comportamiento y orden del las acciones alteraba un posible análisis estadístico. Otro problema visto durante el desarrollo del MicroMundo desde un enfoque es que los individuos (animales) carecían de un proceso de convivencia o retroalimentación, es decir, el desarrollo fue realizado de tal forma que la información de vecinos de la misma especie fuera inexistente, cosa que no pasa dentro de un ecosistema real.}
-  \paragraph{Se definían ciertas reglas para que los animales pudieran moverse, comer, beber agua y eventualmente morir. Los valores dependian de cada tipo de animal además de su diferente rango de visión. A continuación se describen las reglas y valores originales desde el enfóque artificial:}
+  \paragraph{Se definían ciertas reglas para que los animales pudieran moverse, comer, beber agua y eventualmente morir. Los valores dependían de cada tipo de animal además de su diferente rango de visión. A continuación se describen las reglas y valores originales desde el enfóque artificial:}
   \begin{itemize}
-  \item{Existen dos tipos de plantas\: pasto y arbustos. Crecen de forma aleatoria cada día.}
-  \item{Existen tres tipos de animales\: Carnívoros, Herbívoros y Carroñeros.}
-    \begin{itemize}
-      \item{Los herbívoros solo pueden comer arbustos y pasto.}
-      \item{Los carnívoros sóo pueden comer herbívoros.}
-      \item{Los caroñeros sólo pueden comer cadáveres.}
-    \end{itemize}
-  \item{Todos los elementos del mapa cuentan con cierta cantidad de puntos de vida, que va cambiando dependiendo las acciones realizadas.}
-  \item{Un animal sólo se puede alimentar de elementos que estén en celdas contiguas y hasta la cantidad máxima de puntos vitales del alimento seleccionado o de puntos de vida del animal.}
-  \item{Los animales requieren alimento y agua para sobrevivir.}
-  \item{La energía de los animales se divide en puntos de alimento y puntos de agua.}
-  \item{Ambas categorías deben tener un valor superior a cero par que el animal permanezca con vida.}
-  \item{Los herbívoros cuentan con una visión limitada a un vecino (Vecindad de Moore), los carnívoros tienen una visión más amplia, definida por dos vecinos y los carroñeros tiene la mayor visión con tres vecinos a su alrededor.}
-  \item{Los animales pueden moverse hasta el máximo de su visibilidad descontando cierta cantidad de puntos dependiendo la distancia hacía el destino (Distancia Manhattan).}
-  \item{Los cadáveres permanecen inmóviles y contaminan el área contigua, disminuyendo puntos de vida a los animales y arbustos contiguos.}
-  \item{El ecosistema puede ser visto como una matríz modificada de tal forma que pueda ser vista como un toroide.}
-  \item{Al ser eliminado un cadáver (consumido) estos generan pasto o arbustos de forma aleatoria en sus celdas contiguas.}
-  \item{Todos los animales se reproducen asexualmente con un sólo ancestro.}
-  \item{Se necesita tener más de la mitad de su energía máxima para poder reproducirce.}
-  \item{Al reproducirse, el animal pierde la mitad de su energía.}
+    \item{Existen dos tipos de plantas: pasto y arbustos. Crecen de forma aleatoria cada día.}
+    \item{Existen tres tipos de animales: Carnívoros, Herbívoros y Carroñeros.}
+      \begin{itemize}
+        \item{Los herbívoros sólo pueden comer arbustos y pasto.}
+        \item{Los carnívoros sólo pueden comer herbívoros.}
+        \item{Los caroñeros sólo pueden comer cadáveres.}
+      \end{itemize}
+    \item{Todos los elementos del mapa cuentan con cierta cantidad de puntos de vida, que va cambiando dependiendo las acciones realizadas.}
+    \item{Un animal sólo se puede alimentar de elementos que estén en celdas contiguas y hasta la cantidad máxima de puntos vitales del alimento seleccionado o de puntos de vida del animal.}
+    \item{Los animales requieren alimento y agua para sobrevivir.}
+    \item{La energía de los animales se divide en puntos de alimento y puntos de agua.}
+    \item{Ambas categorías deben tener un valor superior a cero par que el animal permanezca con vida.}
+    \item{Los herbívoros cuentan con una visión limitada a un vecino (Vecindad de Moore), los carnívoros tienen una visión más amplia, definida por dos vecinos y los carroñeros tiene la mayor visión con tres vecinos a su alrededor.}
+    \item{Los animales pueden moverse hasta el máximo de su visibilidad descontando cierta cantidad de puntos dependiendo la distancia hacía el destino (Distancia Manhattan).}
+    \item{Los cadáveres permanecen inmóviles y contaminan el área contigua, disminuyendo puntos de vida a los animales y arbustos contiguos.}
+    \item{El ecosistema puede ser visto como una matríz toroidal.}
+    \item{Al ser eliminado un cadáver (consumido) estos generan pasto o arbustos de forma aleatoria en sus celdas contiguas.}
+    \item{Todos los animales se reproducen asexualmente con un sólo ancestro.}
+    \item{Se necesita tener más de la mitad de su energía máxima para poder reproducirce.}
+    \item{Al reproducirse, el animal pierde la mitad de su energía.}
   \end{itemize}
   \paragraph{Las reglas mencionadas forman parte del documento original de la práctica del "MicroMundo" dada en la asignatura de Inteligencia Artificial. El documento original forma parte del anexo de este proyecto.\cite{9}}
 \subsection{Adaptación de la práctica: Migrando a un enfóque complejo.}
@@ -32,3 +32,29 @@
   \paragraph{Otro factor importante es que ahora los elementos debían contar con un proceso mínimo de comunicación. Se debió adaptar la lógica y agregar información de lo que cada animal podía ver, sin dar datos exactos o puntuales de lo que se encontraba a su alrededor.}
   \paragraph{Se debió considerar que cada elemento del sistema era un autómata celular, tomando en cuenta las propiedades descritas previamente, tomando como limite el rango de visión de los animales, dejando algunos de tomar una vecindad de Moore como para interacción con elementos contiguos.}
   \paragraph{Otro factor importante durante la adaptación es que los puntos de vida se vieron unificados para fines de practicidad al ejecutar las acciones. Esta decisión se tomó debido a la complejidad que se llegaba a tener con mapas relativamente pequeños, de 320 x 200 pixeles por ejemplo.}
+  \paragraph{El conjunto de reglas fue modificado y establecido como se muestra a continuación:}
+    \begin{itemize}
+      \item{Existe sólo un tipo de planta, se encuentran definidas por una imágen (png) que simula un mapa.}
+      \item{Existen tres tipos de animales: Carnívoros, herbívoros y carroñeros.}
+      \begin{itemize}
+        \item{Los herbívoros sólo pueden comer arbustos y pasto.}
+        \item{Los carnívoros pueden comer herbívoros o carroñeros.}
+        \item{Los caroñeros sólo pueden comer cadáveres.}
+      \end{itemize}
+      \item{Todos los elementos del mapa cuentan con cierta cantidad de puntos de vida, que va cambiando dependiendo las acciones realizadas.}
+      \item{Un animal sólo se puede alimentar de elementos que estén en celdas contiguas y hasta la cantidad máxima de puntos vitales del alimento seleccionado o de puntos de vida del animal.}
+      \item{Los animales requieren alimento o agua para sobrevivir.}
+      \item{La energía de los animales puede aumentar si éstos comen o beben agua.}
+      \item{Los herbívoros cuentan con una visión limitada a dos vecinos, los carnívoros tienen una visión más amplia, definida por tres vecinos y los carroñeros tiene la mayor visión con cuatro vecinos a su alrededor.}
+      \item{Los animales pueden moverse hasta el máximo de su visibilidad descontando cierta cantidad de puntos dependiendo la distancia hacía el destino (Distancia Manhattan).}
+      \item{Los cadáveres permanecen inmóviles y contaminan el área contigua, disminuyendo puntos de vida a los animales y arbustos contiguos.}
+      \item{El ecosistema puede ser visto como una matríz toroidal.}
+      \item{Al ser eliminado un cadáver (consumido) estos generan pasto o arbustos de forma aleatoria en sus celdas contiguas.}
+      \item{Todos los animales se reproducen asexualmente con un sólo ancestro.}
+      \item{Se necesita tener más de la mitad de su energía máxima para poder reproducirce.}
+      \item{Al reproducirse, el animal pierde la mitad de su energía.}
+      \item{Animales de la misma especie pueden compartir información de lo que se encuentra en su rango de visión.}
+      \item{Las acciones básicas de los animales se ejecutan de forma aleatoria.}
+      \item{Las fuentes de agua se consideran infinitas.}
+    \end{itemize}
+  \paragraph{Las reglas fueron adecuadas de tal forma que no se requiriera un proceso definido de búsquedas, es decir, todo el proceso depende de la aleatoridad con la que estos se ejecutan. De igual forma, las decisión al moverse puede verse influida sólo por un proceso de visibilidad sin indicar mayor información que la ubicación del vecino, o bien, ejecutar algún movimiento de forma aleatoria sin datos algunos más que la visión del actual individuo.}
