@@ -1,7 +1,9 @@
 \section{Desarrollo e Implementación}
   \subsection{Descripción de la implementación}    
-    \paragraph{Principalmente la implementación se realizó utilizando los conceptos de TDD, Refactor y utilizando partes de programación orientada a objetos combinadas con programación funcional.}
-    \paragraph{Después de definir las acciones que iban a realizar los objetos que iban a interactuar con el sistema se procedió a determinar los posibles valores de entrada de las mismas así como los valores de salida, concepto ampliamente usado en TDD. Las pruebas fueron pensadas considerando distintos elementos del ecosistema, a continuación se muestra una lista de las pruebas realizadas:}
+    Principalmente la implementación se realizó utilizando los conceptos de TDD, Refactor y utilizando partes de programación orientada a objetos combinadas con programación funcional.
+
+    Después de definir las acciones que iban a realizar los objetos que iban a interactuar con el sistema se procedió a determinar los posibles valores de entrada de las mismas así como los valores de salida, concepto ampliamente usado en TDD. Las pruebas fueron pensadas considerando distintos elementos del ecosistema, a continuación se muestra una lista de las pruebas realizadas:
+
       \begin{itemize}
         \item{\textbf{AnimalsTest}}
           \begin{itemize}
@@ -24,20 +26,24 @@
             \item{Convertir una planta que carece de puntos de vida en un trozo de tierra.}
           \end{itemize}
       \end{itemize}      
-    \paragraph{Todas las pruebas cuentan con un mapa de prueba generado por imagenes definidas o bien como valores de entrada del mismo desarrollador. Las pruebas pueden encontrarse dentro de la carpeta \textit{Practices/src/test/}, donde las pruebas pueden verse más detalladas.}
-    \paragraph{Se consideró que todos los animales contaban con el mismo comportamiento, ya que las acciones son similares en todos ellos, es por eso que se decidió usar una clase madre de la cual las clases que definen a los herbívoros, carnívoros y carroñeros sobreescribieran si era necesario el comportamiento inicial. }
-    \paragraph{Considerando el trabajo previo realizado con el juego de la vida y la regla de difusión, la adaptación lógica fue relativamente sencilla gracias al uso de Traits (Nativos del lenguaje Groovy) e implementación de polimorfismo. La estructura (propiedades y métodos) del Trait de WorldElement  se define a continuación:}
+    
+    Todas las pruebas cuentan con un mapa de prueba generado por imagenes definidas o bien como valores de entrada del mismo desarrollador. Las pruebas pueden encontrarse dentro de la carpeta \textit{Practices/src/test/}, donde las pruebas pueden verse más detalladas.
+
+    Se consideró que todos los animales contaban con el mismo comportamiento, ya que las acciones son similares en todos ellos, es por eso que se decidió usar una clase madre de la cual las clases que definen a los herbívoros, carnívoros y carroñeros sobreescribieran si era necesario el comportamiento inicial.
+
+    Considerando el trabajo previo realizado con el juego de la vida y la regla de difusión, la adaptación lógica fue relativamente sencilla gracias al uso de Traits (Nativos del lenguaje Groovy) e implementación de polimorfismo. La estructura (propiedades y métodos) del Trait de WorldElement  se define a continuación:
+
     \begin{itemize}
         \item{\textbf{Propiedades}}
           \begin{itemize}
             \item{\textit{alive}: Indica el estatus del objeto, vivo o muerto.}            
-            \item{\textit{life}: Indica los puntos actuales de vida del objeto en cuestion.}
+            \item{\textit{life}: Indica los puntos actuales de vida del objeto en cuestión.}
             \item{\textit{sightRange}: Rango de visión (Definido por las reglas del micromundo).}
             \item{\textit{position}: Ubicación en el plano x,y.}
-            \item{\textit{type}: Indica el tipo de objeto, util para el cambio de estados.}
+            \item{\textit{type}: Indica el tipo de objeto, útil para el cambio de estados.}
             \item{\textit{worldCopy}: Referencia al objeto actual del mundo, se utiliza para fines de exploración.}
             \item{\textit{nearInformation}: Dentro de un objeto de tipo llave-valor indica qué elementos puede visualizar dentro de su rango.}
-            \item{\textit{canonicalName}: Nombre del objeto indicando packete y nombre de la clase, util para la generación dinámica de objetos con comportamientos distintos.}
+            \item{\textit{canonicalName}: Nombre del objeto indicando paquete y nombre de la clase, útil para la generación dinámica de objetos con comportamientos distintos.}
             \item{\textit{operations}: Instancia del objeto operations, éste objeto define arreglos con el orden de ejecución y métodos de utilería general.}
           \end{itemize}
         \item{Métodos}
@@ -52,8 +58,10 @@
             \item{\textit{moveWithInformation}: Ejecuta la acción de moverse, considerando la información que el vecino más cercano tiene, la razón es aleatoria.}
           \end{itemize}        
       \end{itemize}
-    \paragraph{Además de llevar el control de forma dinámica de las acciones que realizarán los elementos que se encuentran dentro del mapa, también es necesario controlar y manejar las acciones propias del mapa.}
-    \paragraph{Para ello se utiliza una convención semejante, definiciendo un Trait nuevo llamado \textit{MicroWorldAutomata} donde se lleva el control de los automatas (elementos del vecindario). Cuenta con una tarea única llamada \textit{task} donde se lleva la lógica del recorrido de los elementos del mapa y ejecucion de las acciones pertinentes. A continuación se define la estructura de dicho Trait:}
+    Además de llevar el control de forma dinámica de las acciones que realizarán los elementos que se encuentran dentro del mapa, también es necesario controlar y manejar las acciones propias del mapa.
+
+    Para ello se utiliza una convención semejante, definiciendo un Trait nuevo llamado \textit{MicroWorldAutomata} donde se lleva el control de los automatas (elementos del vecindario). Cuenta con una tarea única llamada \textit{task} donde se lleva la lógica del recorrido de los elementos del mapa y ejecucion de las acciones pertinentes. A continuación se define la estructura de dicho Trait:
+
       \begin{itemize}
         \item{\textbf{Propiedades}}
             \begin{itemize}
@@ -71,7 +79,15 @@
               \item{\textit{task}: Implementación de la lógica que implica el recorrido de los elementos del vecindario y el orden de las acciones a realizar.}            
             \end{itemize}        
       \end{itemize}
-    \paragraph{El método task es de gran utilidad debido a que nos permitiría contemplar trabajo a futuro sin modificar del todo la lógica existente, bastaría con generar un objeto que haga uso de las funcionalidades del trait y definir una nueva lógica de negocio.}
+    El método task es de gran utilidad debido a que nos permitiría contemplar trabajo a futuro sin modificar del todo la lógica existente, bastaría con generar un objeto que haga uso de las funcionalidades del trait y definir una nueva lógica de negocio.
   \subsection{Tecnologías}
-    \paragraph{Se optó por realizar el trabajo usando un lenguaje multiparadigma y políglota como lo es \textbf{Groovy}. Groovy es un lenguaje de tipado dinámico que se ejecuta sobre la máquina virtual de Java (JVM), es decir, cuenta con una gramática y semánticas distintas al lenguaje Java pero puede hacer uso de muchas de sus bibliotecas o api's de forma nativa. Esto nos trae como mayor ventaja la compatibilidad con otros sistemas que hacen uso de Java o bien bibliotecas que sólo fueron desarrolladas para ese lenguaje.}
+    Se hizo uso del control de versiones Git en conjunto con su plataforma distribuida Github. Todos los códigos fuentes del proyecto pueden ser visualizados en línea a través de la siguiente liga: \url{https://github.com/jresendiz27/ComplexSystems}, dentro del mismo respositorio también se encuentran las instrucciones para poder ejecutar algun proceso, tanto del Juego de la Vida, Regla de Difusión o la simulación del MicromMundo. Las tareas que pueden ser ejecutadas fueron definidas desde Gradle.
+
+    Gradle es otro elemento importante para el desarrollo de éste proyecto, ya que es el encargado de generar la estructura del proyecto, llevar el control de las dependencias y ejecución de tareas definidas por el usuario como la ejecución de los simuladores y proceso de obtención de estadísticas, inserción a base de datos (Juego de la Vida y Regla de Difusión) por citar algunos ejemplos.
+
+    Se optó por realizar el trabajo usando un lenguaje multiparadigma y políglota como lo es \textbf{Groovy}. Groovy es un lenguaje de tipado débil y multiparadigma (Funcional y Orientado a Objetos) que se compila código objeto de Java y se ejecuta sobre la JVM (Máquina Virtual de Java), es decir, cuenta con una gramática y semánticas distintas al lenguaje Java pero puede hacer uso de muchas de sus bibliotecas o api's de forma nativa. Esto nos trae como mayor ventaja la compatibilidad con otros sistemas que hacen uso de Java o bien bibliotecas que sólo fueron desarrolladas para ese lenguaje.
+
+    Groovy es usado durante todo el desarrollo del proyecto debido a que la estructura del lenguaje ayuda a la generación de códigos descriptivos y menos extensos. Groovy implementa muchas operaciones con colleciones (List, Set, Map) de forma nativa sin necesidad de generar código innecesario para poder iterar o recorrer éstas. También nos provee la ventaja de hacer uso de ciertos conceptos de programación funcional como el uso de funciones de primer orden, lambdas y closures.
+
+    Cabe destacar que es necesario contar con Java en su versión 7 o superior para la ejecución del proyecto. Además de definir ciertos parametros en nuestras variables de entorno para que la JVM pueda gestionar mejor los recursos y poder visualizar de forma correcta los simuladores. Las variables necesarias se encuentran definidas en el archivo \textit{opts.sh} justo en la raíz del repositorio.
   \subsection{Capturas de pantalla}  
