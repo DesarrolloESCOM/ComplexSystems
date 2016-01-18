@@ -1,0 +1,8 @@
+\chapter{Trabajo a futuro}
+  Aumentar el número de reglas, ya que se debieron limitar por fines de visualización de la información. Se pueden agregar valores nuevos para poder medir información de los animales, por ejemplo mortandad por edad y puntos de vida repartidos en comida y agua (cómo se planteaba en la práctica de Inteligencia Artificial) para poder tener más opciones que tomar y así aumentar la diversidad del micromundo.
+
+  Añadir nuevos elementos al sistema, por ejemplo, la existencia de arbustos y aves para aumentar las especies que interactuan dentro del micromundo, además de poder determinar con base en estadísticas y diversas distribuciones, los valores de comida, rango de visión, unidades de agua, que podrían fomentar la estabilidad del mundo en cuestión.
+
+  Una de las principales mejoras que se le puede realizar a esta simulación se encuentra en la interfáz gráfica y eso se ve directamente reflejado en el proceso de implementación. Los sistemas que se ejecutan sobre la Máquina Virtual de Java suelen ser relativamente más lentos que aquellos implementados con lenguaje C/C++. El proceso de pintado se puede realizar usando Qt (C/C++), mejorando drásticamente el tiempo de espera (que para fines de visualización fue puesto en 8 segundos por generación). 
+
+  La creación de hilos para la simulación de autómatas celulares, puede ser realizada usando Erlang o Elixir como lenguajes de programación, ya que éstos permiten la generación de miles de workers dentro de una misma instancia; además que implementan el patrón de Actores, donde se puede simular la comunicación entre procesos.

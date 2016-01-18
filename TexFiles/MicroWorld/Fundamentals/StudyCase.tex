@@ -1,13 +1,15 @@
 \subsection{Simulación de un MicroMundo: Un enfóque simbólico.}
   La idea y motivación para la realización del estudio de ecosistemas desde el enfoque complejo surge gracias a una practica escolar de la asignatura de Inteligencia Artificial tomada en la Escuela Superior de Cómputo (ESCOM) e impartida por el Dr. Salvador Godoy Calderón.
 
-  El objetivo de la práctica escolar era diseñar la lógica necesaria para poder simular el comportamiento de tres tipos de especies en un ecosistema no variable (dado por el titular de la asignatura) y lograr que las especies pudieran permanecer sin extinguirse por más de 200 generaciones.
+  El objetivo de la práctica escolar era diseñar la lógica necesaria para poder simular el comportamiento de tres tipos de especies en un ecosistema no variable (dado por el titular de la asignatura) y lograr que las especies pudieran permanecer sin extinguirse por al menos 200 generaciones.
 
-  Las búsquedas en grafos, un motor de inferencia y una base de conocimiento eran los tres principales componentes a implementar para poder lograr el objetivo. La práctica también tenía como objetivo la visualización de los elementos mediante una interfáz dada por el titular (Diseñada en Common Lisp), donde los alumnos debían adaptarse a un contrato para simplemente hacer uso de los métodos y funciones del simulador.
+  Las búsquedas en grafos, un motor de inferencia y una base de conocimiento eran los tres principales componentes a implementar para poder lograr el objetivo. La práctica también tenía como premisa la visualización de los elementos mediante una interfáz dada por el titular (Diseñada en Common Lisp), donde los alumnos debían adaptarse a un contrato para hacer uso de los métodos y funciones del simulador.
 
-  El caso de estudio del MicroMundo fue analizado desde un enfóque de la inteligencia artificial, considerando búsquedas, manejo de símbolos y eurísticas para poder determinar, sin embargo, al determinar el comportamiento y orden del las acciones alteraba un posible análisis estadístico. Otro problema visto durante el desarrollo del MicroMundo desde un enfoque es que los individuos (animales) carecían de un proceso de convivencia o retroalimentación, es decir, el desarrollo fue realizado de tal forma que la información de vecinos de la misma especie fuera inexistente, cosa que no pasa dentro de un ecosistema real.
+  El caso de estudio del MicroMundo fue analizado desde el enfóque de la inteligencia artificial, considerando búsquedas, manejo de símbolos y eurísticas, sin embargo, al determinar el comportamiento y orden del las acciones se alteraban los resultados para un posible análisis estadístico. 
 
-  Se definían ciertas reglas para que los animales pudieran moverse, comer, beber agua y eventualmente morir. Los valores dependían de cada tipo de animal además de su diferente rango de visión. A continuación se describen las reglas y valores originales desde el enfóque artificial:
+  Otro problema visto durante el desarrollo del MicroMundo desde el enfoque simbólico es que los individuos (animales) carecían de un proceso de convivencia o retroalimentación, es decir, el desarrollo fue realizado de tal forma que la comunicación entre vecinos de la misma especie fuera inexistente, cosa que no pasa dentro de un ecosistema real.
+
+  Se definían ciertas reglas para que los animales pudieran moverse, comer, beber agua y eventualmente morir. Los valores dependían de cada tipo de animal además de su diferente rango de visión. A continuación se describen las reglas y valores originales desde el enfóque de la materia de inteligencia artificial:
 
   \begin{itemize}
     \item{Existen dos tipos de plantas: pasto y arbustos. Crecen de forma aleatoria cada día.}
@@ -39,13 +41,14 @@
 
   Otro factor importante es que ahora los elementos debían contar con un proceso mínimo de comunicación. Se debió adaptar la lógica y agregar información de lo que cada animal podía ver, sin dar datos exactos o puntuales de lo que se encontraba a su alrededor.
 
-  Se debió considerar que cada elemento del sistema era un autómata celular, tomando en cuenta las propiedades descritas previamente, tomando como límite el rango de visión de los animales, dejando algunos de tomar una vecindad de Moore como para interacción con elementos contiguos.
+  Se debió considerar que cada elemento del sistema era un autómata celular, tomando en cuenta las propiedades descritas previamente, tomando como límite el rango de visión de los animales, dejando de tomar la vecindad de Moore como base para la interacción con elementos contiguos.
 
   Otro factor importante durante la adaptación es que los puntos de vida se vieron unificados para fines de practicidad al ejecutar las acciones. Esta decisión se tomó debido a la complejidad que se llegaba a tener con mapas relativamente pequeños, de 320 x 200 pixeles por ejemplo.
 
   El conjunto de reglas fue modificado y establecido como se muestra a continuación:
     \begin{itemize}
-      \item{Existe sólo un tipo de planta, se encuentran definidas por una imágen (png) que simula un mapa.}
+      \item{El mundo (mapa) puede ser cargado desde una imágen en formato png.}
+      \item{Existe sólo un tipo de planta. Esta tiene puntos de vida y puede crecer de forma aleatoria considerando la finalización del ciclo de vida de un cadáver.}
       \item{Existen tres tipos de animales: Carnívoros, herbívoros y carroñeros.}
       \begin{itemize}
         \item{Los herbívoros sólo pueden comer arbustos y pasto.}
@@ -68,4 +71,4 @@
       \item{Las acciones básicas de los animales se ejecutan de forma aleatoria.}
       \item{Las fuentes de agua se consideran infinitas.}
     \end{itemize}
-  Las reglas fueron adecuadas de tal forma que no se requiriera un proceso definido de búsquedas, es decir, todo el proceso depende de la aleatoridad con la que estos se ejecutan. De igual forma, las decisión al moverse puede verse influida sólo por un proceso de visibilidad sin indicar mayor información que la ubicación del vecino, o bien, ejecutar algún movimiento de forma aleatoria sin datos algunos más que la visión del actual individuo.
+  Las reglas fueron adecuadas de tal forma que no es necesario contar con un proceso de búsqueda, es decir, todas las acciones dependen de la aleatoridad generada por el mismo programa. De igual forma, las decisión al moverse puede verse influida sólo por un proceso de visibilidad sin indicar mayor información que la ubicación del vecino, o bien, ejecutar algún movimiento de forma aleatoria sin datos algunos más que la visión del actual individuo.
